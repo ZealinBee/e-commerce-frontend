@@ -1,8 +1,13 @@
 import React from 'react'
+import Header from '../components/Header'
+import ProductList from '../components/ProductList'
 
 function HomePage() {
   return (
-    <div>HomePage</div>
+    <>
+  
+      <ProductList></ProductList>
+    </>
   )
 }
 
