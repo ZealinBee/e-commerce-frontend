@@ -1,7 +1,10 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
-import Product from "../types/Product";
 import { Link } from "react-router-dom";
+import { Grid } from "@mui/material";
+
+import ProductCard from "./ProductCard";
+import Product from "../types/Product";
 
 function ProductList() {
   const [products, setProducts] = useState<Product[]>([]);
@@ -26,13 +29,15 @@ function ProductList() {
   }, []);
 
   return (
-    <div className="product-list">
+    <Grid className="product-list" container spacing={3}>
       {products.map((product) => {
-        return <div key={product.id} className="product">
-          <Link to={`/products/${product.id}`}>{product.title}</Link>
-        </div>;
+        return (
+          <Grid item xs={12} sm={6} md={6} lg={4} key={product.id}> 
+            <ProductCard ></ProductCard>
+          </Grid>
+        );
       })}
-    </div>
+    </Grid>
   );
 }
 
