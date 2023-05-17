@@ -5,7 +5,7 @@
 ![TypeScript](https://img.shields.io/badge/TypeScript-v.4-green)
 ![SASS](https://img.shields.io/badge/SASS-v.1-hotpink)
 
-This project requires implementation of TypeScript and SASS.
+This project requires implementation of TypeScript and SASS. Front end e commerce website.
 
 ## Requirement
 
