@@ -9,6 +9,7 @@ import NotFoundPage from "./pages/NotFoundPage";
 import Header from "./components/Header";
 import "./styles/styles.scss";
 
+
 const theme = createTheme({
   typography: {
     fontFamily: "Poppins, sans-serif",
