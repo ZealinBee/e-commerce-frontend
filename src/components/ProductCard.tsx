@@ -10,26 +10,31 @@ import { Typography } from "@mui/material";
 import { Button } from "@mui/material";
 import { Link } from "react-router-dom";
 
-function ProductCard() {
+import Product from "../types/Product";
+
+interface ProductCardProps {
+  product: Product;
+}
+
+function ProductCard({ product }: ProductCardProps) {
   return (
     <Card>
-      <Link to="/products/1" className="card-link">
+      <Link to={`/product/${product.id}`} className="card-link">
         <CardActionArea>
           <CardMedia
             component="img"
             height="140"
-            image="https://picsum.photos/640/640?r=4393"
+            image={`${product.images}`}
             alt="product"
           ></CardMedia>
           <CardContent>
             {" "}
-            <Typography variant="h5">Handmade Wooden Chair</Typography>
+            <Typography variant="h5">{product.title}</Typography>
             <Typography variant="body2" color="primary">
-              $932.00
+              {product.price}
             </Typography>
             <Typography>
-              Carbonite web goalkeeper gloves are ergonomically designed to give
-              easy fit
+              {product.description}
             </Typography>
           </CardContent>
         </CardActionArea>
