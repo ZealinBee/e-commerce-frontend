@@ -19,5 +19,12 @@ export const searchProduct = (product: Product) => {
   return {
     type: ActionTypes.SEARCH_PRODUCT,
     payload: product,
-  }
-}
+  };
+};
+
+export const sortProductByCategory = (category: string) => {
+  return {
+    type: ActionTypes.SORT_PRODUCT_BY_CATEGORY,
+    payload: category,
+  };
+};

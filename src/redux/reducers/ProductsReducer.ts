@@ -8,6 +8,7 @@ interface ProductsState {
   loading: boolean;
   error: null | string;
   searchResults: Product[];
+  sortByCategory: string | null;
 }
 
 const initialState: ProductsState = {
@@ -15,6 +16,7 @@ const initialState: ProductsState = {
   loading: false,
   error: null,
   searchResults: [],
+  sortByCategory: null,
 };
 
 export const fetchAllProducts = createAsyncThunk(
@@ -44,9 +46,38 @@ export const searchProduct = createAsyncThunk(
       const result = await axios.get<Product[]>(
         `https://api.escuelajs.co/api/v1/products`
       );
-      const products = result.data
-      const searchResults = products.filter((product) => product.title.toLowerCase().includes(query.toLowerCase()))
+      const products = result.data;
+      const searchResults = products.filter((product) =>
+        product.title.toLowerCase().includes(query.toLowerCase())
+      );
       return searchResults;
+    } catch (error) {
+      if (axios.isAxiosError(error)) {
+        console.log(error.status);
+        console.error(error.response);
+      } else {
+        console.error(error);
+      }
+      throw error;
+    }
+  }
+);
+
+export const sortByCategory = createAsyncThunk(
+  "products/sortByCategory",
+  async (category: string) => {
+    try {
+      const result = await axios.get<Product[]>(
+        `https://api.escuelajs.co/api/v1/products`
+      );
+      const products = result.data;
+      const sortedProducts = products.filter(
+        (product) => product.category.name === category
+      );
+      if(sortedProducts.length === 0) {
+        return products
+      }
+      return sortedProducts;
     } catch (error) {
       if (axios.isAxiosError(error)) {
         console.log(error.status);
@@ -82,6 +113,10 @@ const productsSlice = createSlice({
       })
       .addCase(searchProduct.fulfilled, (state, action) => {
         state.searchResults = action.payload;
+      })
+      .addCase(sortByCategory.fulfilled, (state, action) => {
+        state.products = action.payload;
+        state.sortByCategory = action.meta.arg;
       });
   },
 });

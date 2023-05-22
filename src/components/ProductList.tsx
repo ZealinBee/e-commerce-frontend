@@ -2,10 +2,11 @@ import React, { useEffect, useState } from "react";
 import { Grid } from "@mui/material";
 
 import useAppDispatch from "../redux/hooks/useAppDispatch";
-import { fetchAllProducts,searchProduct } from "../redux/reducers/ProductsReducer";
+import { fetchAllProducts,searchProduct, sortByCategory } from "../redux/reducers/ProductsReducer";
 import useAppSelector from "../redux/hooks/useAppSelectors";
 import ProductCard from "./ProductCard";
 import Product from "../types/Product";
+import SortByCate from "../components/SortByCate"
 
 function ProductList() {
   const products = useAppSelector((state) => {
@@ -21,15 +22,20 @@ function ProductList() {
   }, [dispatch]);
 
   const [query, setQuery] = useState("");
-  
+
   const handleSearch = () => {
     dispatch(searchProduct(query));
+  };
+
+  const handleSortByCategory = (category: string) => {
+    dispatch(sortByCategory(category));
   };
 
   return (
     <>
       <input type="text" onChange={(e) => setQuery(e.target.value)} style={{marginBottom:"3rem"}}></input>
       <button onClick={handleSearch}>Search</button>
+      <SortByCate onSortByCategory={handleSortByCategory} ></SortByCate>
       <Grid className="product-list" container spacing={3}>
         {products.map((product: Product) => {
           return (
