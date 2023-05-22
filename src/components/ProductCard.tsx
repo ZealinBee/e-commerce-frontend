@@ -19,7 +19,7 @@ interface ProductCardProps {
 function ProductCard({ product }: ProductCardProps) {
   return (
     <Card>
-      <Link to={`/product/${product.id}`} className="card-link">
+      <Link to={`/products/${product.id}`} className="card-link">
         <CardActionArea>
           <CardMedia
             component="img"

@@ -14,3 +14,10 @@ export const selectedProduct = (product: Product) => {
     payload: product,
   };
 };
+
+export const searchProduct = (product: Product) => {
+  return {
+    type: ActionTypes.SEARCH_PRODUCT,
+    payload: product,
+  }
+}
