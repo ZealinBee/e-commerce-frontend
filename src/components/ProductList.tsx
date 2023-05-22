@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import { Grid } from "@mui/material";
 
 import useAppDispatch from "../redux/hooks/useAppDispatch";
-import { fetchAllProducts,searchProduct, sortByCategory } from "../redux/reducers/ProductsReducer";
+import { fetchAllProducts,searchProduct, sortByCategory } from "../redux/reducers/productsReducer";
 import useAppSelector from "../redux/hooks/useAppSelectors";
 import ProductCard from "./ProductCard";
 import Product from "../types/Product";

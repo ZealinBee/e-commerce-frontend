@@ -1,12 +1,18 @@
-@use "./pages/productpage.scss";
-@use "./components/productlist.scss";
+@use "./components/auth.scss";
+@use "./components/cart.scss";
 @use "./components/productcard.scss";
+@use "./components/productlist.scss";
+@use "./pages/favpage.scss";
+@use "./pages/homepage.scss";
+@use "./pages/productpage.scss";
+@use "./pages/profilepage.scss";
+@use "./pages/notfoundpage";
 
 * {
-    box-sizing: border-box;
+  box-sizing: border-box;
 }
 
 body {
-    margin:0;
-    padding:0;
+  margin: 0;
+  padding: 0;
 }

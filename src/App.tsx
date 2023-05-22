@@ -33,9 +33,9 @@ const App = () => {
         <Router>
           <Routes>
             <Route path="/" element={<HomePage />} />
-            <Route path="/products/:id" element={<ProductPage></ProductPage>} />
-            <Route path="/users/:id" element={<ProfilePage></ProfilePage>} />
-            <Route path="*" element={<NotFoundPage></NotFoundPage>} />
+            <Route path="/products/:id" element={<ProductPage/>} />
+            <Route path="/users/:id" element={<ProfilePage/>} />
+            <Route path="*" element={<NotFoundPage/>} />
           </Routes>
         </Router>
       </ThemeProvider>
