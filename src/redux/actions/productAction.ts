@@ -28,3 +28,10 @@ export const sortProductByCategory = (category: string) => {
     payload: category,
   };
 };
+
+export const sortProductByPrice = (price: string) => {
+  return {
+    type: ActionTypes.SORT_PRODUCT_BY_PRICE,
+    payload: price,
+  }
+}

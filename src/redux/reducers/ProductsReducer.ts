@@ -9,6 +9,7 @@ interface ProductsState {
   error: null | string;
   searchResults: Product[];
   sortByCategory: string | null;
+  sortByPrice: "asc" | "desc" | null;
 }
 
 const initialState: ProductsState = {
@@ -17,6 +18,7 @@ const initialState: ProductsState = {
   error: null,
   searchResults: [],
   sortByCategory: null,
+  sortByPrice: null,
 };
 
 export const fetchAllProducts = createAsyncThunk(
@@ -74,8 +76,8 @@ export const sortByCategory = createAsyncThunk(
       const sortedProducts = products.filter(
         (product) => product.category.name === category
       );
-      if(sortedProducts.length === 0) {
-        return products
+      if (sortedProducts.length === 0) {
+        return products;
       }
       return sortedProducts;
     } catch (error) {
@@ -99,6 +101,19 @@ const productsSlice = createSlice({
     },
     updateProduct: (state, action: PayloadAction<Product[]>) => {
       state.products = action.payload;
+    },
+    sortProductByPrice: (state, action: PayloadAction<"asc" | "desc">) => {
+      state.sortByPrice = action.payload;
+      state.products.sort((a, b) => {
+        const priceA = a.price;
+        const priceB = b.price;
+
+        if (action.payload === "asc") {
+          return priceA - priceB;
+        } else {
+          return priceB - priceA;
+        }
+      });
     },
   },
   extraReducers: (build) => {

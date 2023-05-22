@@ -7,6 +7,9 @@ import useAppSelector from "../redux/hooks/useAppSelectors";
 import ProductCard from "./ProductCard";
 import Product from "../types/Product";
 import SortByCate from "../components/SortByCate"
+import SortByPrice from "../components/SortByPrice"
+import { sortProductByPrice } from "../redux/actions/productAction";
+
 
 function ProductList() {
   const products = useAppSelector((state) => {
@@ -31,11 +34,16 @@ function ProductList() {
     dispatch(sortByCategory(category));
   };
 
+  const handleSortByPrice = (direction: "asc" | "desc") => {
+    dispatch(sortProductByPrice(direction));
+  }
+
   return (
     <>
       <input type="text" onChange={(e) => setQuery(e.target.value)} style={{marginBottom:"3rem"}}></input>
       <button onClick={handleSearch}>Search</button>
       <SortByCate onSortByCategory={handleSortByCategory} ></SortByCate>
+      <SortByPrice onSortByPrice = {handleSortByPrice}></SortByPrice>
       <Grid className="product-list" container spacing={3}>
         {products.map((product: Product) => {
           return (
