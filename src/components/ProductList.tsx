@@ -60,7 +60,7 @@ function ProductList() {
       </div>
 
       <Link to="/cart">Cart</Link>
-      <Grid className="product-list" container spacing={3}>
+      <Grid className="product-list" container spacing={3} sx={{padding: " 1rem 2rem"}}>
         {products.map((product: Product) => {
           return (
             <Grid item xs={12} sm={6} md={6} lg={4} key={product.id}>

@@ -22,11 +22,11 @@ function ProductPage() {
 
   return (
     <>
-      <div className="container">
-        <Box>
+      <div className="product-container">
+        <div className="image-wrapper">
           <img src={`${selectedProduct?.images[0]}`} alt="" />
-        </Box>
-        <Box>
+        </div>
+        <div className="product-details">
           <Typography variant="h5">{selectedProduct?.title}</Typography>
           <Typography variant="h6">{selectedProduct?.category.name}</Typography>
           <Typography variant="h5">{selectedProduct?.price}</Typography>
@@ -34,7 +34,7 @@ function ProductPage() {
             Add to cart
           </Button>
           <Typography>{selectedProduct?.description}</Typography>
-        </Box>
+        </div>
       </div>
     </>
   );

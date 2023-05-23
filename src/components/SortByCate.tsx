@@ -25,9 +25,9 @@ const SortByCate: React.FC<SortByCateProps> = ({ onSortByCategory }) => {
         label="Category"
       >
         <MenuItem value="All">All</MenuItem>
-        <MenuItem value="Shoes">Shoes</MenuItem>
-        <MenuItem value="mmm">mmm</MenuItem>
-        <MenuItem value="Nueva categoria">Nueva categoria</MenuItem>
+        <MenuItem value="Electronics">Electronics</MenuItem>
+        <MenuItem value="Furniture">Furniture</MenuItem>
+        <MenuItem value="Others">Others</MenuItem>
       </Select>
     </div>
   );
