@@ -1,5 +1,5 @@
 import React from "react";
-import { BrowserRouter as Router, Routes, Route, BrowserRouter } from "react-router-dom";
+import { RouterProvider, createBrowserRouter } from "react-router-dom";
 import { ThemeProvider, createTheme } from "@mui/material";
 
 import HomePage from "./pages/HomePage";
@@ -9,7 +9,7 @@ import NotFoundPage from "./pages/NotFoundPage";
 import Header from "./components/Header";
 import "./styles/styles.scss";
 import Cart from "./pages/Cart";
-
+import Modification from "./pages/Modification";
 
 const theme = createTheme({
   typography: {
@@ -17,29 +17,48 @@ const theme = createTheme({
   },
   palette: {
     primary: {
-      main: '#9BC1BC', 
+      main: "#9BC1BC",
     },
     secondary: {
-      main: '#ED6A5A', 
+      main: "#ED6A5A",
     },
   },
-
 });
+
+const router = createBrowserRouter([
+  {
+    path: "/",
+    element: <HomePage />,
+    errorElement: <NotFoundPage />,
+  },
+  {
+    path: "/cart",
+    element: <Cart />,
+    errorElement: <NotFoundPage />,
+  },
+  {
+    path: "/products/:id",
+    element: <ProductPage />,
+    errorElement: <NotFoundPage />,
+  },
+  {
+    path: "/users/:id",
+    element: <ProfilePage />,
+    errorElement: <NotFoundPage />,
+  },
+  {
+    path: "/modification",
+    element: <Modification />,
+    errorElement: <NotFoundPage />,
+  },
+]);
 
 const App = () => {
   return (
     <>
       <ThemeProvider theme={theme}>
         <Header></Header>
-        <BrowserRouter>
-          <Routes>
-            <Route path="/" element={<HomePage />} />
-            <Route path="/cart" element={<Cart/>}></Route>
-            <Route path="/products/:id" element={<ProductPage/>} />
-            <Route path="/users/:id" element={<ProfilePage/>} />
-            <Route path="*" element={<NotFoundPage/>} />
-          </Routes>
-        </BrowserRouter>
+        <RouterProvider router={router}></RouterProvider>
       </ThemeProvider>
     </>
   );

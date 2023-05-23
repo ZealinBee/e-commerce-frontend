@@ -2,6 +2,7 @@ import { createSlice, PayloadAction, createAsyncThunk } from "@reduxjs/toolkit";
 import axios from "axios";
 
 import Product from "../../types/Product";
+import SimpleProduct from "../../types/SimpleProduct";
 
 interface ProductsState {
   products: Product[];
@@ -94,17 +95,35 @@ export const sortByCategory = createAsyncThunk(
   }
 );
 
+export const createNewProduct = createAsyncThunk(
+  "products/createNewProduct",
+  async (product: SimpleProduct) => {
+    try {
+      const result = await axios.post<SimpleProduct>(
+        `https://api.escuelajs.co/api/v1/products`,
+        product
+      );
+      return result.data;
+    } catch (error) {
+      if (axios.isAxiosError(error)) {
+        console.log(error.status);
+        console.error(error.response);
+      } else {
+        console.error(error);
+      }
+      throw error;
+    }
+  }
+);
+
 const productsSlice = createSlice({
   name: "products",
   initialState,
   reducers: {
-    createProduct: (state, action: PayloadAction<Product>) => {
-      state.products.push(action.payload);
-    },
-
     selectProduct: (state, action: PayloadAction<Product>) => {
       state.selectedProduct = action.payload;
     },
+
     sortProductByPrice: (
       state,
       action: PayloadAction<"asc" | "desc" | "Default">
@@ -145,7 +164,8 @@ const productsSlice = createSlice({
   },
 });
 
-export const { selectProduct, sortProductByPrice } = productsSlice.actions;
+export const { selectProduct, sortProductByPrice } =
+  productsSlice.actions;
 
 const productsReducer = productsSlice.reducer;
 export default productsReducer;

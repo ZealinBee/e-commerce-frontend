@@ -17,21 +17,20 @@ function SortByPrice({ onSortByPrice }: SortByPriceProps) {
     onSortByPrice(selectedPrice);
   }
   return (
-    <>
+    <div className="sort-by-price">
       <InputLabel id="price-select">Sort by Price</InputLabel>
       <Select
         labelId="price-select"
         label="Price"
         id="price-select"
         value={selectedPrice}
-        style={{ marginBottom: "3rem" }}
         onChange={(e) => handleChange(e)}
       >
         <MenuItem value="Default">Default</MenuItem>
         <MenuItem value="desc">Price Low to High</MenuItem>
         <MenuItem value="asc">Price High to Low</MenuItem>
       </Select>
-    </>
+    </div>
   );
 }
 

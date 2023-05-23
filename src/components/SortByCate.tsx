@@ -15,7 +15,7 @@ const SortByCate: React.FC<SortByCateProps> = ({ onSortByCategory }) => {
   };
 
   return (
-    <div style={{ marginBottom: "3rem" }}>
+    <div className="sort-by-cate">
       <InputLabel id="category-select">Sort by Category:</InputLabel>
       <Select
         labelId="category-select"

@@ -4,6 +4,7 @@ import { Box, Typography, Button } from "@mui/material";
 import useAppDispatch from "../redux/hooks/useAppDispatch";
 import useAppSelector from "../redux/hooks/useAppSelectors";
 import { selectProduct } from "../redux/reducers/productsReducer";
+import { addToCart } from "../redux/reducers/cartReducer";
 
 function ProductPage() {
   const selectedProduct = useAppSelector(
@@ -12,6 +13,12 @@ function ProductPage() {
   useEffect(() => {
     // const fetchedProduct: Product
   }, []);
+
+  const dispatch = useAppDispatch();
+
+  function addToCartHandler() {
+    // dispatch(addToCart(selectedProduct));
+  }
 
   return (
     <>
@@ -23,7 +30,9 @@ function ProductPage() {
           <Typography variant="h5">{selectedProduct?.title}</Typography>
           <Typography variant="h6">{selectedProduct?.category.name}</Typography>
           <Typography variant="h5">{selectedProduct?.price}</Typography>
-          <Button variant="outlined">Add to cart</Button>
+          <Button variant="outlined" onClick={addToCartHandler}>
+            Add to cart
+          </Button>
           <Typography>{selectedProduct?.description}</Typography>
         </Box>
       </div>

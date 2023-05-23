@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { Grid } from "@mui/material";
 import { Link } from "react-router-dom";
+import { TextField, Button } from "@mui/material";
 
 import useAppDispatch from "../redux/hooks/useAppDispatch";
 import {
@@ -44,14 +45,20 @@ function ProductList() {
 
   return (
     <>
-      <input
-        type="text"
-        onChange={(e) => setQuery(e.target.value)}
-        style={{ marginBottom: "3rem" }}
-      ></input>
-      <button onClick={handleSearch}>Search</button>
-      <SortByCate onSortByCategory={handleSortByCategory}></SortByCate>
-      <SortByPrice onSortByPrice={handleSortByPrice}></SortByPrice>
+      <div className="filter">
+        <div className="search">
+          <TextField
+            onChange={(e) => setQuery(e.target.value)}
+            label="Search by name"
+            variant="outlined"
+          />
+          <Button onClick={handleSearch} variant="contained">Search</Button>
+        </div>
+
+        <SortByCate onSortByCategory={handleSortByCategory}></SortByCate>
+        <SortByPrice onSortByPrice={handleSortByPrice}></SortByPrice>
+      </div>
+
       <Link to="/cart">Cart</Link>
       <Grid className="product-list" container spacing={3}>
         {products.map((product: Product) => {
