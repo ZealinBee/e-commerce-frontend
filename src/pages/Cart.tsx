@@ -1,16 +1,21 @@
 import React, { useState } from "react";
 import { Box, Typography } from "@mui/material";
+import DeleteIcon from "@mui/icons-material/Delete";
+import { IconButton } from "@mui/material";
 
+import Header from "../components/Header";
 import useAppDispatch from "../redux/hooks/useAppDispatch";
 import useAppSelector from "../redux/hooks/useAppSelectors";
+import { removeFromCart } from "../redux/reducers/cartReducer";
 
 function Cart() {
-  const [totalItems, setTotalItems] = useState(0);
+  let totalCost = 0;
   const dispatch = useAppDispatch();
   const cartItems = useAppSelector((state) => state.cartReducer.items);
 
   return (
     <>
+      <Header></Header>
       <h2>Shopping Cart</h2>
       <div className="cart-product-info">
         <h5>Product</h5>
@@ -21,8 +26,10 @@ function Cart() {
       <div className="cart">
         <div className="cart-items">
           {cartItems.map((item) => {
+            totalCost += item.product.price * item.quantity;
+
             return (
-              <div className="cart-item">
+              <div className="cart-item" key={item.product.id}>
                 <div className="cart-item__image-wrapper">
                   <img src={`${item.product.images}`} alt="" />
                 </div>
@@ -32,13 +39,17 @@ function Cart() {
                 <p className="cart-item__subtotal">
                   €{item.product.price * item.quantity}.00
                 </p>
+
+                <DeleteIcon
+                  onClick={() => dispatch(removeFromCart(item.product))}
+                ></DeleteIcon>
               </div>
             );
           })}
         </div>
         <div className="cart-total">
           <h3>Summary</h3>
-          <p>Total: €{totalItems}.00</p>
+          <p>Total: €{totalCost}.00</p>
         </div>
       </div>
     </>

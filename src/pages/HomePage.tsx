@@ -18,6 +18,7 @@ function HomePage() {
 
   return (
     <>
+      <Header></Header>
       <ProductList></ProductList>
     </>
   );

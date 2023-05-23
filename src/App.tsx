@@ -57,7 +57,6 @@ const App = () => {
   return (
     <>
       <ThemeProvider theme={theme}>
-        <Header></Header>
         <RouterProvider router={router}></RouterProvider>
       </ThemeProvider>
     </>

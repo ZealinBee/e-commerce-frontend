@@ -30,8 +30,14 @@ function ProductCard({ product }: ProductCardProps) {
   }
 
   function selectProductHandler() {
-    dispatch(selectProduct(product))
+    dispatch(selectProduct(product));
   }
+
+  let description = product.description;
+  let truncatedDescription =
+    description.length > 75
+      ? description.substring(0, 50) + "..."
+      : description;
 
   return (
     <Card>
@@ -53,7 +59,7 @@ function ProductCard({ product }: ProductCardProps) {
             <Typography variant="body2" color="primary">
               €{product.price}.00
             </Typography>
-            <Typography>{product.description}</Typography>
+            <Typography>{truncatedDescription}</Typography>
           </CardContent>
         </CardActionArea>
       </Link>

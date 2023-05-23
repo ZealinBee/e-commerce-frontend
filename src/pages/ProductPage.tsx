@@ -17,7 +17,9 @@ function ProductPage() {
   const dispatch = useAppDispatch();
 
   function addToCartHandler() {
-    // dispatch(addToCart(selectedProduct));
+    if (selectedProduct) {
+      dispatch(addToCart(selectedProduct));
+    }
   }
 
   return (
@@ -27,13 +29,22 @@ function ProductPage() {
           <img src={`${selectedProduct?.images[0]}`} alt="" />
         </div>
         <div className="product-details">
-          <Typography variant="h5">{selectedProduct?.title}</Typography>
-          <Typography variant="h6">{selectedProduct?.category.name}</Typography>
-          <Typography variant="h5">{selectedProduct?.price}</Typography>
+          <Typography variant="h5" sx={{ mb: "0.5rem" }}>
+            {selectedProduct?.title}
+          </Typography>
+          <Typography variant="h6" sx={{ mb: "0.5rem" }}>
+            {selectedProduct?.category.name}
+          </Typography>
+          <Typography variant="h5" color="primary" sx={{ mb: "0.5rem" }}>
+            {" "}
+            €{selectedProduct?.price}.00
+          </Typography>
+          <Typography sx={{ mb: "0.5rem" }}>
+            {selectedProduct?.description}
+          </Typography>
           <Button variant="outlined" onClick={addToCartHandler}>
             Add to cart
           </Button>
-          <Typography>{selectedProduct?.description}</Typography>
         </div>
       </div>
     </>
