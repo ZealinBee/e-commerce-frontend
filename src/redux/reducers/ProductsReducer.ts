@@ -3,6 +3,7 @@ import axios from "axios";
 
 import Product from "../../types/Product";
 import SimpleProduct from "../../types/SimpleProduct";
+import updateProductInterface from "../../types/updateProduct";
 
 interface ProductsState {
   products: Product[];
@@ -76,9 +77,10 @@ export const sortByCategory = createAsyncThunk(
         `https://api.escuelajs.co/api/v1/products`
       );
       const products = result.data;
-      if(category === "All") return products
+      if (category === "All") return products;
       const sortedProducts = products.filter(
-        (product) => product.category.name.toLowerCase() === category.toLowerCase()
+        (product) =>
+          product.category.name.toLowerCase() === category.toLowerCase()
       );
       return sortedProducts;
     } catch (error) {
@@ -102,6 +104,47 @@ export const createNewProduct = createAsyncThunk(
         product
       );
       return result.data;
+    } catch (error) {
+      if (axios.isAxiosError(error)) {
+        console.log(error.status);
+        console.error(error.response);
+      } else {
+        console.error(error);
+      }
+      throw error;
+    }
+  }
+);
+
+export const updateProduct = createAsyncThunk(
+  "products/updateProduct",
+  async (product: updateProductInterface) => {
+    try {
+      const result = await axios.put<updateProductInterface>(
+        `https://api.escuelajs.co/api/v1/products/${product.id}`,
+        product
+      );
+      return result.data;
+    } catch (error) {
+      if (axios.isAxiosError(error)) {
+        console.log(error.status);
+        console.error(error.response);
+      } else {
+        console.error(error);
+      }
+      throw error;
+    }
+  }
+);
+
+export const deleteProduct = createAsyncThunk(
+  "products/deleteProduct",
+  async (id: number) => {
+    try {
+      const result = axios.delete(
+        `https://api.escuelajs.co/api/v1/products/${id}`
+      );
+      return result;
     } catch (error) {
       if (axios.isAxiosError(error)) {
         console.log(error.status);
@@ -158,12 +201,17 @@ const productsSlice = createSlice({
       .addCase(sortByCategory.fulfilled, (state, action) => {
         state.products = action.payload;
         state.sortByCategory = action.meta.arg;
+      })
+      .addCase(deleteProduct.fulfilled, (state, action) => {
+        const updatedProducts = state.products.filter(
+          (product) => product.id !== action.meta.arg
+        );
+        state.products = updatedProducts;
       });
   },
 });
 
-export const { selectProduct, sortProductByPrice } =
-  productsSlice.actions;
+export const { selectProduct, sortProductByPrice } = productsSlice.actions;
 
 const productsReducer = productsSlice.reducer;
 export default productsReducer;

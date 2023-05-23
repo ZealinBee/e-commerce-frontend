@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { TextField, Button } from "@mui/material";
+import { useNavigate } from "react-router-dom";
 
 import useAppDispatch from "../redux/hooks/useAppDispatch";
 import { createNewProduct } from "../redux/reducers/productsReducer";
@@ -12,13 +13,15 @@ interface AddProductFormProps {
 
 function AddProductForm({ addToggle, setAddToggle }: AddProductFormProps) {
   const dispatch = useAppDispatch();
+  const navigate = useNavigate();
+  const [images, setImages] = useState<string[]>([]);
   const [newProduct, setNewProduct] = useState<SimpleProduct>({
     id: 0,
     title: "",
     price: 0,
     description: "",
     categoryId: 0,
-    images: [],
+    images: images,
   });
   function formChangeHandler(e: React.ChangeEvent<HTMLInputElement>) {
     setNewProduct({
@@ -30,14 +33,30 @@ function AddProductForm({ addToggle, setAddToggle }: AddProductFormProps) {
   function formSubmitHandler(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
     dispatch(createNewProduct(newProduct));
-    console.log(newProduct);
+    setAddToggle(!addToggle);
+    setNewProduct({
+      id: 0,
+      title: "",
+      price: 0,
+      description: "",
+      categoryId: 0,
+      images: images,
+    });
+    navigate("/");
+  }
+
+  function imageChangeHandler(e: React.ChangeEvent<HTMLInputElement>) {
+    setImages(e.target.value.split(","));
+    setNewProduct({
+      ...newProduct,
+      images: images,
+    });
   }
 
   return (
     <>
       {!addToggle && (
         <form className="product-form" onSubmit={formSubmitHandler}>
-       
           <TextField
             label="Product Name"
             name="title"
@@ -61,9 +80,8 @@ function AddProductForm({ addToggle, setAddToggle }: AddProductFormProps) {
             style={{ marginBottom: "1rem" }}
           ></TextField>
           <TextField
-            name="images"
-            value={newProduct.images}
-            onChange={formChangeHandler}
+            value={images}
+            onChange={imageChangeHandler}
             label={`Image URL`}
             style={{ marginBottom: "1rem" }}
           ></TextField>
