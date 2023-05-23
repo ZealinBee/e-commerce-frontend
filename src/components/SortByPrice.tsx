@@ -1,4 +1,4 @@
-import React, { ChangeEvent, useState } from "react";
+import React, { useEffect, useState } from "react";
 import Select, { SelectChangeEvent } from "@mui/material/Select";
 import MenuItem from "@mui/material/MenuItem";
 import InputLabel from "@mui/material/InputLabel";
@@ -14,8 +14,12 @@ function SortByPrice({ onSortByPrice }: SortByPriceProps) {
   function handleChange(e: SelectChangeEvent<string>) {
     const value = e.target.value as "asc" | "desc" | "Default";
     setSelectedPrice(value);
-    onSortByPrice(selectedPrice);
   }
+
+  useEffect(() => {
+    onSortByPrice(selectedPrice);
+  }, [selectedPrice, onSortByPrice])
+
   return (
     <div className="sort-by-price">
       <InputLabel id="price-select">Sort by Price</InputLabel>
@@ -27,8 +31,8 @@ function SortByPrice({ onSortByPrice }: SortByPriceProps) {
         onChange={(e) => handleChange(e)}
       >
         <MenuItem value="Default">Default</MenuItem>
-        <MenuItem value="desc">Price Low to High</MenuItem>
-        <MenuItem value="asc">Price High to Low</MenuItem>
+        <MenuItem value="asc">Price Low to High</MenuItem>
+        <MenuItem value="desc">Price High to Low</MenuItem>
       </Select>
     </div>
   );

@@ -5,6 +5,7 @@ import useAppDispatch from "../redux/hooks/useAppDispatch";
 import useAppSelector from "../redux/hooks/useAppSelectors";
 import { selectProduct } from "../redux/reducers/productsReducer";
 import { addToCart } from "../redux/reducers/cartReducer";
+import Header from "../components/Header";
 
 function ProductPage() {
   const selectedProduct = useAppSelector(
@@ -24,6 +25,7 @@ function ProductPage() {
 
   return (
     <>
+    <Header></Header>
       <div className="product-container">
         <div className="image-wrapper">
           <img src={`${selectedProduct?.images[0]}`} alt="" />

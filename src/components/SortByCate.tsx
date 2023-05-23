@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import Select, { SelectChangeEvent } from "@mui/material/Select";
 import MenuItem from "@mui/material/MenuItem";
 import InputLabel from "@mui/material/InputLabel";
@@ -11,8 +11,11 @@ const SortByCate: React.FC<SortByCateProps> = ({ onSortByCategory }) => {
   const [selectedCategory, setSelectedCategory] = useState("All");
   const handleCategoryChange = (e: SelectChangeEvent<string>) => {
     setSelectedCategory(e.target.value);
-    onSortByCategory(selectedCategory);
   };
+
+  useEffect(() => {
+    onSortByCategory(selectedCategory);
+  }, [selectedCategory, onSortByCategory])
 
   return (
     <div className="sort-by-cate">
@@ -25,7 +28,7 @@ const SortByCate: React.FC<SortByCateProps> = ({ onSortByCategory }) => {
         label="Category"
       >
         <MenuItem value="All">All</MenuItem>
-        <MenuItem value="Electronics">Electronics</MenuItem>
+        <MenuItem value="Shoes">Shoes</MenuItem>
         <MenuItem value="Furniture">Furniture</MenuItem>
         <MenuItem value="Others">Others</MenuItem>
       </Select>

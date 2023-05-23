@@ -76,12 +76,10 @@ export const sortByCategory = createAsyncThunk(
         `https://api.escuelajs.co/api/v1/products`
       );
       const products = result.data;
+      if(category === "All") return products
       const sortedProducts = products.filter(
-        (product) => product.category.name === category
+        (product) => product.category.name.toLowerCase() === category.toLowerCase()
       );
-      if (sortedProducts.length === 0) {
-        return products;
-      }
       return sortedProducts;
     } catch (error) {
       if (axios.isAxiosError(error)) {
