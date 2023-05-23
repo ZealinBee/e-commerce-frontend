@@ -7,3 +7,4 @@ export const sortProductByPrice = (price: string) => {
     
   }
 }
+

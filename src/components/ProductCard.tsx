@@ -11,12 +11,22 @@ import { Button } from "@mui/material";
 import { Link } from "react-router-dom";
 
 import Product from "../types/Product";
+import useAppDispatch from "../redux/hooks/useAppDispatch";
+import useAppSelector from "../redux/hooks/useAppSelectors";
+import { addToCart } from "../redux/reducers/cartReducer";
 
 interface ProductCardProps {
   product: Product;
 }
 
 function ProductCard({ product }: ProductCardProps) {
+  const dispatch = useAppDispatch();
+  const cart = useAppSelector((state) => state.cartReducer.items);
+
+  function addToCartHandler() {
+    dispatch(addToCart(product));
+    console.log(cart)
+  }
   return (
     <Card>
       <Link to={`/products/${product.id}`} className="card-link">
@@ -31,18 +41,15 @@ function ProductCard({ product }: ProductCardProps) {
             {" "}
             <Typography variant="h5">{product.title}</Typography>
             <Typography variant="body2" color="primary">
-              {product.price}
+              €{product.price}.00
             </Typography>
-            <Typography>
-              {product.description}
-            </Typography>
+            <Typography>{product.description}</Typography>
           </CardContent>
         </CardActionArea>
       </Link>
 
       <CardActions>
-        {" "}
-        <Button>Add to Cart</Button>
+        <Button onClick={addToCartHandler}>Add to Cart</Button>
       </CardActions>
     </Card>
   );

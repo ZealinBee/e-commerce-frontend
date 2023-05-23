@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { Grid } from "@mui/material";
+import { Link } from "react-router-dom";
 
 import useAppDispatch from "../redux/hooks/useAppDispatch";
 import { fetchAllProducts,searchProduct, sortByCategory } from "../redux/reducers/productsReducer";
@@ -44,6 +45,7 @@ function ProductList() {
       <button onClick={handleSearch}>Search</button>
       <SortByCate onSortByCategory={handleSortByCategory} ></SortByCate>
       <SortByPrice onSortByPrice = {handleSortByPrice}></SortByPrice>
+      <Link to="/cart">Cart</Link>
       <Grid className="product-list" container spacing={3}>
         {products.map((product: Product) => {
           return (

@@ -1,24 +1,34 @@
-import React from "react";
+import React, { useState } from "react";
+import Select, { SelectChangeEvent } from "@mui/material/Select";
+import MenuItem from "@mui/material/MenuItem";
+import InputLabel from "@mui/material/InputLabel";
 
 type SortByCateProps = {
   onSortByCategory: (category: string) => void;
 };
 
 const SortByCate: React.FC<SortByCateProps> = ({ onSortByCategory }) => {
-  const handleCategoryChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
-    const selectedCategory = e.target.value;
+  const [selectedCategory, setSelectedCategory] = useState("All");
+  const handleCategoryChange = (e: SelectChangeEvent<string>) => {
+    setSelectedCategory(e.target.value);
     onSortByCategory(selectedCategory);
   };
 
   return (
     <div style={{ marginBottom: "3rem" }}>
-      <label htmlFor="category-select">Sort by Category:</label>
-      <select id="category-select" onChange={handleCategoryChange}>
-        <option value="">All</option>
-        <option value="Shoes">Shoes</option>
-        <option value="mmm">mmm</option>
-        <option value="Nueva categoria">Nueva categoria</option>
-      </select>
+      <InputLabel id="category-select">Sort by Category:</InputLabel>
+      <Select
+        labelId="category-select"
+        id="category-select"
+        onChange={handleCategoryChange}
+        value={selectedCategory}
+        label="Category"
+      >
+        <MenuItem value="All">All</MenuItem>
+        <MenuItem value="Shoes">Shoes</MenuItem>
+        <MenuItem value="mmm">mmm</MenuItem>
+        <MenuItem value="Nueva categoria">Nueva categoria</MenuItem>
+      </Select>
     </div>
   );
 };

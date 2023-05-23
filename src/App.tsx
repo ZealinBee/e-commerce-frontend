@@ -1,5 +1,5 @@
 import React from "react";
-import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import { BrowserRouter as Router, Routes, Route, BrowserRouter } from "react-router-dom";
 import { ThemeProvider, createTheme } from "@mui/material";
 
 import HomePage from "./pages/HomePage";
@@ -8,6 +8,7 @@ import ProfilePage from "./pages/ProfilePage";
 import NotFoundPage from "./pages/NotFoundPage";
 import Header from "./components/Header";
 import "./styles/styles.scss";
+import Cart from "./pages/Cart";
 
 
 const theme = createTheme({
@@ -30,14 +31,15 @@ const App = () => {
     <>
       <ThemeProvider theme={theme}>
         <Header></Header>
-        <Router>
+        <BrowserRouter>
           <Routes>
             <Route path="/" element={<HomePage />} />
+            <Route path="/cart" element={<Cart/>}></Route>
             <Route path="/products/:id" element={<ProductPage/>} />
             <Route path="/users/:id" element={<ProfilePage/>} />
             <Route path="*" element={<NotFoundPage/>} />
           </Routes>
-        </Router>
+        </BrowserRouter>
       </ThemeProvider>
     </>
   );

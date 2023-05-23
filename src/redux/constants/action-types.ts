@@ -1,3 +1,4 @@
 export const ActionTypes = {
   SORT_PRODUCT_BY_PRICE: "SORT_PRODUCT_BY_PRICE",
+  SELECT_PRODUCT: "SELECT_PRODUCT",
 };
