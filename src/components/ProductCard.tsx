@@ -14,6 +14,7 @@ import Product from "../types/Product";
 import useAppDispatch from "../redux/hooks/useAppDispatch";
 import useAppSelector from "../redux/hooks/useAppSelectors";
 import { addToCart } from "../redux/reducers/cartReducer";
+import { selectProduct } from "../redux/reducers/productsReducer";
 
 interface ProductCardProps {
   product: Product;
@@ -25,11 +26,20 @@ function ProductCard({ product }: ProductCardProps) {
 
   function addToCartHandler() {
     dispatch(addToCart(product));
-    console.log(cart)
+    console.log(cart);
   }
+
+  function selectProductHandler() {
+    dispatch(selectProduct(product))
+  }
+
   return (
     <Card>
-      <Link to={`/products/${product.id}`} className="card-link">
+      <Link
+        to={`/products/${product.id}`}
+        className="card-link"
+        onClick={selectProductHandler}
+      >
         <CardActionArea>
           <CardMedia
             component="img"

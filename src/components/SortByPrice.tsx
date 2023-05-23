@@ -4,13 +4,17 @@ import MenuItem from "@mui/material/MenuItem";
 import InputLabel from "@mui/material/InputLabel";
 
 interface SortByPriceProps {
-  onSortByPrice: (direction: "asc" | "desc") => void;
+  onSortByPrice: (direction: "asc" | "desc" | "Default") => void;
 }
 function SortByPrice({ onSortByPrice }: SortByPriceProps) {
-  const [selectedPrice, setSelectedPrice] = useState("Default");
+  const [selectedPrice, setSelectedPrice] = useState<
+    "asc" | "desc" | "Default"
+  >("Default");
 
   function handleChange(e: SelectChangeEvent<string>) {
-    setSelectedPrice(e.target.value);
+    const value = e.target.value as "asc" | "desc" | "Default";
+    setSelectedPrice(value);
+    onSortByPrice(selectedPrice);
   }
   return (
     <>
@@ -24,8 +28,8 @@ function SortByPrice({ onSortByPrice }: SortByPriceProps) {
         onChange={(e) => handleChange(e)}
       >
         <MenuItem value="Default">Default</MenuItem>
-        <MenuItem value="Price Low to High">Price Low to High</MenuItem>
-        <MenuItem value="Price High to Low">Price High to Low</MenuItem>
+        <MenuItem value="desc">Price Low to High</MenuItem>
+        <MenuItem value="asc">Price High to Low</MenuItem>
       </Select>
     </>
   );

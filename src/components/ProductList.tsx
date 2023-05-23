@@ -3,21 +3,24 @@ import { Grid } from "@mui/material";
 import { Link } from "react-router-dom";
 
 import useAppDispatch from "../redux/hooks/useAppDispatch";
-import { fetchAllProducts,searchProduct, sortByCategory } from "../redux/reducers/productsReducer";
+import {
+  fetchAllProducts,
+  searchProduct,
+  sortByCategory,
+  sortProductByPrice,
+} from "../redux/reducers/productsReducer";
 import useAppSelector from "../redux/hooks/useAppSelectors";
 import ProductCard from "./ProductCard";
 import Product from "../types/Product";
-import SortByCate from "../components/SortByCate"
-import SortByPrice from "../components/SortByPrice"
-import { sortProductByPrice } from "../redux/actions/productAction";
-
+import SortByCate from "../components/SortByCate";
+import SortByPrice from "../components/SortByPrice";
 
 function ProductList() {
   const products = useAppSelector((state) => {
-    if(state.productsReducer.searchResults.length > 0){
-      return state.productsReducer.searchResults
-    }else {
-      return state.productsReducer.products
+    if (state.productsReducer.searchResults.length > 0) {
+      return state.productsReducer.searchResults;
+    } else {
+      return state.productsReducer.products;
     }
   });
   const dispatch = useAppDispatch();
@@ -35,16 +38,20 @@ function ProductList() {
     dispatch(sortByCategory(category));
   };
 
-  const handleSortByPrice = (direction: "asc" | "desc") => {
+  const handleSortByPrice = (direction: "asc" | "desc" | "Default") => {
     dispatch(sortProductByPrice(direction));
-  }
+  };
 
   return (
     <>
-      <input type="text" onChange={(e) => setQuery(e.target.value)} style={{marginBottom:"3rem"}}></input>
+      <input
+        type="text"
+        onChange={(e) => setQuery(e.target.value)}
+        style={{ marginBottom: "3rem" }}
+      ></input>
       <button onClick={handleSearch}>Search</button>
-      <SortByCate onSortByCategory={handleSortByCategory} ></SortByCate>
-      <SortByPrice onSortByPrice = {handleSortByPrice}></SortByPrice>
+      <SortByCate onSortByCategory={handleSortByCategory}></SortByCate>
+      <SortByPrice onSortByPrice={handleSortByPrice}></SortByPrice>
       <Link to="/cart">Cart</Link>
       <Grid className="product-list" container spacing={3}>
         {products.map((product: Product) => {

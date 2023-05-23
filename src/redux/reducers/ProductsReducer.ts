@@ -9,7 +9,8 @@ interface ProductsState {
   error: null | string;
   searchResults: Product[];
   sortByCategory: string | null;
-  sortByPrice: "asc" | "desc" | null;
+  sortByPrice: "asc" | "desc" | "Default";
+  selectedProduct: Product | null;
 }
 
 const initialState: ProductsState = {
@@ -18,7 +19,8 @@ const initialState: ProductsState = {
   error: null,
   searchResults: [],
   sortByCategory: null,
-  sortByPrice: null,
+  sortByPrice: "Default",
+  selectedProduct: null,
 };
 
 export const fetchAllProducts = createAsyncThunk(
@@ -99,20 +101,27 @@ const productsSlice = createSlice({
     createProduct: (state, action: PayloadAction<Product>) => {
       state.products.push(action.payload);
     },
-    updateProduct: (state, action: PayloadAction<Product[]>) => {
-      state.products = action.payload;
+
+    selectProduct: (state, action: PayloadAction<Product>) => {
+      state.selectedProduct = action.payload;
     },
-    sortProductByPrice: (state, action: PayloadAction<"asc" | "desc">) => {
+    sortProductByPrice: (
+      state,
+      action: PayloadAction<"asc" | "desc" | "Default">
+    ) => {
       state.sortByPrice = action.payload;
       state.products.sort((a, b) => {
         const priceA = a.price;
         const priceB = b.price;
 
-        if (action.payload === "asc") {
+        if (action.payload === "Default") {
+          return 0;
+        } else if (action.payload === "asc") {
           return priceA - priceB;
-        } else {
+        } else if (action.payload === "desc") {
           return priceB - priceA;
         }
+        return 0;
       });
     },
   },
@@ -135,6 +144,8 @@ const productsSlice = createSlice({
       });
   },
 });
+
+export const { selectProduct, sortProductByPrice } = productsSlice.actions;
 
 const productsReducer = productsSlice.reducer;
 export default productsReducer;
