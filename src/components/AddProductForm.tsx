@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { TextField, Button, Box } from "@mui/material";
+import { TextField, Button } from "@mui/material";
 
 import useAppDispatch from "../redux/hooks/useAppDispatch";
 import { createNewProduct } from "../redux/reducers/productsReducer";
@@ -37,18 +37,13 @@ function AddProductForm({ addToggle, setAddToggle }: AddProductFormProps) {
     <>
       {!addToggle && (
         <form className="product-form" onSubmit={formSubmitHandler}>
-          <TextField
-            label="Product Id"
-            name="id"
-            value={newProduct.id}
-            onChange={formChangeHandler}
-            type="number"
-          ></TextField>
+       
           <TextField
             label="Product Name"
             name="title"
             value={newProduct.title}
             onChange={formChangeHandler}
+            style={{ marginBottom: "1rem" }}
           ></TextField>
           <TextField
             label="Product Price"
@@ -56,18 +51,21 @@ function AddProductForm({ addToggle, setAddToggle }: AddProductFormProps) {
             value={newProduct.price}
             onChange={formChangeHandler}
             type="number"
+            style={{ marginBottom: "1rem" }}
           ></TextField>
           <TextField
             label="Product Description"
             name="description"
             value={newProduct.description}
             onChange={formChangeHandler}
+            style={{ marginBottom: "1rem" }}
           ></TextField>
           <TextField
             name="images"
             value={newProduct.images}
             onChange={formChangeHandler}
             label={`Image URL`}
+            style={{ marginBottom: "1rem" }}
           ></TextField>
           <TextField
             name="categoryId"
@@ -75,9 +73,18 @@ function AddProductForm({ addToggle, setAddToggle }: AddProductFormProps) {
             value={newProduct.categoryId}
             onChange={formChangeHandler}
             type="number"
+            style={{ marginBottom: "1rem" }}
           ></TextField>
-          <Button variant="outlined" type="submit">
+          <Button variant="contained" type="submit">
             Submit Product
+          </Button>
+          <Button
+            variant="outlined"
+            color="secondary"
+            style={{ marginTop: "1rem" }}
+            onClick={() => setAddToggle(!addToggle)}
+          >
+            Cancel
           </Button>
         </form>
       )}

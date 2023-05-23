@@ -1,0 +1,25 @@
+form {
+    display:flex;
+    flex-direction: column;
+    background-color: #e4dddc69;
+    width:40%;
+    margin: 2rem;
+    padding:2rem;
+    border-radius: 1rem;
+    margin-right:auto;
+    position:absolute;
+    left:20%;
+}
+
+.wrapper {
+    display:flex;
+}
+
+.modification {
+    display:flex;
+    margin-left:1.5rem;
+    flex-direction: column;
+    button {
+        margin-bottom:1rem;
+    }
+}

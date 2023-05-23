@@ -35,8 +35,8 @@ function ProductCard({ product }: ProductCardProps) {
 
   let description = product.description;
   let truncatedDescription =
-    description.length > 75
-      ? description.substring(0, 50) + "..."
+    description.length > 120
+      ? description.substring(0, 120) + "..."
       : description;
 
   return (

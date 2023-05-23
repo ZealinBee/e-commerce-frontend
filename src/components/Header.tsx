@@ -14,8 +14,6 @@ import MenuItem from "@mui/material/MenuItem";
 import ShoppingCartIcon from "@mui/icons-material/ShoppingCart";
 import { Link } from "react-router-dom";
 
-const settings = ["Profile", "Favorites", "Logout"];
-
 function Header() {
   const [anchorElNav, setAnchorElNav] = React.useState<null | HTMLElement>(
     null
@@ -127,12 +125,11 @@ function Header() {
                 </IconButton>
               </Tooltip>
               <Link to="/cart">
-              <IconButton sx={{ ml: "35px" }}>
+                <IconButton sx={{ ml: "35px" }}>
                   <ShoppingCartIcon></ShoppingCartIcon>
-              </IconButton>
-
+                </IconButton>
               </Link>
-       
+
               <Menu
                 sx={{ mt: "45px" }}
                 id="menu-appbar"
@@ -149,11 +146,11 @@ function Header() {
                 open={Boolean(anchorElUser)}
                 onClose={handleCloseUserMenu}
               >
-                {settings.map((setting) => (
-                  <MenuItem key={setting} onClick={handleCloseUserMenu}>
-                    <Typography textAlign="center">{setting}</Typography>
+                <Link to="/modification">
+                  <MenuItem onClick={handleCloseUserMenu}>
+                    <Typography textAlign="center">Manage Products</Typography>
                   </MenuItem>
-                ))}
+                </Link>
               </Menu>
             </Box>
           </Toolbar>
