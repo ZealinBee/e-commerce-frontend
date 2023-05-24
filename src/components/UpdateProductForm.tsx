@@ -16,7 +16,6 @@ function UpdateProductForm({
   setUpdateToggle,
 }: UpdateProductFormProps) {
   const dispatch = useAppDispatch();
-  const navigate = useNavigate();
 
   const [updateProductState, setUpdateProductState] =
     useState<updateProductInterface>({

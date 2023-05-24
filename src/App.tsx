@@ -10,6 +10,8 @@ import Header from "./components/Header";
 import "./styles/styles.scss";
 import Cart from "./pages/Cart";
 import Modification from "./pages/Modification";
+import SignUp from "./pages/SignUp";
+import Login from "./pages/Login";
 
 const theme = createTheme({
   typography: {
@@ -51,6 +53,21 @@ const router = createBrowserRouter([
     element: <Modification />,
     errorElement: <NotFoundPage />,
   },
+  {
+    path: "/signup",
+    element: <SignUp />,
+    errorElement: <NotFoundPage />,
+  },
+  {
+    path: "/login",
+    element: <Login />,
+    errorElement: <NotFoundPage />,
+  },
+  {
+    path: "/profile",
+    element: <ProfilePage /> ,
+    errorElement: <NotFoundPage />,
+  }
 ]);
 
 const App = () => {

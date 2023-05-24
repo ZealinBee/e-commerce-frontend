@@ -16,7 +16,6 @@ function DeleteProductForm({
 }: DeleteProductFormProps) {
   const [id, setId] = useState(0);
   const dispatch = useAppDispatch();
-  const navigate = useNavigate();
 
   function formSubmitHandler(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();

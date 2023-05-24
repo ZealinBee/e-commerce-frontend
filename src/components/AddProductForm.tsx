@@ -4,16 +4,15 @@ import { useNavigate } from "react-router-dom";
 
 import useAppDispatch from "../redux/hooks/useAppDispatch";
 import { createNewProduct } from "../redux/reducers/productsReducer";
-import SimpleProduct from "../types/SimpleProduct";
+import SimpleProduct from "../types/simpleProduct";
 
 interface AddProductFormProps {
   addToggle: boolean;
   setAddToggle: (addToggle: boolean) => void;
 }
-
+// TODO dont' make user choose cate ID
 function AddProductForm({ addToggle, setAddToggle }: AddProductFormProps) {
   const dispatch = useAppDispatch();
-  const navigate = useNavigate();
   const [images, setImages] = useState<string[]>([]);
   const [newProduct, setNewProduct] = useState<SimpleProduct>({
     id: 0,
