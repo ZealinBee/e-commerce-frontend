@@ -12,7 +12,10 @@ import Button from "@mui/material/Button";
 import Tooltip from "@mui/material/Tooltip";
 import MenuItem from "@mui/material/MenuItem";
 import ShoppingCartIcon from "@mui/icons-material/ShoppingCart";
+import StyledBadge from "@mui/material/Badge";
 import { Link } from "react-router-dom";
+
+import useAppSelector from "../redux/hooks/useAppSelectors";
 
 function Header() {
   const [anchorElNav, setAnchorElNav] = React.useState<null | HTMLElement>(
@@ -36,6 +39,8 @@ function Header() {
   const handleCloseUserMenu = () => {
     setAnchorElUser(null);
   };
+
+  const quantity = useAppSelector((state) => state.cartReducer.items.length);
 
   return (
     <>
@@ -126,7 +131,9 @@ function Header() {
               </Tooltip>
               <Link to="/cart">
                 <IconButton sx={{ ml: "35px" }}>
-                  <ShoppingCartIcon></ShoppingCartIcon>
+                  <StyledBadge badgeContent={quantity} color="secondary">
+                    <ShoppingCartIcon></ShoppingCartIcon>
+                  </StyledBadge>
                 </IconButton>
               </Link>
 

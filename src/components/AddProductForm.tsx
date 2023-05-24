@@ -42,7 +42,6 @@ function AddProductForm({ addToggle, setAddToggle }: AddProductFormProps) {
       categoryId: 0,
       images: images,
     });
-    navigate("/");
   }
 
   function imageChangeHandler(e: React.ChangeEvent<HTMLInputElement>) {

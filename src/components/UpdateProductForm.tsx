@@ -34,7 +34,6 @@ function UpdateProductForm({
       title: "",
       price: 0,
     });
-    navigate("/");
   }
 
   function formChangeHandler(e: React.ChangeEvent<HTMLInputElement>) {

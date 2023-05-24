@@ -23,7 +23,6 @@ function DeleteProductForm({
     dispatch(deleteProduct(id));
     setDeleteToggle(!deleteToggle);
     setId(0);
-    navigate("/");
   }
 
   return (

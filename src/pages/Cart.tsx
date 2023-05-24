@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Box, Typography } from "@mui/material";
+import { Button } from "@mui/material";
 import DeleteIcon from "@mui/icons-material/Delete";
 import { IconButton } from "@mui/material";
 
@@ -39,10 +39,13 @@ function Cart() {
                 <p className="cart-item__subtotal">
                   €{item.product.price * item.quantity}.00
                 </p>
-
-                <DeleteIcon
-                  onClick={() => dispatch(removeFromCart(item.product))}
-                ></DeleteIcon>
+                <p>
+                  {" "}
+                  <DeleteIcon
+                    onClick={() => dispatch(removeFromCart(item.product))}
+                    style={{ marginLeft: "2rem"}}
+                  ></DeleteIcon>
+                </p>
               </div>
             );
           })}
@@ -50,6 +53,9 @@ function Cart() {
         <div className="cart-total">
           <h3>Summary</h3>
           <p>Total: €{totalCost}.00</p>
+          <Button variant="contained" sx={{ mt: "1rem" }}>
+            Check out now
+          </Button>
         </div>
       </div>
     </>

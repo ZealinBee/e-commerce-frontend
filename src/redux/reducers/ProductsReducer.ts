@@ -78,6 +78,7 @@ export const sortByCategory = createAsyncThunk(
       );
       const products = result.data;
       if (category === "All") return products;
+
       const sortedProducts = products.filter(
         (product) =>
           product.category.name.toLowerCase() === category.toLowerCase()
@@ -164,7 +165,6 @@ const productsSlice = createSlice({
     selectProduct: (state, action: PayloadAction<Product>) => {
       state.selectedProduct = action.payload;
     },
-
     sortProductByPrice: (
       state,
       action: PayloadAction<"asc" | "desc" | "Default">
