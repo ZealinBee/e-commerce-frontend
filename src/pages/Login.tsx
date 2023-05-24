@@ -1,9 +1,11 @@
 import React, { useState } from "react";
+import { Navigate, useNavigate  } from "react-router-dom";
 
 import loginUserI from "../types/loginUser";
 import useAppDispatch from "../redux/hooks/useAppDispatch";
 import { loginUser } from "../redux/reducers/usersReducer";
-import Header from "../components/Header"
+import Header from "../components/Header";
+import useAppSelector from "../redux/hooks/useAppSelectors";
 
 function Login() {
   const [user, setUser] = useState<loginUserI>({
@@ -11,6 +13,7 @@ function Login() {
     password: "",
   });
   const dispatch = useAppDispatch();
+  const navigate = useNavigate();
 
   function formChangeHandler(e: React.ChangeEvent<HTMLInputElement>) {
     setUser({
@@ -24,9 +27,14 @@ function Login() {
     dispatch(loginUser(user));
   }
 
+  const isLoggedIn = useAppSelector((state) => state.usersReducer.isLoggedIn);
+  if (isLoggedIn) {
+    navigate("/");
+  }
+
   return (
     <>
-    <Header></Header>
+      <Header></Header>
       <form onSubmit={formSubmitHandler}>
         <input
           type="email"

@@ -41,7 +41,16 @@ function Header() {
   };
 
   const quantity = useAppSelector((state) => state.cartReducer.items.length);
-
+  const isLoggedIn = useAppSelector((state) => state.usersReducer.isLoggedIn);
+  const avatar = useAppSelector(
+    (state) => state.usersReducer.currentUser?.avatar
+  );
+  let isAdmin = false;
+  if (
+    useAppSelector((state) => state.usersReducer.currentUser?.role === "admin")
+  ) {
+    isAdmin = true;
+  }
   return (
     <>
       <AppBar position="static">
@@ -126,7 +135,11 @@ function Header() {
             <Box sx={{ flexGrow: 0 }}>
               <Tooltip title="Open settings">
                 <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
-                  <Avatar alt="Remy Sharp" src="/static/images/avatar/2.jpg" />
+                  {isLoggedIn ? (
+                    <Avatar alt="profile pic" src={avatar} />
+                  ) : (
+                    <Avatar alt="profile pic" src="" />
+                  )}
                 </IconButton>
               </Tooltip>
               <Link to="/cart">
@@ -136,7 +149,6 @@ function Header() {
                   </StyledBadge>
                 </IconButton>
               </Link>
-
               <Menu
                 sx={{ mt: "45px" }}
                 id="menu-appbar"
@@ -153,11 +165,38 @@ function Header() {
                 open={Boolean(anchorElUser)}
                 onClose={handleCloseUserMenu}
               >
-                <Link to="/modification">
-                  <MenuItem onClick={handleCloseUserMenu}>
-                    <Typography textAlign="center">Manage Products</Typography>
-                  </MenuItem>
-                </Link>
+                {isAdmin ? (
+                  <Link to="/modification">
+                    <MenuItem onClick={handleCloseUserMenu}>
+                      <Typography textAlign="center">
+                        Manage Products
+                      </Typography>
+                    </MenuItem>
+                  </Link>
+                ) : (
+                  <></>
+                )}
+
+                {!isLoggedIn ? (
+                  <Link to="/login">
+                    <MenuItem onClick={handleCloseUserMenu}>
+                      <Typography textAlign="center">Login</Typography>
+                    </MenuItem>
+                  </Link>
+                ) : (
+                  <>
+                    <Link to="/logout">
+                      <MenuItem onClick={handleCloseUserMenu}>
+                        <Typography textAlign="center">Logout</Typography>
+                      </MenuItem>
+                    </Link>
+                    <Link to="/profile">
+                      <MenuItem onClick={handleCloseUserMenu}>
+                        <Typography textAlign="center">Profile</Typography>
+                      </MenuItem>
+                    </Link>
+                  </>
+                )}
               </Menu>
             </Box>
           </Toolbar>
