@@ -16,9 +16,9 @@ function SortByPrice({ onSortByPrice }: SortByPriceProps) {
     setSelectedPrice(value);
   }
 
-  useEffect(() => {
-    onSortByPrice(selectedPrice);
-  }, [selectedPrice, onSortByPrice])
+  // useEffect(() => {
+  //   onSortByPrice(selectedPrice);
+  // }, [selectedPrice, onSortByPrice])
 
   return (
     <div className="sort-by-price">

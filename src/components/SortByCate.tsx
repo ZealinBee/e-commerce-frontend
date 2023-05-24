@@ -13,9 +13,10 @@ const SortByCate: React.FC<SortByCateProps> = ({ onSortByCategory }) => {
     setSelectedCategory(e.target.value);
   };
 
-  useEffect(() => {
-    onSortByCategory(selectedCategory);
-  }, [selectedCategory, onSortByCategory])
+  // useEffect(() => {
+  //   onSortByCategory(selectedCategory);
+  //   console.log("hello")
+  // }, [selectedCategory, onSortByCategory])
 
   return (
     <div className="sort-by-cate">

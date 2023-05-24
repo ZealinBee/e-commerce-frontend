@@ -1,4 +1,5 @@
-import * as React from "react";
+import React, { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import AppBar from "@mui/material/AppBar";
 import Box from "@mui/material/Box";
 import Toolbar from "@mui/material/Toolbar";
@@ -16,36 +17,43 @@ import StyledBadge from "@mui/material/Badge";
 import { Link } from "react-router-dom";
 
 import useAppSelector from "../redux/hooks/useAppSelectors";
+import useAppDispatch from "../redux/hooks/useAppDispatch";
+import { logoutUser } from "../redux/reducers/usersReducer";
 
 function Header() {
-  const [anchorElNav, setAnchorElNav] = React.useState<null | HTMLElement>(
-    null
-  );
-  const [anchorElUser, setAnchorElUser] = React.useState<null | HTMLElement>(
-    null
-  );
-
-  const handleOpenNavMenu = (event: React.MouseEvent<HTMLElement>) => {
-    setAnchorElNav(event.currentTarget);
-  };
-  const handleOpenUserMenu = (event: React.MouseEvent<HTMLElement>) => {
-    setAnchorElUser(event.currentTarget);
-  };
-
-  const handleCloseNavMenu = () => {
-    setAnchorElNav(null);
-  };
-
-  const handleCloseUserMenu = () => {
-    setAnchorElUser(null);
-  };
-
   const quantity = useAppSelector((state) => state.cartReducer.items.length);
-  const isLoggedIn = useAppSelector((state) => state.usersReducer.isLoggedIn);
+  let isLoggedIn = useAppSelector((state) => state.usersReducer.isLoggedIn);
   const avatar = useAppSelector(
     (state) => state.usersReducer.currentUser?.avatar
   );
   let isAdmin = false;
+  const dispatch = useAppDispatch();
+  const [anchorElNav, setAnchorElNav] = useState<null | HTMLElement>(null);
+  const [anchorElUser, setAnchorElUser] = useState<null | HTMLElement>(null);
+  const navigate = useNavigate();
+
+  function handleOpenNavMenu(event: React.MouseEvent<HTMLElement>) {
+    setAnchorElNav(event.currentTarget);
+  }
+
+  function handleOpenUserMenu(event: React.MouseEvent<HTMLElement>) {
+    setAnchorElUser(event.currentTarget);
+  }
+
+  function handleCloseNavMenu() {
+    setAnchorElNav(null);
+  }
+
+  function handleCloseUserMenu() {
+    setAnchorElUser(null);
+  }
+
+  async function handleLogOut() {
+    await dispatch(logoutUser());
+    handleCloseUserMenu();
+    navigate("/");
+  }
+
   if (
     useAppSelector((state) => state.usersReducer.currentUser?.role === "admin")
   ) {
@@ -174,7 +182,7 @@ function Header() {
                     </MenuItem>
                   </Link>
                 ) : (
-                  <></>
+                  <div></div>
                 )}
 
                 {!isLoggedIn ? (
@@ -184,18 +192,18 @@ function Header() {
                     </MenuItem>
                   </Link>
                 ) : (
-                  <>
-                    <Link to="/logout">
-                      <MenuItem onClick={handleCloseUserMenu}>
-                        <Typography textAlign="center">Logout</Typography>
-                      </MenuItem>
-                    </Link>
-                    <Link to="/profile">
-                      <MenuItem onClick={handleCloseUserMenu}>
-                        <Typography textAlign="center">Profile</Typography>
-                      </MenuItem>
-                    </Link>
-                  </>
+                  <Link to="/profile">
+                    <MenuItem onClick={handleCloseUserMenu}>
+                      <Typography textAlign="center">Profile</Typography>
+                    </MenuItem>
+                  </Link>
+                )}
+                {!isLoggedIn ? (
+                  <div></div>
+                ) : (
+                  <MenuItem onClick={handleLogOut}>
+                    <Typography textAlign="center">Logout</Typography>
+                  </MenuItem>
                 )}
               </Menu>
             </Box>
