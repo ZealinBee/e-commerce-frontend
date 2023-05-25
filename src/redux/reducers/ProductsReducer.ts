@@ -77,8 +77,6 @@ export const sortByCategory = createAsyncThunk(
         `https://api.escuelajs.co/api/v1/products`
       );
       const products = result.data;
-      if (category === "All") return products;
-
       const sortedProducts = products.filter(
         (product) =>
           product.category.name.toLowerCase() === category.toLowerCase()
@@ -170,19 +168,22 @@ const productsSlice = createSlice({
       action: PayloadAction<"asc" | "desc" | "Default">
     ) => {
       state.sortByPrice = action.payload;
-      state.products.sort((a, b) => {
-        const priceA = a.price;
-        const priceB = b.price;
 
-        if (action.payload === "Default") {
+      if (action.payload === "Default") {
+        state.products.sort((a, b) => a.id - b.id);
+      } else {
+        state.products.sort((a, b) => {
+          const priceA = a.price;
+          const priceB = b.price;
+
+          if (action.payload === "asc") {
+            return priceA - priceB;
+          } else if (action.payload === "desc") {
+            return priceB - priceA;
+          }
           return 0;
-        } else if (action.payload === "asc") {
-          return priceA - priceB;
-        } else if (action.payload === "desc") {
-          return priceB - priceA;
-        }
-        return 0;
-      });
+        });
+      }
     },
   },
   extraReducers: (build) => {

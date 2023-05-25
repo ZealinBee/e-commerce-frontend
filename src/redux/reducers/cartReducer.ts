@@ -1,7 +1,6 @@
 import Product from "../../types/Product";
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 
-// TODO maybe put the CartItem interface in a separate file
 interface CartItem {
   product: Product;
   quantity: number;

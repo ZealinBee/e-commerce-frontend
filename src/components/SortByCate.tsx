@@ -2,40 +2,59 @@ import React, { useState, useEffect } from "react";
 import Select, { SelectChangeEvent } from "@mui/material/Select";
 import MenuItem from "@mui/material/MenuItem";
 import InputLabel from "@mui/material/InputLabel";
+import { FormControlLabel, RadioGroup, Radio, Typography } from "@mui/material";
 
-type SortByCateProps = {
-  onSortByCategory: (category: string) => void;
-};
+import { fetchAllCategories } from "../redux/reducers/categoriesReducer";
+import useAppDispatch from "../redux/hooks/useAppDispatch";
+import useAppSelectors from "../redux/hooks/useAppSelectors";
+import {
+  fetchAllProducts,
+  sortByCategory,
+} from "../redux/reducers/productsReducer";
 
-const SortByCate: React.FC<SortByCateProps> = ({ onSortByCategory }) => {
+const SortByCate = () => {
   const [selectedCategory, setSelectedCategory] = useState("All");
+  const dispatch = useAppDispatch();
+  const categories = useAppSelectors(
+    (state) => state.categoriesReducer.categories
+  );
+
   const handleCategoryChange = (e: SelectChangeEvent<string>) => {
     setSelectedCategory(e.target.value);
   };
 
-  // useEffect(() => {
-  //   onSortByCategory(selectedCategory);
-  //   console.log("hello")
-  // }, [selectedCategory, onSortByCategory])
+  function handleSortByCategory(category: string) {
+    dispatch(sortByCategory(category));
+  }
+
+  useEffect(() => {
+    dispatch(fetchAllCategories());
+  }, [dispatch]);
 
   return (
-    <div className="sort-by-cate">
-      <InputLabel id="category-select">Sort by Category:</InputLabel>
-      <Select
-        labelId="category-select"
-        id="category-select"
-        onChange={handleCategoryChange}
-        value={selectedCategory}
-        label="Category"
-      >
-        <MenuItem value="All">All</MenuItem>
-        <MenuItem value="Clothes">Clothes</MenuItem>
-        <MenuItem value="Electronics">Electronics</MenuItem>
-        <MenuItem value="un nuevo nombre">un nuevo nombre</MenuItem>
-        <MenuItem value="xcbfdbsdbsb">xcbfdbsdbsb</MenuItem>
-        <MenuItem value="phones">phones</MenuItem>
-      </Select>
-    </div>
+    <>
+      <RadioGroup defaultValue="All" className="sort-by-cate">
+        <FormControlLabel
+          control={<Radio />}
+          label="All"
+          value="All"
+          onClick={() => {
+            dispatch(fetchAllProducts());
+          }}
+        ></FormControlLabel>
+        {categories.map((category) => {
+          return (
+            <FormControlLabel
+              control={<Radio />}
+              label={category.name}
+              key={category.id}
+              value={category.name}
+              onClick={() => handleSortByCategory(category.name)}
+            />
+          );
+        })}
+      </RadioGroup>
+    </>
   );
 };
 

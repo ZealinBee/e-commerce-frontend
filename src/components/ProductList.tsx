@@ -35,16 +35,12 @@ function ProductList() {
     dispatch(searchProduct(query));
   };
 
-  const handleSortByCategory = (category: string) => {
-    dispatch(sortByCategory(category));
-  };
-
   const handleSortByPrice = (direction: "asc" | "desc" | "Default") => {
     dispatch(sortProductByPrice(direction));
   };
 
   return (
-    <>
+    <div>
       <div className="filter">
         <div className="search">
           <TextField
@@ -56,26 +52,26 @@ function ProductList() {
             Search
           </Button>
         </div>
-
-        <SortByCate onSortByCategory={handleSortByCategory}></SortByCate>
         <SortByPrice onSortByPrice={handleSortByPrice}></SortByPrice>
       </div>
-
-      <Grid
-        className="product-list"
-        container
-        spacing={3}
-        sx={{ padding: " 1rem 2rem" }}
-      >
-        {products.map((product: Product) => {
-          return (
-            <Grid item xs={12} sm={6} md={6} lg={4} key={product.id}>
-              <ProductCard product={product}></ProductCard>
-            </Grid>
-          );
-        })}
-      </Grid>
-    </>
+      <div className="product-list-wrapper">
+        <SortByCate></SortByCate>
+        <Grid
+          className="product-list"
+          container
+          spacing={2}
+          sx={{ padding: " 1rem 2rem" }}
+        >
+          {products.map((product: Product) => {
+            return (
+              <Grid item xs={12} sm={6} md={6} lg={4} key={product.id}>
+                <ProductCard product={product}></ProductCard>
+              </Grid>
+            );
+          })}
+        </Grid>
+      </div>
+    </div>
   );
 }
 

@@ -29,6 +29,18 @@
     }
 }
 
-.product-list {
-    margin: 0 2rem;
+.product-list-wrapper {
+    display:flex;
+    .sort-by-cate {
+        display:flex;
+        flex-direction: column;
+        width:15%;
+        margin-left:2rem;
+        margin-top:1rem;
+    }
+    .product-list {
+        margin: 0 2rem;
+        width:80%!important;
+    }
 }
+
