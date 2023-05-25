@@ -8,6 +8,7 @@
 @use "./pages/profilepage.scss";
 @use "./pages/notfoundpage";
 @use "./pages/modifications.scss";
+@use "./components/confirmation-prompt";
 
 * {
   box-sizing: border-box;

@@ -1,60 +1,97 @@
 h2 {
-    margin-left:4rem;
+  margin-left: 4rem;
 }
 
 .cart {
-    display:flex;
+  display: flex;
+  button {
+    margin-left: 0;
+    margin-bottom: 2rem;
+  }
 }
 
 .cart-product-info {
-    display:flex;
-    margin-top:1.5rem;
-    h5 {
-        margin: 0 4rem;
-    }
-
-    h5:nth-child(2) {
-        margin-left:15rem
-    }
+  display: flex;
+  margin-top: 1.5rem;
+  padding-left: 4rem;
+  width: 70%;
+  h5:nth-child(1) {
+    width: 42%;
+  }
+  h5 {
+    width: 25%;
+  }
 }
 
 .cart-items {
-    display:flex;
-    flex-direction: column;
-    width:60%;
+  display: flex;
+  flex-direction: column;
+  width: 70%;
+  padding-left: 4rem;
+  p {
+    width: 20%;
+  }
+
+  p:nth-child(5) {
+    width: 15%;
+  }
+  p:last-child {
+    width: 5%;
+  }
 }
 
 .cart-item {
-    display:flex;
-    margin: 1rem 0;
-    margin-left:4rem;
-    border-bottom:1px solid #ccc;
-    .cart-item__image-wrapper {
-        img {
-            width: 150px;
-        }
-        margin-bottom:1rem;
-        margin-right:2rem;
+  display: flex;
+  margin: 1rem 0;
+  border-bottom: 1px solid #ccc;
+  .cart-item__image-wrapper {
+    img {
+      width: 150px;
     }
-
-    .cart-item__title {
-        margin-right:7rem;
-    }
-
-    .cart-item__quantity {
-        margin-right:3rem;
-    }
-
-    .cart-item__price {
-        margin-left:7rem;
-        margin-right:5rem;
-    }
+    margin-bottom: 1rem;
+    margin-right: 2rem;
+  }
 }
 
 .cart-total {
-    background-color: #eae2e277;
-    padding:0 2rem;
-    width:20%;
-    margin-left:10rem;
-    margin-right:3rem;
+  background-color: #eae2e277;
+  padding: 1rem 2rem;
+  width: 30%;
+  height: 300px;
+  margin-left: 2rem;
+  margin-right: 2rem;
+}
+
+@media (max-width: 800px) {
+  .cart {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .cart > * {
+    width: initial;
+  }
+  .card-product-info {
+    width: 100%;
+  }
+
+  .cart-items {
+    padding-left: 0;
+  }
+
+  .cart-item {
+    .cart-item__image-wrapper {
+        img {
+          width: 75px;
+        }
+        margin-bottom: 1rem;
+        margin-right: 2rem;
+      }
+  }
+
+  .cart-total {
+    margin-left: 0;
+    margin-right: 0;
+    width: 80%;
+  }
 }

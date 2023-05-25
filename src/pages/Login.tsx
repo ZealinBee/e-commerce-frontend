@@ -1,5 +1,7 @@
 import React, { useState } from "react";
-import { Navigate, useNavigate  } from "react-router-dom";
+import { Navigate, useNavigate } from "react-router-dom";
+import { TextField, Button, Typography } from "@mui/material";
+import { Link } from "react-router-dom";
 
 import loginUserI from "../types/loginUser";
 import useAppDispatch from "../redux/hooks/useAppDispatch";
@@ -36,21 +38,37 @@ function Login() {
     <>
       <Header></Header>
       <form onSubmit={formSubmitHandler}>
-        <input
+        <TextField
+          label="Email"
           type="email"
           onChange={formChangeHandler}
           name="email"
-          placeholder="email"
           value={user.email}
+          style={{ marginBottom: "1rem" }}
+          required
         />
-        <input
+        <TextField
+          label="Password"
           type="password"
           onChange={formChangeHandler}
           name="password"
-          placeholder="password"
           value={user.password}
+          style={{ marginBottom: "1rem" }}
+          required
         />
-        <button type="submit">Login</button>
+        <Button
+          type="submit"
+          variant="outlined"
+          style={{ marginBottom: "1rem" }}
+        >
+          Login
+        </Button>
+        <Typography>
+          Don't have an account?{" "}
+          <Link to="/signup" style={{ color: "blue" }}>
+            Sign up
+          </Link>
+        </Typography>
       </form>
     </>
   );
