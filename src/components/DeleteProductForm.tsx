@@ -27,7 +27,7 @@ function DeleteProductForm({
   return (
     <>
       {!deleteToggle && (
-        <form onSubmit={formSubmitHandler}>
+        <form onSubmit={formSubmitHandler} className="product-form">
           <TextField
             label="Product ID"
             name="id"

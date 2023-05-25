@@ -1,0 +1,17 @@
+
+
+.profile {
+    display: flex;
+    justify-content: center;
+    margin-top:2rem;
+    .profile__pfp-wrapper {
+        width:300px;
+        img {
+            width:300px;
+            border-radius: 50%;
+        }
+    }
+    .profile__information {
+        margin-left:2rem;
+    }
+}

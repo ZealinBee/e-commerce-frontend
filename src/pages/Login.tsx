@@ -37,39 +37,42 @@ function Login() {
   return (
     <>
       <Header></Header>
-      <form onSubmit={formSubmitHandler}>
-        <TextField
-          label="Email"
-          type="email"
-          onChange={formChangeHandler}
-          name="email"
-          value={user.email}
-          style={{ marginBottom: "1rem" }}
-          required
-        />
-        <TextField
-          label="Password"
-          type="password"
-          onChange={formChangeHandler}
-          name="password"
-          value={user.password}
-          style={{ marginBottom: "1rem" }}
-          required
-        />
-        <Button
-          type="submit"
-          variant="outlined"
-          style={{ marginBottom: "1rem" }}
-        >
-          Login
-        </Button>
-        <Typography>
-          Don't have an account?{" "}
-          <Link to="/signup" style={{ color: "blue" }}>
-            Sign up
-          </Link>
-        </Typography>
-      </form>
+      <h1 className="page-name">Login</h1>
+      <div className="auth-wrapper">
+        <form onSubmit={formSubmitHandler} className="auth-form">
+          <TextField
+            label="Email"
+            type="email"
+            onChange={formChangeHandler}
+            name="email"
+            value={user.email}
+            style={{ marginBottom: "1rem" }}
+            required
+          />
+          <TextField
+            label="Password"
+            type="password"
+            onChange={formChangeHandler}
+            name="password"
+            value={user.password}
+            style={{ marginBottom: "1rem" }}
+            required
+          />
+          <Button
+            type="submit"
+            variant="outlined"
+            style={{ marginBottom: "1rem" }}
+          >
+            Login
+          </Button>
+          <Typography>
+            Don't have an account?{" "}
+            <Link to="/signup" style={{ color: "blue" }}>
+              Sign up
+            </Link>
+          </Typography>
+        </form>
+      </div>
     </>
   );
 }

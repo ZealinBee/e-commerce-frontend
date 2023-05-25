@@ -16,7 +16,10 @@ h2 {
   padding-left: 4rem;
   width: 70%;
   h5:nth-child(1) {
-    width: 42%;
+    width: 35%;
+  }
+  h5:nth-child(2) {
+    width:12%;
   }
   h5 {
     width: 25%;
@@ -50,6 +53,16 @@ h2 {
     }
     margin-bottom: 1rem;
     margin-right: 2rem;
+  }
+
+  .cart-item__quantity {
+    display:flex;
+    width:13%;
+    justify-content: space-evenly;
+    p {
+      width:initial;
+    }
+
   }
 }
 

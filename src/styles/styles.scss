@@ -1,4 +1,3 @@
-@use "./components/auth.scss";
 @use "./components/cart.scss";
 @use "./components/productcard.scss";
 @use "./components/productlist.scss";
@@ -9,6 +8,7 @@
 @use "./pages/notfoundpage";
 @use "./pages/modifications.scss";
 @use "./components/confirmation-prompt";
+@use "./pages/login";
 
 * {
   box-sizing: border-box;
@@ -19,4 +19,18 @@
 body {
   margin: 0;
   padding: 0;
+}
+
+form {
+  display: flex;
+  flex-direction: column;
+  background-color: #e4dddc69;
+  padding: 2rem;
+  border-radius: 1rem;
+}
+
+.page-name {
+  font-size: 1.75rem;
+  text-align: center;
+  margin-top: 2rem;
 }

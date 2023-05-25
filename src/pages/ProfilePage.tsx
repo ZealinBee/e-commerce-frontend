@@ -18,10 +18,18 @@ function ProfilePage() {
   return (
     <>
       <Header></Header>
-      <h1>Profile Page</h1>
-      <h1>{user?.name}</h1>
-      <h1>{user?.email}</h1>
-      <img src={user?.avatar} alt="" />
+      <h1 className="page-name">Profile Page</h1>
+      <div className="profile">
+        <div className="profile__pfp-wrapper">
+          <img src={user?.avatar} alt="" />
+        </div>
+        <div className="profile__information">
+          <h4>Your information</h4>
+          <p>Username: {user?.name}</p>
+          <p>Email: {user?.email}</p>
+          <p>Role: {user?.role}</p>
+        </div>
+      </div>
     </>
   );
 }

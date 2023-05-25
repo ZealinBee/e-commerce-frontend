@@ -45,7 +45,7 @@ function UpdateProductForm({
   return (
     <>
       {!updateToggle && (
-        <form onSubmit={formSubmitHandler}>
+        <form onSubmit={formSubmitHandler} className="product-form">
           <TextField
             label="Product ID"
             name="id"
