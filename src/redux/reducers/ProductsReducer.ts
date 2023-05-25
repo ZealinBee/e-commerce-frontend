@@ -168,7 +168,6 @@ const productsSlice = createSlice({
       action: PayloadAction<"asc" | "desc" | "Default">
     ) => {
       state.sortByPrice = action.payload;
-
       if (action.payload === "Default") {
         state.products.sort((a, b) => a.id - b.id);
       } else {

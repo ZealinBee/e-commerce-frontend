@@ -9,7 +9,12 @@ import RemoveIcon from "@mui/icons-material/Remove";
 import Header from "../components/Header";
 import useAppDispatch from "../redux/hooks/useAppDispatch";
 import useAppSelector from "../redux/hooks/useAppSelectors";
-import { removeFromCart, emptyCart, increaseQuantity } from "../redux/reducers/cartReducer";
+import {
+  removeFromCart,
+  emptyCart,
+  increaseQuantity,
+  decreaseQuantity,
+} from "../redux/reducers/cartReducer";
 import ConfirmationPrompt from "../components/ConfirmationPrompt";
 
 function Cart() {
@@ -17,6 +22,7 @@ function Cart() {
   const dispatch = useAppDispatch();
   const cartItems = useAppSelector((state) => state.cartReducer.items);
   const [showPrompt, setShowPrompt] = useState(false);
+  const [showItemDeletePrompt, setShowItemDeletePrompt] = useState(false);
 
   function emptyCartHandler() {
     setShowPrompt(true);
@@ -51,7 +57,7 @@ function Cart() {
           {/* <div className="cart-product-info">
             <h5>Product</h5>
             <h5>Quantity</h5>
-            <h5>Price</h5>
+            <h>Price</h\5>
             <h5>Subtotal</h5>
           </div> */}
           <div className="cart">
@@ -80,14 +86,18 @@ function Cart() {
                           mt: "12px",
                         }}
                       >
-                        <RemoveIcon></RemoveIcon>
+                        <RemoveIcon
+                          onClick={() => dispatch(decreaseQuantity(item))}
+                        ></RemoveIcon>
                       </IconButton>
                       <p>{item.quantity}</p>
                       <IconButton
                         onChange={() => dispatch(increaseQuantity(item))}
-                        sx={{ width: "30px", height: "30px", mt: "12px"}}
+                        sx={{ width: "30px", height: "30px", mt: "12px" }}
                       >
-                        <AddIcon></AddIcon>
+                        <AddIcon
+                          onClick={() => dispatch(increaseQuantity(item))}
+                        ></AddIcon>
                       </IconButton>
                     </div>
 
@@ -99,15 +109,9 @@ function Cart() {
                       €{item.product.price * item.quantity}.00
                     </p>
                     <p>
-                      {" "}
-                      <DeleteIcon onClick={handleDeleteItem}></DeleteIcon>
-                      {showPrompt ? (
-                        <ConfirmationPrompt
-                          handleCancel={handleCancel}
-                          handleConfirmation={handleConfirmation}
-                          action={`delete ${item.product.title}`}
-                        ></ConfirmationPrompt>
-                      ) : null}
+                      <DeleteIcon
+                        onClick={() => dispatch(removeFromCart(item.product))}
+                      ></DeleteIcon>
                     </p>
                   </div>
                 );
