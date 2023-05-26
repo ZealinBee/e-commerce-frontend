@@ -56,6 +56,7 @@ export const searchProduct = createAsyncThunk(
       const searchResults = products.filter((product) =>
         product.title.toLowerCase().includes(query.toLowerCase())
       );
+
       return searchResults;
     } catch (error) {
       if (axios.isAxiosError(error)) {
@@ -214,7 +215,8 @@ const productsSlice = createSlice({
   },
 });
 
-export const { selectProduct, sortProductByPrice, cleanUpProductReducer } = productsSlice.actions;
+export const { selectProduct, sortProductByPrice, cleanUpProductReducer } =
+  productsSlice.actions;
 
 const productsReducer = productsSlice.reducer;
 export default productsReducer;

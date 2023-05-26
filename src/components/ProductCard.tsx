@@ -23,6 +23,9 @@ interface ProductCardProps {
 function ProductCard({ product }: ProductCardProps) {
   const dispatch = useAppDispatch();
   const cart = useAppSelector((state) => state.cartReducer.items);
+  const isItemInCart = useAppSelector((state) =>
+    state.cartReducer.items.find((item) => item.product.id === product.id)
+  );
 
   function addToCartHandler() {
     dispatch(addToCart(product));
@@ -35,8 +38,8 @@ function ProductCard({ product }: ProductCardProps) {
 
   let description = product.description;
   let truncatedDescription =
-    description.length > 120
-      ? description.substring(0, 120) + "..."
+    description.length > 80
+      ? description.substring(0, 80) + "..."
       : description;
 
   return (
@@ -65,7 +68,11 @@ function ProductCard({ product }: ProductCardProps) {
       </Link>
 
       <CardActions>
-        <Button onClick={addToCartHandler}>Add to Cart</Button>
+        {isItemInCart ? (
+          <Button disabled>Added to cart</Button>
+        ) : (
+          <Button onClick={addToCartHandler}>Add to cart</Button>
+        )}
       </CardActions>
     </Card>
   );

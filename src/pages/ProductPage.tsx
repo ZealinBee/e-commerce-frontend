@@ -1,13 +1,15 @@
 import React, { useState } from "react";
 import { Typography, Button } from "@mui/material";
 import { useNavigate } from "react-router-dom";
+import "react-responsive-carousel/lib/styles/carousel.min.css";
+import { Carousel } from "react-responsive-carousel";
 
 import useAppDispatch from "../redux/hooks/useAppDispatch";
 import useAppSelector from "../redux/hooks/useAppSelectors";
 import {
   deleteProduct,
   updateProduct,
-  selectProduct
+  selectProduct,
 } from "../redux/reducers/productsReducer";
 import { addToCart } from "../redux/reducers/cartReducer";
 import Header from "../components/Header";
@@ -19,6 +21,11 @@ function ProductPage() {
   );
   let isAdmin = false;
   const [confirmationPrompt, setConfirmationPrompt] = useState<boolean>(false);
+  const isItemInCart = useAppSelector((state) =>
+    state.cartReducer.items.find(
+      (item) => item.product.id === selectedProduct?.id
+    )
+  );
 
   const navigate = useNavigate();
   if (
@@ -57,10 +64,10 @@ function ProductPage() {
     const price = Number(prompt("Enter new price"));
     if (id && title && price) {
       await dispatch(updateProduct({ id, title, price }));
-      await dispatch(selectProduct(selectedProduct))
+      await dispatch(selectProduct(selectedProduct));
       alert(`${selectedProduct?.title} updated successfully!`);
       navigate("/");
-    }else {
+    } else {
       alert("Please enter valid values");
     }
   }
@@ -69,9 +76,17 @@ function ProductPage() {
     <>
       <Header></Header>
       <div className="product-container">
-        <div className="image-wrapper">
-          <img src={`${selectedProduct?.images[0]}`} alt="" />
-        </div>
+        <Carousel className="carousel">
+          <div className="image-wrapper">
+            <img src={`${selectedProduct?.images[0]}`} alt="" />
+          </div>
+          <div className="image-wrapper">
+            <img src={`${selectedProduct?.images[1]}`} alt="" />
+          </div>
+          <div className="image-wrapper">
+            <img src={`${selectedProduct?.images[2]}`} alt="" />
+          </div>
+        </Carousel>
         <div className="product-details">
           <Typography variant="h5" sx={{ mb: "0.5rem" }}>
             {selectedProduct?.title}
@@ -86,9 +101,15 @@ function ProductPage() {
           <Typography sx={{ mb: "0.5rem" }}>
             {selectedProduct?.description}
           </Typography>
-          <Button variant="outlined" onClick={addToCartHandler}>
-            Add to cart
-          </Button>
+          {isItemInCart ? (
+            <Button disabled variant="outlined">
+              Added to cart
+            </Button>
+          ) : (
+            <Button onClick={addToCartHandler} variant="outlined">
+              Add to cart
+            </Button>
+          )}
           {isAdmin ? (
             <>
               <Button onClick={updateProductHandler}>Update Product</Button>

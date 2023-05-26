@@ -24,7 +24,19 @@ This project builds an e-commerce website with React, Redux and Typescript as we
 
 ## Features
 
-// To do listed
+- Shows all the products from the API https://fakeapi.platzi.com/
+- Contains sorting by price, sorting by category and search by product name functionality
+- Admin can create, update and delete product in the product page (also in the modification page): email: admin@mail.com password: admin123
+- Contains protected routes, admin and customer have different access privileges
+- Register and login functionalities
+- Cart reducer, user can add to cart, modify quantity, empty cart and delete single cart items
+
+TODO FOR FRIDAY
+
+- codebase cleanup, some files have too many lines
+- more form validation, right now the UX is bad for forms because when the admin put something wrong they won't know
+- more testing for reducers
+- search don't work hand in hand with sorting, still buggy need to be fixed
 
 ## Project Structure
 
@@ -105,6 +117,6 @@ This project builds an e-commerce website with React, Redux and Typescript as we
 Clone the repository from github with `git clone`  
 Install the dependencies: `npm install`
 Run the application: `npm start`
-Link to the deployed website[1]
+Link to the deployed website:[website]
 
 [1]: https://zhiyuan-shop.netlify.app/

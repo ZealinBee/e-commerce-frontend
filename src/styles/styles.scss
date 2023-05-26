@@ -34,3 +34,9 @@ form {
   text-align: center;
   margin-top: 2rem;
 }
+
+@media(max-width:600px) {
+  * {
+    font-size:0.8rem;
+  }
+}
