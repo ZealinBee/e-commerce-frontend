@@ -31,7 +31,7 @@ This project builds an e-commerce website with React, Redux and Typescript as we
 - Register and login functionalities
 - Cart reducer, user can add to cart, modify quantity, empty cart and delete single cart items
 
-TODO FOR FRIDAY
+TODO FOR FRIDAY (Might not be done by 12PM , but i will finish these today or tomorrow)
 
 - codebase cleanup, some files have too many lines
 - more form validation, right now the UX is bad for forms because when the admin put something wrong they won't know, tell user when they are making bad request
@@ -120,4 +120,4 @@ Install the dependencies: `npm install`
 Run the application: `npm start`
 Link to the deployed website:[website]
 
-[1]: https://zhiyuan-shop.netlify.app/
+[website]: https://zhiyuan-shop.netlify.app/
