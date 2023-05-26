@@ -16,6 +16,7 @@ function Login() {
   });
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
+  const errorMessage = useAppSelector((state) => state.usersReducer.error);
 
   function formChangeHandler(e: React.ChangeEvent<HTMLInputElement>) {
     setUser({
@@ -71,6 +72,9 @@ function Login() {
               Sign up
             </Link>
           </Typography>
+          {errorMessage ? (
+            <Typography color="secondary">Wrong email or password</Typography>
+          ) : null}
         </form>
       </div>
     </>

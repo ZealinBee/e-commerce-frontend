@@ -29,7 +29,6 @@ function ProductCard({ product }: ProductCardProps) {
 
   function addToCartHandler() {
     dispatch(addToCart(product));
-    console.log(cart);
   }
 
   function selectProductHandler() {

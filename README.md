@@ -34,9 +34,10 @@ This project builds an e-commerce website with React, Redux and Typescript as we
 TODO FOR FRIDAY
 
 - codebase cleanup, some files have too many lines
-- more form validation, right now the UX is bad for forms because when the admin put something wrong they won't know
+- more form validation, right now the UX is bad for forms because when the admin put something wrong they won't know, tell user when they are making bad request
 - more testing for reducers
 - search don't work hand in hand with sorting, still buggy need to be fixed
+- image upload isn't ideal
 
 ## Project Structure
 

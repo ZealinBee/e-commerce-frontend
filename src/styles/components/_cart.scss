@@ -19,7 +19,7 @@ h2 {
     width: 35%;
   }
   h5:nth-child(2) {
-    width:12%;
+    width: 12%;
   }
   h5 {
     width: 25%;
@@ -56,13 +56,12 @@ h2 {
   }
 
   .cart-item__quantity {
-    display:flex;
-    width:13%;
+    display: flex;
+    width: 13%;
     justify-content: space-evenly;
     p {
-      width:initial;
+      width: initial;
     }
-
   }
 }
 
@@ -76,6 +75,7 @@ h2 {
 }
 
 @media (max-width: 800px) {
+
   .cart {
     flex-direction: column;
     align-items: center;
@@ -90,16 +90,20 @@ h2 {
 
   .cart-items {
     padding-left: 0;
+    width:90%;
   }
 
   .cart-item {
     .cart-item__image-wrapper {
-        img {
-          width: 75px;
-        }
-        margin-bottom: 1rem;
-        margin-right: 2rem;
+      img {
+        width: 75px;
       }
+      margin-bottom: 1rem;
+      margin-right: 2rem;
+    }
+    .cart-item__quantity {
+      width: 20%;
+    }
   }
 
   .cart-total {

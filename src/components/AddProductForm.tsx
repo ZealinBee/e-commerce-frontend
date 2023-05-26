@@ -1,5 +1,5 @@
 import React, { useState, ChangeEvent } from "react";
-import { TextField, Button, Select, InputLabel, MenuItem } from "@mui/material";
+import { TextField, Button, Select, InputLabel, MenuItem, Typography } from "@mui/material";
 
 import useAppDispatch from "../redux/hooks/useAppDispatch";
 import { createNewProduct } from "../redux/reducers/productsReducer";
@@ -89,6 +89,7 @@ function AddProductForm({ addToggle, setAddToggle }: AddProductFormProps) {
             onChange={formChangeHandler}
             style={{ marginBottom: "1rem" }}
           ></TextField>
+          <Typography>Image URL format: url,url,url,</Typography>
           <TextField
             value={images}
             onChange={imageChangeHandler}
@@ -102,7 +103,7 @@ function AddProductForm({ addToggle, setAddToggle }: AddProductFormProps) {
             onChange={categoryChangeHandler}
           >
             {categories.map((category) => (
-              <MenuItem value={category.id}>{category.name}</MenuItem>
+              <MenuItem value={category.id} key={category.id}>{category.name}</MenuItem>
             ))}
           </Select>
           <Button variant="contained" type="submit">

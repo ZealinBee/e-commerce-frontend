@@ -1,4 +1,4 @@
-import axios from "axios";
+import axios, { AxiosError } from "axios";
 
 import { PayloadAction, createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 
@@ -102,10 +102,11 @@ export const loginUser = createAsyncThunk(
       if (axios.isAxiosError(error)) {
         console.log(error.status);
         console.error(error.response);
+        throw new Error(error.response?.data?.message || "Wrong credentials");
       } else {
         console.error(error);
+        throw new Error("Wrong credentials");
       }
-      throw error;
     }
   }
 );
@@ -130,7 +131,12 @@ const usersSlice = createSlice({
         }
       })
       .addCase(loginUser.fulfilled, (state, action) => {
-        if (action.payload) {
+        if (action.payload instanceof AxiosError) {
+          return {
+            ...state,
+            error: action.payload.message,
+          };
+        } else {
           return {
             ...state,
             currentUser: action.payload,
@@ -142,5 +148,5 @@ const usersSlice = createSlice({
 });
 
 const usersReducer = usersSlice.reducer;
-export const {logoutUser} = usersSlice.actions;
+export const { logoutUser } = usersSlice.actions;
 export default usersReducer;
