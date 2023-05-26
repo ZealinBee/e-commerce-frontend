@@ -38,6 +38,8 @@ TODO FOR FRIDAY (Might not be done by 12PM , but i will finish these today or to
 - more testing for reducers
 - search don't work hand in hand with sorting, still buggy need to be fixed
 - image upload isn't ideal
+- localstorage for the user data
+- make sure to delete the cart item when i delete the actual item
 
 ## Project Structure
 
