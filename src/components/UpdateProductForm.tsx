@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { TextField, Button } from "@mui/material";
+import { TextField, Button, Typography } from "@mui/material";
 import { useNavigate } from "react-router-dom";
 
 import useAppDispatch from "../redux/hooks/useAppDispatch";
@@ -79,6 +79,7 @@ function UpdateProductForm({
           >
             Cancel
           </Button>
+          <Typography sx={{mt:"1rem"}}>You can also update the product directly in the product page</Typography>
         </form>
       )}
     </>

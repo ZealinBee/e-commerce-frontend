@@ -1,18 +1,29 @@
-import React, { useState } from "react";
-import { Button } from "@mui/material";
+import React, { useState, useEffect } from "react";
+import { Button, Typography } from "@mui/material";
 import DeleteIcon from "@mui/icons-material/Delete";
 import AddIcon from "@mui/icons-material/Add";
 import UpdateIcon from "@mui/icons-material/Update";
+import { useNavigate } from "react-router-dom";
 
 import AddProductForm from "../components/AddProductForm";
 import Headers from "../components/Header";
 import UpdateProductForm from "../components/UpdateProductForm";
 import DeleteProductForm from "../components/DeleteProductForm";
+import useAppSelector from "../redux/hooks/useAppSelectors";
 
 function Modification() {
   const [addToggle, setAddToggle] = useState(true);
   const [updateToggle, setUpdateToggle] = useState(true);
   const [deleteToggle, setDeleteToggle] = useState(true);
+  const navigate = useNavigate();
+  const isAdmin =
+    useAppSelector((state) => state.usersReducer.currentUser?.role) === "admin";
+  const isLoggedIn = useAppSelector((state) => state.usersReducer.isLoggedIn);
+
+  if (!isAdmin || !isLoggedIn) {
+    navigate("/login");
+  }
+
   return (
     <>
       <Headers></Headers>

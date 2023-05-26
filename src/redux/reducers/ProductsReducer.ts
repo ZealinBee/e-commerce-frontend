@@ -184,6 +184,9 @@ const productsSlice = createSlice({
         });
       }
     },
+    cleanUpProductReducer: (state) => {
+      return initialState;
+    },
   },
   extraReducers: (build) => {
     build
@@ -211,7 +214,7 @@ const productsSlice = createSlice({
   },
 });
 
-export const { selectProduct, sortProductByPrice } = productsSlice.actions;
+export const { selectProduct, sortProductByPrice, cleanUpProductReducer } = productsSlice.actions;
 
 const productsReducer = productsSlice.reducer;
 export default productsReducer;

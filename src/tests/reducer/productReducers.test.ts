@@ -1,6 +1,10 @@
-import productReducers from "../../redux/reducers/productsReducer";
-import store from "../store";
-import { fetchAllProducts, createNewProduct, selectProduct } from "../../redux/reducers/productsReducer";
+import { fetchAllProducts, createNewProduct, selectProduct, cleanUpProductReducer } from "../../redux/reducers/productsReducer";
+import productServer from "../servers/productServers";
+import store from "../store"
+
+beforeAll(() => {
+  store.dispatch(cleanUpProductReducer())
+})
 
 describe("Testing productReducers", () => {
   test("Check initialState", () => {
