@@ -1,6 +1,5 @@
 import React, { useState, ChangeEvent } from "react";
 import { TextField, Button, Select, InputLabel, MenuItem } from "@mui/material";
-import { useNavigate } from "react-router-dom";
 
 import useAppDispatch from "../redux/hooks/useAppDispatch";
 import { createNewProduct } from "../redux/reducers/productsReducer";
@@ -20,7 +19,6 @@ function AddProductForm({ addToggle, setAddToggle }: AddProductFormProps) {
   );
   const [images, setImages] = useState<string[]>([]);
   const [newProduct, setNewProduct] = useState<SimpleProduct>({
-    id: 0,
     title: "",
     price: 0,
     description: "",
@@ -49,11 +47,10 @@ function AddProductForm({ addToggle, setAddToggle }: AddProductFormProps) {
     dispatch(createNewProduct(newProduct));
     setAddToggle(!addToggle);
     setNewProduct({
-      id: 0,
       title: "",
       price: 0,
       description: "",
-      categoryId: 0,
+      categoryId: 1,
       images: images,
     });
   }

@@ -1,15 +1,28 @@
-import { fetchAllProducts, createNewProduct, selectProduct, cleanUpProductReducer } from "../../redux/reducers/productsReducer";
+import {
+  fetchAllProducts,
+  createNewProduct,
+  selectProduct,
+  cleanUpProductReducer,
+} from "../../redux/reducers/productsReducer";
 import productServer from "../servers/productServers";
-import store from "../store"
+import store from "../store";
+import { newProduct, invalidProduct } from "../data/products";
+
+beforeEach(() => {
+  store.dispatch(cleanUpProductReducer());
+});
 
 beforeAll(() => {
-  store.dispatch(cleanUpProductReducer())
-})
+  productServer.listen();
+});
+
+afterAll(() => {
+  productServer.close();
+});
 
 describe("Testing productReducers", () => {
-  test("Check initialState", () => {
-    const state = productReducers(undefined, { type: "" });
-    expect(state).toEqual({
+  test("Check initial state", () => {
+    expect(store.getState().productsReducer).toEqual({
       products: [],
       loading: false,
       error: null,
@@ -21,19 +34,27 @@ describe("Testing productReducers", () => {
   });
   test("Check fetchAllProducts", async () => {
     await store.dispatch(fetchAllProducts());
-    expect(store.getState().productsReducer.products.length).toBeGreaterThan(0);
+    expect(store.getState().productsReducer.products.length).toBe(4);
   });
-  test("Check createProduct", async () => {
-    await store.dispatch(createNewProduct({
-        id: 1, 
-        title: "Test",
-        price: 100,
-        description: "Test",
-        categoryId: 1, 
-        images: ["https://picsum.photos/640/640?r=6436"]
-    }))
-    expect(store.getState().productsReducer.products.length).toBeGreaterThan(0);
-  })
+  test("Check if a new product is created", async () => {
+    await store.dispatch(createNewProduct(newProduct));
+    expect(store.getState().productsReducer.products.length).toBe(1);
+  });
+  test("Check if invalid product created", async () => {
+    await store.dispatch(createNewProduct(invalidProduct));
+    expect(store.getState().productsReducer.products.length).toBe(0);
+    expect(store.getState().productsReducer.error).toBe(
+      JSON.stringify({
+        statusCode: 400,
+        message: [
+          "price must be a positive number",
+          "images must contain at least 1 image",
+          "category does not exist",
+        ],
+        error: "Bad Request",
+      })
+    );
+  });
 });
 
 export {};

@@ -1,8 +1,6 @@
 import React, { useState, useEffect } from "react";
-import Select, { SelectChangeEvent } from "@mui/material/Select";
-import MenuItem from "@mui/material/MenuItem";
-import InputLabel from "@mui/material/InputLabel";
-import { FormControlLabel, RadioGroup, Radio, Typography } from "@mui/material";
+import { SelectChangeEvent } from "@mui/material/Select";
+import { FormControlLabel, RadioGroup, Radio } from "@mui/material";
 
 import { fetchAllCategories } from "../redux/reducers/categoriesReducer";
 import useAppDispatch from "../redux/hooks/useAppDispatch";

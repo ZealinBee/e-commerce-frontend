@@ -1,6 +1,5 @@
 import React, { useState } from "react";
 import { TextField, Button, Typography } from "@mui/material";
-import { useNavigate } from "react-router-dom";
 
 import useAppDispatch from "../redux/hooks/useAppDispatch";
 import { updateProduct } from "../redux/reducers/productsReducer";

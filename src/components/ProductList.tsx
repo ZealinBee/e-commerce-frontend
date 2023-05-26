@@ -1,13 +1,11 @@
 import React, { useEffect, useState } from "react";
 import { Grid } from "@mui/material";
-import { Link } from "react-router-dom";
 import { TextField, Button } from "@mui/material";
 
 import useAppDispatch from "../redux/hooks/useAppDispatch";
 import {
   fetchAllProducts,
   searchProduct,
-  sortByCategory,
   sortProductByPrice,
 } from "../redux/reducers/productsReducer";
 import useAppSelector from "../redux/hooks/useAppSelectors";
