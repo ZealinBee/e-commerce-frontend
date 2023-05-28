@@ -15,6 +15,7 @@ import useAppDispatch from "../redux/hooks/useAppDispatch";
 import { createNewUser } from "../redux/reducers/usersReducer";
 import simpleUser from "../types/simpleUser";
 import Header from "../components/Header";
+import useAppSelector from "../redux/hooks/useAppSelectors";
 
 function SignUp() {
   const dispatch = useAppDispatch();
@@ -26,6 +27,8 @@ function SignUp() {
     avatar: "",
   });
 
+  const errorMessage = useAppSelector((state) => state.usersReducer.error)
+
   function signUpChangeHandler(e: React.ChangeEvent<HTMLInputElement>) {
     setUser({
       ...user,
@@ -36,7 +39,6 @@ function SignUp() {
   function signUpSubmitHandler(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
     dispatch(createNewUser(user));
-    console.log(user);
   }
 
   function showPasswordHandler() {
@@ -57,6 +59,7 @@ function SignUp() {
             style={{ marginBottom: "1rem" }}
             required
             value={user.name}
+            {...(errorMessage ? {error: true} : {})}
           />
           <TextField
             label="Email"
@@ -66,6 +69,7 @@ function SignUp() {
             style={{ marginBottom: "1rem" }}
             required
             value={user.email}
+            {...(errorMessage ? {error: true} : {})}
           />
           <InputLabel htmlFor="password">Password</InputLabel>
           <OutlinedInput
@@ -75,6 +79,7 @@ function SignUp() {
             sx={{ marginBottom: "1rem" }}
             value={user.password}
             onChange={signUpChangeHandler}
+            {...(errorMessage ? {error: true} : {})}
             endAdornment={
               <InputAdornment position="end">
                 <IconButton
@@ -87,16 +92,18 @@ function SignUp() {
               </InputAdornment>
             }
             label="Password"
+            placeholder="more than 4 characters"
           />
           <TextField
             label="Avatar URL"
             type="text"
-            placeholder="image url"
+            placeholder="muts be image url"
             name="avatar"
             onChange={signUpChangeHandler}
             style={{ marginBottom: "1rem" }}
             required
             value={user.avatar}
+            {...(errorMessage ? {error: true} : {})}
           />
           <Button
             type="submit"
@@ -111,6 +118,11 @@ function SignUp() {
               Login
             </Link>
           </Typography>
+          {
+            errorMessage ? (
+              <Typography color="secondary">Please check if you have filled everything correctly</Typography>
+            ) : null
+          }
         </form>
       </div>
     </>

@@ -49,6 +49,7 @@ function Login() {
             value={user.email}
             style={{ marginBottom: "1rem" }}
             required
+            {...(errorMessage ? { error: true } : {})}
           />
           <TextField
             label="Password"
@@ -58,6 +59,7 @@ function Login() {
             value={user.password}
             style={{ marginBottom: "1rem" }}
             required
+            {...(errorMessage ? { error: true } : {})}
           />
           <Button
             type="submit"

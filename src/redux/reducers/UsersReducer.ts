@@ -51,12 +51,13 @@ export const createNewUser = createAsyncThunk(
       return result.data;
     } catch (error) {
       if (axios.isAxiosError(error)) {
-        console.log(error.status);
-        console.error(error.response);
+        const responseData = error.response?.data;
+        const warningMessage = responseData.message;
+        throw new Error(warningMessage);
       } else {
         console.error(error);
+        throw error;
       }
-      throw error;
     }
   }
 );
@@ -141,18 +142,17 @@ const usersSlice = createSlice({
         };
       })
       .addCase(loginUser.fulfilled, (state, action) => {
-        if (action.payload instanceof AxiosError) {
-          return {
-            ...state,
-            error: action.payload.message,
-          };
-        } else {
-          return {
-            ...state,
-            currentUser: action.payload,
-            isLoggedIn: true,
-          };
-        }
+        return {
+          ...state,
+          currentUser: action.payload,
+          isLoggedIn: true,
+        };
+      })
+      .addCase(loginUser.rejected, (state, action) => {
+        state.error = action.error.message as string;
+      })
+      .addCase(createNewUser.rejected, (state, action) => {
+        state.error = action.error.name as string;
       });
   },
 });
