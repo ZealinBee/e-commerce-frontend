@@ -3,6 +3,7 @@ import { TextField, Button, Typography } from "@mui/material";
 
 import useAppDispatch from "../redux/hooks/useAppDispatch";
 import { deleteProduct } from "../redux/reducers/productsReducer";
+import { removeFromCart } from "../redux/reducers/cartReducer";
 
 interface DeleteProductFormProps {
   deleteToggle: boolean;
@@ -16,9 +17,10 @@ function DeleteProductForm({
   const [id, setId] = useState(0);
   const dispatch = useAppDispatch();
 
-  function formSubmitHandler(e: React.FormEvent<HTMLFormElement>) {
+  async function formSubmitHandler(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
-    dispatch(deleteProduct(id));
+    await dispatch(removeFromCart(id));
+    await dispatch(deleteProduct(id));
     setDeleteToggle(!deleteToggle);
     setId(0);
   }

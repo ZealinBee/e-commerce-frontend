@@ -28,18 +28,16 @@ This project builds an e-commerce website with React, Redux and Typescript as we
 - Contains sorting by price, sorting by category and search by product name functionality
 - Admin can create, update and delete product in the product page (also in the modification page): email: admin@mail.com password: admin123
 - Contains protected routes, admin and customer have different access privileges
-- Register and login functionalities
-- Cart reducer, user can add to cart, modify quantity, empty cart and delete single cart items
+- Register and login functionalities with validation
+- Cart reducer, user can add to cart, modify quantity, empty cart and delete single cart items, app also asks for confirmation for emptying cart to prevent accidents
 
 TODO FOR FRIDAY (Might not be done by 12PM , but i will finish these today or tomorrow)
 
 - codebase cleanup, some files have too many lines
 - more form validation, right now the UX is bad for forms because when the admin put something wrong they won't know, tell user when they are making bad request
-- more testing for reducers
 - search don't work hand in hand with sorting, still buggy need to be fixed
 - image upload isn't ideal
 - localstorage for the user data
-- make sure to delete the cart item when i delete the actual item
 
 ## Project Structure
 

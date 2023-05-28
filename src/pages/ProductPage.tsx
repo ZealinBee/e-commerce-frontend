@@ -14,6 +14,7 @@ import {
 import { addToCart } from "../redux/reducers/cartReducer";
 import Header from "../components/Header";
 import ConfirmationPrompt from "../components/ConfirmationPrompt";
+import { removeFromCart } from "../redux/reducers/cartReducer";
 
 function ProductPage() {
   const selectedProduct = useAppSelector(
@@ -49,7 +50,8 @@ function ProductPage() {
     setConfirmationPrompt(false);
     if (selectedProduct) {
       await dispatch(deleteProduct(selectedProduct.id));
-      alert(`${selectedProduct.title} deleted successfully!`);
+      await dispatch(removeFromCart(selectedProduct.id));
+      await alert(`${selectedProduct.title} deleted successfully!`);
       navigate("/");
     }
   }

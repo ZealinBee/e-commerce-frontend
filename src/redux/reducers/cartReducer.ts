@@ -32,10 +32,10 @@ const cartSlice = createSlice({
         });
       }
     },
-    removeFromCart: (state, action: PayloadAction<Product>) => {
+    removeFromCart: (state, action: PayloadAction<number>) => {
       const productToRemove = action.payload;
       const updatedItems = state.items.filter(
-        (item) => item.product.id !== productToRemove.id
+        (item) => item.product.id !== productToRemove
       );
       state.items = updatedItems;
     },

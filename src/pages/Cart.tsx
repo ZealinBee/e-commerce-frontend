@@ -110,7 +110,7 @@ function Cart() {
                     </p>
                     <p>
                       <DeleteIcon
-                        onClick={() => dispatch(removeFromCart(item.product))}
+                        onClick={() => dispatch(removeFromCart(item.product.id))}
                       ></DeleteIcon>
                     </p>
                   </div>
