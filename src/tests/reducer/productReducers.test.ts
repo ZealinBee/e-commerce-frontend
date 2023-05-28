@@ -4,7 +4,7 @@ import {
   selectProduct,
   cleanUpProductReducer,
 } from "../../redux/reducers/productsReducer";
-import productServer from "../servers/productServers";
+import productServer from "../servers/productServer";
 import store from "../store";
 import { newProduct, invalidProduct } from "../data/products";
 
@@ -57,4 +57,3 @@ describe("Testing productReducers", () => {
   });
 });
 
-export {};

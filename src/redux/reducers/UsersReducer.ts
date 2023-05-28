@@ -119,6 +119,9 @@ const usersSlice = createSlice({
       state.isLoggedIn = false;
       state.currentUser = null;
     },
+    emptyUsersReducer(state) {
+      state.users = [];
+    },
   },
   extraReducers: (build) => {
     build
@@ -126,9 +129,16 @@ const usersSlice = createSlice({
         if (action.payload) {
           return {
             ...state,
+            loading: false,
             users: action.payload,
           };
         }
+      })
+      .addCase(fetchAllUsers.pending, (state) => {
+        return {
+          ...state,
+          loading: true,
+        };
       })
       .addCase(loginUser.fulfilled, (state, action) => {
         if (action.payload instanceof AxiosError) {
@@ -148,5 +158,5 @@ const usersSlice = createSlice({
 });
 
 const usersReducer = usersSlice.reducer;
-export const { logoutUser } = usersSlice.actions;
+export const { logoutUser, emptyUsersReducer } = usersSlice.actions;
 export default usersReducer;

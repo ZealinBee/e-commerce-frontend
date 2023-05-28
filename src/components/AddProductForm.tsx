@@ -18,21 +18,21 @@ function AddProductForm({ addToggle, setAddToggle }: AddProductFormProps) {
     (state) => state.categoriesReducer.categories
   );
   const [images, setImages] = useState<string[]>([]);
+  const [category, setCategory] = useState<string>("1");
   const [newProduct, setNewProduct] = useState<SimpleProduct>({
     title: "",
     price: 0,
     description: "",
-    categoryId: 0,
+    categoryId: parseInt(category),
     images: images,
   });
-  const [category, setCategory] = useState<string>("");
 
-  async function categoryChangeHandler(event: SelectChangeEvent<string>) {
-    await setCategory(event.target.value);
+  function categoryChangeHandler(event: SelectChangeEvent<string>) {
+    setCategory(event.target.value);
     setNewProduct({
       ...newProduct,
       categoryId: parseInt(category),
-    })
+    });
   }
 
   function formChangeHandler(e: ChangeEvent<HTMLInputElement>) {
@@ -102,8 +102,8 @@ function AddProductForm({ addToggle, setAddToggle }: AddProductFormProps) {
             value={category}
             onChange={categoryChangeHandler}
           >
-            {categories.map((category) => (
-              <MenuItem value={category.id} key={category.id}>{category.name}</MenuItem>
+            {categories.map((cate) => (
+              <MenuItem value={cate.id} key={cate.id}>{cate.name}</MenuItem>
             ))}
           </Select>
           <Button variant="contained" type="submit">
