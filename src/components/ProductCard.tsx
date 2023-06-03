@@ -22,7 +22,6 @@ interface ProductCardProps {
 
 function ProductCard({ product }: ProductCardProps) {
   const dispatch = useAppDispatch();
-  const cart = useAppSelector((state) => state.cartReducer.items);
   const isItemInCart = useAppSelector((state) =>
     state.cartReducer.items.find((item) => item.product.id === product.id)
   );

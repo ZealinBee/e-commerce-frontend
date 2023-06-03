@@ -1,5 +1,4 @@
-import React, { useState, useEffect } from "react";
-import { SelectChangeEvent } from "@mui/material/Select";
+import React, { useEffect } from "react";
 import { FormControlLabel, RadioGroup, Radio } from "@mui/material";
 
 import { fetchAllCategories } from "../redux/reducers/categoriesReducer";
@@ -11,15 +10,10 @@ import {
 } from "../redux/reducers/productsReducer";
 
 const SortByCate = () => {
-  const [selectedCategory, setSelectedCategory] = useState("All");
   const dispatch = useAppDispatch();
   const categories = useAppSelectors(
     (state) => state.categoriesReducer.categories
   );
-
-  const handleCategoryChange = (e: SelectChangeEvent<string>) => {
-    setSelectedCategory(e.target.value);
-  };
 
   function handleSortByCategory(category: string) {
     dispatch(sortByCategory(category));

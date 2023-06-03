@@ -1,11 +1,10 @@
 import axios, { AxiosError } from "axios";
 
-import { PayloadAction, createAsyncThunk, createSlice } from "@reduxjs/toolkit";
+import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 
 import User from "../../types/User";
 import simpleUser from "../../types/simpleUser";
 import loginUserI from "../../types/loginUser";
-import Authorization from "../../types/Authorization";
 
 interface UsersState {
   users: User[];

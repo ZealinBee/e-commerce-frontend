@@ -22,7 +22,6 @@ function Cart() {
   const dispatch = useAppDispatch();
   const cartItems = useAppSelector((state) => state.cartReducer.items);
   const [showPrompt, setShowPrompt] = useState(false);
-  const [showItemDeletePrompt, setShowItemDeletePrompt] = useState(false);
 
   function emptyCartHandler() {
     setShowPrompt(true);
@@ -54,12 +53,6 @@ function Cart() {
       ) : (
         <>
           <h2>Shopping Cart</h2>
-          {/* <div className="cart-product-info">
-            <h5>Product</h5>
-            <h5>Quantity</h5>
-            <h>Price</h\5>
-            <h5>Subtotal</h5>
-          </div> */}
           <div className="cart">
             <div className="cart-items">
               {cartItems.map((item) => {

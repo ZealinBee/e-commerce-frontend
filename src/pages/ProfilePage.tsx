@@ -13,7 +13,7 @@ function ProfilePage() {
     if (!isLoggedIn) {
       navigate("/login");
     }
-  }, []);
+  }, [isLoggedIn, navigate]);
 
   return (
     <>

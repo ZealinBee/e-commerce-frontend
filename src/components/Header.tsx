@@ -9,7 +9,6 @@ import Menu from "@mui/material/Menu";
 import MenuIcon from "@mui/icons-material/Menu";
 import Container from "@mui/material/Container";
 import Avatar from "@mui/material/Avatar";
-import Button from "@mui/material/Button";
 import Tooltip from "@mui/material/Tooltip";
 import MenuItem from "@mui/material/MenuItem";
 import ShoppingCartIcon from "@mui/icons-material/ShoppingCart";
@@ -110,23 +109,25 @@ function Header() {
                   display: { xs: "block", md: "none" },
                 }}
               >
-                {/* <MenuItem  onClick={handleCloseNavMenu}>
-                  <Typography textAlign="center"></Typography>
-                </MenuItem> */}
+                <MenuItem onClick={handleCloseNavMenu}>
+                  <Typography textAlign="center">
+                    <Link to="/" style={{ color: "black" }}>
+                      Home
+                    </Link>
+                  </Typography>
+                </MenuItem>
               </Menu>
             </Box>
             <Typography
               variant="h5"
               noWrap
-              component="a"
-              href=""
               sx={{
                 mr: 2,
                 display: { xs: "flex", md: "none" },
                 flexGrow: 1,
                 fontWeight: 700,
                 letterSpacing: ".3rem",
-                color: "inherit",
+                color: "white",
                 textDecoration: "none",
               }}
             >
@@ -139,7 +140,6 @@ function Header() {
                 </Link>
               </MenuItem>
             </Box>
-
             <Box sx={{ flexGrow: 0 }}>
               <Tooltip title="Open settings">
                 <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>

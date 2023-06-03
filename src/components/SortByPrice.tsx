@@ -6,10 +6,10 @@ import InputLabel from "@mui/material/InputLabel";
 import useAppDispatch from "../redux/hooks/useAppDispatch";
 import { sortProductByPrice } from "../redux/reducers/productsReducer";
 
-
 interface SortByPriceProps {
   onSortByPrice: (direction: "asc" | "desc" | "Default") => void;
 }
+
 function SortByPrice({ onSortByPrice }: SortByPriceProps) {
   const dispatch = useAppDispatch();
   const [selectedPrice, setSelectedPrice] = useState<

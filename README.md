@@ -31,13 +31,13 @@ This project builds an e-commerce website with React, Redux and Typescript as we
 - Register and login functionalities with validation
 - Cart reducer, user can add to cart, modify quantity, empty cart and delete single cart items, app also asks for confirmation for emptying cart to prevent accidents
 
-TODO FOR FRIDAY (Might not be done by 12PM , but i will finish these today or tomorrow)
+TODOS
 
 - codebase cleanup, some files have too many lines
-- more form validation, right now the UX is bad for forms because when the admin put something wrong they won't know, tell user when they are making bad request
 - search don't work hand in hand with sorting, still buggy need to be fixed
 - image upload isn't ideal
 - localstorage for the user data
+- checkout functionalities for the future
 
 ## Project Structure
 

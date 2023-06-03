@@ -1,46 +1,61 @@
 .filter {
-    display:flex;
-    margin-top:1rem;
-    margin-left:2rem;
+  display: flex;
+  margin-top: 1rem;
+  margin-left: 2rem;
+  align-items: center;
+  .search {
+    display: flex;
     align-items: center;
-    .search {
-        display:flex;
-        align-items: center;
-        margin-right:auto;
-        button{
-            margin-left:0.5rem;
-        }
+    margin-right: auto;
+    button {
+      margin-left: 0.5rem;
     }
+  }
 
-    .sort-by-cate {
-        display:flex;
-        align-items: center;
-        margin-right:2rem;
-    }
+  .sort-by-cate {
+    display: flex;
+    align-items: center;
+    margin-right: 2rem;
+  }
 
-    label {
-        margin-right:1rem;
-    }
+  label {
+    margin-right: 1rem;
+  }
 
-    .sort-by-price{
-        margin-right:2rem;
-        display:flex;
-        align-items: center;
-    }
+  .sort-by-price {
+    margin-right: 2rem;
+    display: flex;
+    align-items: center;
+  }
 }
 
 .product-list-wrapper {
-    display:flex;
-    .sort-by-cate {
-        display:flex;
-        flex-direction: column;
-        width:15%;
-        margin-left:2rem;
-        margin-top:1rem;
-    }
-    .product-list {
-        margin: 0 2rem;
-        width:80%!important;
-    }
+  display: flex;
+  .sort-by-cate {
+    display: flex;
+    flex-direction: column;
+    width: 15%;
+    margin-left: 2rem;
+    margin-top: 1rem;
+  }
+  .product-list {
+    margin: 0 2rem;
+    width: 80% !important;
+  }
 }
 
+@media (max-width: 800px) {
+  .product-list-wrapper {
+    flex-direction: column;
+    .sort-by-cate {
+      width: 100%;
+      margin:1rem 2rem 0 2rem;
+      flex-direction: row;
+    }
+    .product-list {
+        margin: 0;
+        width: 100% !important;
+    }
+  }
+
+}
