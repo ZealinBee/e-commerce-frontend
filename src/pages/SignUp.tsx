@@ -13,7 +13,7 @@ import { Visibility, VisibilityOff } from "@mui/icons-material";
 
 import useAppDispatch from "../redux/hooks/useAppDispatch";
 import { createNewUser } from "../redux/reducers/usersReducer";
-import simpleUser from "../types/simpleUser";
+import simpleUser from "../types/SimpleUser";
 import Header from "../components/Header";
 import useAppSelector from "../redux/hooks/useAppSelectors";
 

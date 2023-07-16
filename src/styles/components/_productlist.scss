@@ -44,6 +44,10 @@
   }
 }
 
+.pagination {
+  margin-left:2rem;
+  margin-bottom:1rem;
+}
 @media (max-width: 800px) {
   .product-list-wrapper {
     flex-direction: column;

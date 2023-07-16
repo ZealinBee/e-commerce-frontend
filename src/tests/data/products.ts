@@ -1,4 +1,4 @@
-import NewProduct from "../../types/simpleProduct";
+import NewProduct from "../../types/SimpleProduct";
 import Product from "../../types/Product";
 import { category1, category2, category3 } from "./categories";
 

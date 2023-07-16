@@ -3,8 +3,8 @@ import axios, { AxiosError } from "axios";
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 
 import User from "../../types/User";
-import simpleUser from "../../types/simpleUser";
-import loginUserI from "../../types/loginUser";
+import simpleUser from "../../types/SimpleUser";
+import loginUserI from "../../types/LoginUser";
 
 interface UsersState {
   users: User[];

@@ -3,7 +3,7 @@ import { TextField, Button, Typography } from "@mui/material";
 
 import useAppDispatch from "../redux/hooks/useAppDispatch";
 import { updateProduct } from "../redux/reducers/productsReducer";
-import updateProductInterface from "../types/updateProduct";
+import updateProductInterface from "../types/UpdateProduct";
 
 interface UpdateProductFormProps {
   updateToggle: boolean;

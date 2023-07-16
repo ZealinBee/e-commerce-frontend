@@ -8,7 +8,7 @@ import User from "../../types/User";
 import { user1, user2, user3 } from "../data/users";
 import userServer from "../servers/userServer";
 import store from "../store";
-import SimpleUser from "../../types/simpleUser";
+import SimpleUser from "../../types/SimpleUser";
 
 beforeAll(() => {
   userServer.listen();

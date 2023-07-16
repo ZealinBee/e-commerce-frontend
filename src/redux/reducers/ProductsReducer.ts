@@ -6,8 +6,8 @@ import {
 import axios from "axios";
 
 import Product from "../../types/Product";
-import SimpleProduct from "../../types/simpleProduct";
-import updateProductInterface from "../../types/updateProduct";
+import SimpleProduct from "../../types/SimpleProduct";
+import updateProductInterface from "../../types/UpdateProduct";
 
 interface ProductsState {
   products: Product[];
@@ -34,7 +34,7 @@ export const fetchAllProducts = createAsyncThunk(
   async () => {
     try {
       const result = await axios.get<Product[]>(
-        "https://api.escuelajs.co/api/v1/products"
+        `https://api.escuelajs.co/api/v1/products`
       );
       return result.data;
     } catch (error) {

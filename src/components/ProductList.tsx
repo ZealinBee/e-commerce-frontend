@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { Grid } from "@mui/material";
-import { TextField, Button } from "@mui/material";
+import { TextField, Button, Pagination } from "@mui/material";
 
 import useAppDispatch from "../redux/hooks/useAppDispatch";
 import {
@@ -22,7 +22,22 @@ function ProductList() {
       return state.productsReducer.products;
     }
   });
+  const productsPerPage = 6;
+  const [page, setPage] = useState(1);
+  const indexOfLastProduct = page * productsPerPage;
+  const indexOfFirstProduct = indexOfLastProduct - productsPerPage;
+  const paginatedProducts = products.slice(indexOfFirstProduct, indexOfLastProduct)
+
+  function handlePageChange(event: React.ChangeEvent<unknown>, value: number) {
+    setPage(value);
+  }
+
+  useEffect(() => {
+    console.log(page)
+  }, [page])
+
   const dispatch = useAppDispatch();
+
   useEffect(() => {
     dispatch(fetchAllProducts());
   }, [dispatch]);
@@ -60,7 +75,7 @@ function ProductList() {
           spacing={2}
           sx={{ padding: " 1rem 2rem" }}
         >
-          {products.map((product: Product) => {
+          {paginatedProducts.map((product: Product) => {
             return (
               <Grid item xs={12} sm={6} md={6} lg={4} key={product.id}>
                 <ProductCard product={product}></ProductCard>
@@ -69,6 +84,7 @@ function ProductList() {
           })}
         </Grid>
       </div>
+      <Pagination count={Math.ceil(products.length / productsPerPage)} className="pagination" onChange={handlePageChange}/>
     </div>
   );
 }

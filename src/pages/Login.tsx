@@ -3,7 +3,7 @@ import { useNavigate } from "react-router-dom";
 import { TextField, Button, Typography } from "@mui/material";
 import { Link } from "react-router-dom";
 
-import loginUserI from "../types/loginUser";
+import loginUserI from "../types/LoginUser";
 import useAppDispatch from "../redux/hooks/useAppDispatch";
 import { loginUser } from "../redux/reducers/usersReducer";
 import Header from "../components/Header";

@@ -1,7 +1,7 @@
 import { rest } from 'msw'
 import { setupServer } from 'msw/node'
 import { product1, product2, product3, product4 } from '../data/products'
-import  NewProduct  from '../../types/simpleProduct'
+import  NewProduct  from '../../types/SimpleProduct'
 import  Product  from '../../types/Product'
 import categories from '../data/categories'
 

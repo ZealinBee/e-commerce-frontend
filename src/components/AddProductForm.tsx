@@ -3,7 +3,7 @@ import { TextField, Button, Select, InputLabel, MenuItem, Typography } from "@mu
 
 import useAppDispatch from "../redux/hooks/useAppDispatch";
 import { createNewProduct } from "../redux/reducers/productsReducer";
-import SimpleProduct from "../types/simpleProduct";
+import SimpleProduct from "../types/SimpleProduct";
 import useAppSelector from "../redux/hooks/useAppSelectors";
 import { SelectChangeEvent } from "@mui/material";
 
