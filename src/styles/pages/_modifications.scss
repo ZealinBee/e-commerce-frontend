@@ -1,9 +1,20 @@
-.product-form {
-  width: 40%;
-  margin: 2rem;
-  margin-right: auto;
-  position: absolute;
-  left: 20%;
+.product-form-wrapper {
+  width: 100%;
+  position: fixed;
+  height: 100vh;
+
+  .product-form {
+    width: calc(40% + 200px);
+    margin: 2rem;
+    margin-right: auto;
+    position: absolute;
+    left: 20%;
+    background-color: rgb(247, 245, 245);
+    @media (max-width: 900px) {
+      width: 80%;
+      left:calc(10% - 2rem);
+    }
+  }
 }
 
 .wrapper {

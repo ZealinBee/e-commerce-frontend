@@ -69,89 +69,49 @@ function Header() {
                 noWrap
                 sx={{
                   mr: 2,
-                  display: { xs: "none", md: "flex" },
+                  display: "flex",
                   fontWeight: 700,
                   letterSpacing: ".3rem",
                   color: "white",
                   textDecoration: "none",
+                  fontSize: { xs: "1.1rem", md: "2rem" },
                 }}
               >
                 REACT-STORE
               </Typography>
             </Link>
 
-            <Box sx={{ flexGrow: 1, display: { xs: "flex", md: "none" } }}>
-              <IconButton
-                size="large"
-                aria-label="account of current user"
-                aria-controls="menu-appbar"
-                aria-haspopup="true"
-                onClick={handleOpenNavMenu}
-                color="inherit"
-              >
-                <MenuIcon />
-              </IconButton>
-              <Menu
-                id="menu-appbar"
-                anchorEl={anchorElNav}
-                anchorOrigin={{
-                  vertical: "bottom",
-                  horizontal: "left",
-                }}
-                keepMounted
-                transformOrigin={{
-                  vertical: "top",
-                  horizontal: "left",
-                }}
-                open={Boolean(anchorElNav)}
-                onClose={handleCloseNavMenu}
-                sx={{
-                  display: { xs: "block", md: "none" },
-                }}
-              >
-                <MenuItem onClick={handleCloseNavMenu}>
-                  <Typography textAlign="center">
-                    <Link to="/" style={{ color: "black" }}>
-                      Home
-                    </Link>
-                  </Typography>
-                </MenuItem>
-              </Menu>
+            <Box sx={{ flexGrow: 1, display: { md: "flex", xs: "none" } }}>
+              <Link to="/" style={{ color: "white" }}>
+                <MenuItem>Home</MenuItem>{" "}
+              </Link>
             </Box>
-            <Typography
-              variant="h5"
-              noWrap
-              sx={{
-                mr: 2,
-                display: { xs: "flex", md: "none" },
-                flexGrow: 1,
-                fontWeight: 700,
-                letterSpacing: ".3rem",
-                color: "white",
-                textDecoration: "none",
-              }}
-            >
-              REACT-STORE
-            </Typography>
-            <Box sx={{ flexGrow: 1, display: { xs: "none", md: "flex" } }}>
-              <MenuItem>
-                <Link to="/" style={{ color: "white" }}>
-                  Home
-                </Link>
-              </MenuItem>
-            </Box>
-            <Box sx={{ flexGrow: 0 }}>
+            <Box sx={{ flexGrow: 0, ml:"auto" }}>
               <Tooltip title="Open settings">
                 <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
                   {isLoggedIn ? (
-                    <Avatar alt="profile pic" src={avatar} />
+                    <Avatar
+                      alt="profile pic"
+                      src={avatar}
+                      sx={{
+                        width: { xs: 30, md: 40 },
+                        height: { xs: 30, md: 40 },
+                      }}
+                    />
                   ) : (
-                    <Avatar alt="profile pic" src="" />
+                    <Avatar
+                      alt="profile pic"
+                      src=""
+                      sx={{
+                        width: { xs: 30, md: 40 },
+                        height: { xs: 30, md: 40 },
+                      }}
+                    />
                   )}
                 </IconButton>
               </Tooltip>
               <Link to="/cart">
-                <IconButton sx={{ ml: "35px" }}>
+                <IconButton sx={{ ml: { xs: "10px", md: "35px" } }}>
                   <StyledBadge badgeContent={quantity} color="secondary">
                     <ShoppingCartIcon></ShoppingCartIcon>
                   </StyledBadge>

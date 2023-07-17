@@ -21,7 +21,7 @@ function DeleteProductForm({
   async function formSubmitHandler(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
     const response = await dispatch(deleteProduct(id));
-    if(response.payload === "error"){
+    if (response.payload === "error") {
       toast.error("Delete failed, enter a proper product ID");
       return;
     }
@@ -34,22 +34,33 @@ function DeleteProductForm({
   return (
     <>
       {!deleteToggle && (
-        <form onSubmit={formSubmitHandler} className="product-form">
-          <TextField
-            label="Product ID"
-            name="id"
-            style={{ marginBottom: "1rem" }}
-            onChange={(e) => setId(Number(e.target.value))}
-          ></TextField>
-          <Button variant="contained" style={{ marginBottom: "1rem" }} type="submit">
-            Delete Product
-          </Button>
-          <Button variant="outlined" color="secondary" onClick={() => setDeleteToggle(!deleteToggle)}>
-            Cancel
-          </Button>
-          <Typography sx={{mt:"1rem"}}>You can also delete the product directly in the product page</Typography>
-
-        </form>
+        <div className="product-form-wrapper">
+          <form onSubmit={formSubmitHandler} className="product-form">
+            <TextField
+              label="Product ID"
+              name="id"
+              style={{ marginBottom: "1rem" }}
+              onChange={(e) => setId(Number(e.target.value))}
+            ></TextField>
+            <Button
+              variant="contained"
+              style={{ marginBottom: "1rem" }}
+              type="submit"
+            >
+              Delete Product
+            </Button>
+            <Button
+              variant="outlined"
+              color="secondary"
+              onClick={() => setDeleteToggle(!deleteToggle)}
+            >
+              Cancel
+            </Button>
+            <Typography sx={{ mt: "1rem" }}>
+              You can also delete the product directly in the product page
+            </Typography>
+          </form>
+        </div>
       )}
     </>
   );

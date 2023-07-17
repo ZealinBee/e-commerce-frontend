@@ -50,44 +50,46 @@ function UpdateProductForm({
   return (
     <>
       {!updateToggle && (
-        <form onSubmit={formSubmitHandler} className="product-form">
-          <TextField
-            label="Product ID"
-            name="id"
-            style={{ marginBottom: "1rem" }}
-            onChange={formChangeHandler}
-          ></TextField>
-          <TextField
-            label="Product Name"
-            name="title"
-            style={{ marginBottom: "1rem" }}
-            onChange={formChangeHandler}
-          ></TextField>
-          <TextField
-            label="Product Price"
-            name="price"
-            style={{ marginBottom: "1rem" }}
-            onChange={formChangeHandler}
-            type="number"
-          ></TextField>
-          <Button
-            variant="contained"
-            style={{ marginBottom: "1rem" }}
-            type="submit"
-          >
-            Update Product
-          </Button>
-          <Button
-            variant="outlined"
-            color="secondary"
-            onClick={() => setUpdateToggle(!updateToggle)}
-          >
-            Cancel
-          </Button>
-          <Typography sx={{ mt: "1rem" }}>
-            You can also update the product directly in the product page
-          </Typography>
-        </form>
+        <div className="product-form-wrapper">
+          <form onSubmit={formSubmitHandler} className="product-form">
+            <TextField
+              label="Product ID"
+              name="id"
+              style={{ marginBottom: "1rem" }}
+              onChange={formChangeHandler}
+            ></TextField>
+            <TextField
+              label="Product Name"
+              name="title"
+              style={{ marginBottom: "1rem" }}
+              onChange={formChangeHandler}
+            ></TextField>
+            <TextField
+              label="Product Price"
+              name="price"
+              style={{ marginBottom: "1rem" }}
+              onChange={formChangeHandler}
+              type="number"
+            ></TextField>
+            <Button
+              variant="contained"
+              style={{ marginBottom: "1rem" }}
+              type="submit"
+            >
+              Update Product
+            </Button>
+            <Button
+              variant="outlined"
+              color="secondary"
+              onClick={() => setUpdateToggle(!updateToggle)}
+            >
+              Cancel
+            </Button>
+            <Typography sx={{ mt: "1rem" }}>
+              You can also update the product directly in the product page
+            </Typography>
+          </form>
+        </div>
       )}
     </>
   );

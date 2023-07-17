@@ -1,5 +1,12 @@
 import React, { useState, ChangeEvent } from "react";
-import { TextField, Button, Select, InputLabel, MenuItem, Typography } from "@mui/material";
+import {
+  TextField,
+  Button,
+  Select,
+  InputLabel,
+  MenuItem,
+  Typography,
+} from "@mui/material";
 import { toast } from "react-toastify";
 
 import useAppDispatch from "../redux/hooks/useAppDispatch";
@@ -46,7 +53,7 @@ function AddProductForm({ addToggle, setAddToggle }: AddProductFormProps) {
   async function formSubmitHandler(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
     const response = await dispatch(createNewProduct(newProduct));
-    if(response.payload === "error"){
+    if (response.payload === "error") {
       toast.error("Create failed, please check your input");
       return;
     }
@@ -72,58 +79,62 @@ function AddProductForm({ addToggle, setAddToggle }: AddProductFormProps) {
   return (
     <>
       {!addToggle && (
-        <form className="product-form" onSubmit={formSubmitHandler}>
-          <TextField
-            label="Product Name"
-            name="title"
-            value={newProduct.title}
-            onChange={formChangeHandler}
-            style={{ marginBottom: "1rem" }}
-          ></TextField>
-          <TextField
-            label="Product Price"
-            name="price"
-            value={newProduct.price}
-            onChange={formChangeHandler}
-            type="number"
-            style={{ marginBottom: "1rem" }}
-          ></TextField>
-          <TextField
-            label="Product Description"
-            name="description"
-            value={newProduct.description}
-            onChange={formChangeHandler}
-            style={{ marginBottom: "1rem" }}
-          ></TextField>
-          <Typography>Image URL format: url,url,url,</Typography>
-          <TextField
-            value={images}
-            onChange={imageChangeHandler}
-            label={`Image URL`}
-            style={{ marginBottom: "1rem" }}
-          ></TextField>
-          <InputLabel id="category-select-label">Category</InputLabel>
-          <Select
-            style={{ marginBottom: "1rem" }}
-            value={category}
-            onChange={categoryChangeHandler}
-          >
-            {categories.map((cate) => (
-              <MenuItem value={cate.id} key={cate.id}>{cate.name}</MenuItem>
-            ))}
-          </Select>
-          <Button variant="contained" type="submit">
-            Submit Product
-          </Button>
-          <Button
-            variant="outlined"
-            color="secondary"
-            style={{ marginTop: "1rem" }}
-            onClick={() => setAddToggle(!addToggle)}
-          >
-            Cancel
-          </Button>
-        </form>
+        <div className="product-form-wrapper">
+          <form className="product-form" onSubmit={formSubmitHandler}>
+            <TextField
+              label="Product Name"
+              name="title"
+              value={newProduct.title}
+              onChange={formChangeHandler}
+              style={{ marginBottom: "1rem" }}
+            ></TextField>
+            <TextField
+              label="Product Price"
+              name="price"
+              value={newProduct.price}
+              onChange={formChangeHandler}
+              type="number"
+              style={{ marginBottom: "1rem" }}
+            ></TextField>
+            <TextField
+              label="Product Description"
+              name="description"
+              value={newProduct.description}
+              onChange={formChangeHandler}
+              style={{ marginBottom: "1rem" }}
+            ></TextField>
+            <Typography>Image URL format: url,url,url,</Typography>
+            <TextField
+              value={images}
+              onChange={imageChangeHandler}
+              label={`Image URL`}
+              style={{ marginBottom: "1rem" }}
+            ></TextField>
+            <InputLabel id="category-select-label">Category</InputLabel>
+            <Select
+              style={{ marginBottom: "1rem" }}
+              value={category}
+              onChange={categoryChangeHandler}
+            >
+              {categories.map((cate) => (
+                <MenuItem value={cate.id} key={cate.id}>
+                  {cate.name}
+                </MenuItem>
+              ))}
+            </Select>
+            <Button variant="contained" type="submit">
+              Submit Product
+            </Button>
+            <Button
+              variant="outlined"
+              color="secondary"
+              style={{ marginTop: "1rem" }}
+              onClick={() => setAddToggle(!addToggle)}
+            >
+              Cancel
+            </Button>
+          </form>
+        </div>
       )}
     </>
   );

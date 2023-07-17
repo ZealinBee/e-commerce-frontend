@@ -45,7 +45,8 @@
 }
 
 .pagination {
-  margin-left:2rem;
+  display:flex;
+  justify-content: center;
   margin-bottom:1rem;
 }
 @media (max-width: 800px) {
