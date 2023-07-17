@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { TextField, Button, Typography } from "@mui/material";
+import { toast } from "react-toastify";
 
 import useAppDispatch from "../redux/hooks/useAppDispatch";
 import { updateProduct } from "../redux/reducers/productsReducer";
@@ -23,15 +24,20 @@ function UpdateProductForm({
       price: 0,
     });
 
-  function formSubmitHandler(e: React.FormEvent<HTMLFormElement>) {
+  async function formSubmitHandler(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
-    dispatch(updateProduct(updateProductState));
+    const response = await dispatch(updateProduct(updateProductState));
+    if (response.payload === "error") {
+      toast.error("Update failed, enter a proper product ID");
+      return;
+    }
     setUpdateToggle(!updateToggle);
     setUpdateProductState({
       id: 0,
       title: "",
       price: 0,
     });
+    toast.success("Update successfully!");
   }
 
   function formChangeHandler(e: React.ChangeEvent<HTMLInputElement>) {
@@ -78,7 +84,9 @@ function UpdateProductForm({
           >
             Cancel
           </Button>
-          <Typography sx={{mt:"1rem"}}>You can also update the product directly in the product page</Typography>
+          <Typography sx={{ mt: "1rem" }}>
+            You can also update the product directly in the product page
+          </Typography>
         </form>
       )}
     </>

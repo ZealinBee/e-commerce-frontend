@@ -1,5 +1,6 @@
 import React, { useState, ChangeEvent } from "react";
 import { TextField, Button, Select, InputLabel, MenuItem, Typography } from "@mui/material";
+import { toast } from "react-toastify";
 
 import useAppDispatch from "../redux/hooks/useAppDispatch";
 import { createNewProduct } from "../redux/reducers/productsReducer";
@@ -42,10 +43,15 @@ function AddProductForm({ addToggle, setAddToggle }: AddProductFormProps) {
     });
   }
 
-  function formSubmitHandler(e: React.FormEvent<HTMLFormElement>) {
+  async function formSubmitHandler(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
-    dispatch(createNewProduct(newProduct));
+    const response = await dispatch(createNewProduct(newProduct));
+    if(response.payload === "error"){
+      toast.error("Create failed, please check your input");
+      return;
+    }
     setAddToggle(!addToggle);
+    toast.success(`${newProduct.title} created successfully!}`);
     setNewProduct({
       title: "",
       price: 0,

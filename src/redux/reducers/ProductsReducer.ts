@@ -226,7 +226,17 @@ const productsSlice = createSlice({
           (product) => product.id !== action.meta.arg
         );
         state.products = updatedProducts;
-      });
+      })
+      .addCase(updateProduct.rejected, (state, action) => {
+        action.payload = "error"
+      })
+      .addCase(deleteProduct.rejected, (state, action) => {
+        action.payload = "error"
+      })
+      .addCase(createNewProduct.rejected, (state, action) => {
+        action.payload = "error"
+        state.error = action.error.message || "Failed to create a new product";
+      })
   },
 });
 

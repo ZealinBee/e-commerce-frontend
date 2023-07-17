@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { TextField, Button, Typography } from "@mui/material";
+import { toast } from "react-toastify";
 
 import useAppDispatch from "../redux/hooks/useAppDispatch";
 import { deleteProduct } from "../redux/reducers/productsReducer";
@@ -19,10 +20,15 @@ function DeleteProductForm({
 
   async function formSubmitHandler(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
+    const response = await dispatch(deleteProduct(id));
+    if(response.payload === "error"){
+      toast.error("Delete failed, enter a proper product ID");
+      return;
+    }
     await dispatch(removeFromCart(id));
-    await dispatch(deleteProduct(id));
     setDeleteToggle(!deleteToggle);
     setId(0);
+    toast.success("Delete successfully!");
   }
 
   return (

@@ -4,6 +4,7 @@ import DeleteIcon from "@mui/icons-material/Delete";
 import AddIcon from "@mui/icons-material/Add";
 import UpdateIcon from "@mui/icons-material/Update";
 import { useNavigate } from "react-router-dom";
+import { ToastContainer } from "react-toastify";
 
 import AddProductForm from "../components/AddProductForm";
 import Headers from "../components/Header";
@@ -59,6 +60,18 @@ function Modification() {
           setDeleteToggle={setDeleteToggle}
         ></DeleteProductForm>
       </div>
+      <ToastContainer
+        position="bottom-right"
+        autoClose={5000}
+        hideProgressBar={false}
+        newestOnTop={false}
+        closeOnClick
+        rtl={false}
+        pauseOnFocusLoss
+        draggable
+        pauseOnHover
+        theme="light"
+      />
     </>
   );
 }
