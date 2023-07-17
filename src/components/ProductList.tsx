@@ -32,10 +32,6 @@ function ProductList() {
     setPage(value);
   }
 
-  useEffect(() => {
-    console.log(page)
-  }, [page])
-
   const dispatch = useAppDispatch();
 
   useEffect(() => {

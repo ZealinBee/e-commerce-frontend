@@ -76,8 +76,11 @@ export const searchProduct = createAsyncThunk(
 
 export const sortByCategory = createAsyncThunk(
   "products/sortByCategory",
-  async (category: string) => {
+  async (category:string , {getState}) => {
     try {
+      const currentState = getState() as any
+      const sortByPrice = currentState.productsReducer.sortByPrice
+
       const result = await axios.get<Product[]>(
         `https://api.escuelajs.co/api/v1/products`
       );
@@ -86,6 +89,15 @@ export const sortByCategory = createAsyncThunk(
         (product) =>
           product.category.name.toLowerCase() === category.toLowerCase()
       );
+
+      if (sortByPrice === "asc") {
+        sortedProducts.sort((a, b) => a.price - b.price);
+      }else if (sortByPrice === "desc") {
+        sortedProducts.sort((a, b) => b.price - a.price);
+      } else {
+        sortedProducts.sort((a, b) => a.id - b.id);
+      }
+    
       return sortedProducts;
     } catch (error) {
       if (axios.isAxiosError(error)) {
@@ -179,7 +191,6 @@ const productsSlice = createSlice({
         state.products.sort((a, b) => {
           const priceA = a.price;
           const priceB = b.price;
-
           if (action.payload === "asc") {
             return priceA - priceB;
           } else if (action.payload === "desc") {
