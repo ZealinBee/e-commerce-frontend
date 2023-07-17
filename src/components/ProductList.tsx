@@ -26,7 +26,10 @@ function ProductList() {
   const [page, setPage] = useState(1);
   const indexOfLastProduct = page * productsPerPage;
   const indexOfFirstProduct = indexOfLastProduct - productsPerPage;
-  const paginatedProducts = products.slice(indexOfFirstProduct, indexOfLastProduct)
+  const paginatedProducts = products.slice(
+    indexOfFirstProduct,
+    indexOfLastProduct
+  );
 
   function handlePageChange(event: React.ChangeEvent<unknown>, value: number) {
     setPage(value);
@@ -80,7 +83,11 @@ function ProductList() {
           })}
         </Grid>
       </div>
-      <Pagination count={Math.ceil(products.length / productsPerPage)} className="pagination" onChange={handlePageChange}/>
+      <Pagination
+        count={Math.ceil(products.length / productsPerPage)}
+        className="pagination"
+        onChange={handlePageChange}
+      />
     </div>
   );
 }

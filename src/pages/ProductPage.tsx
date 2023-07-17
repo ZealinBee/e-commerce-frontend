@@ -3,6 +3,7 @@ import { Typography, Button } from "@mui/material";
 import { useNavigate } from "react-router-dom";
 import "react-responsive-carousel/lib/styles/carousel.min.css";
 import { Carousel } from "react-responsive-carousel";
+import { ToastContainer, toast } from "react-toastify";
 
 import useAppDispatch from "../redux/hooks/useAppDispatch";
 import useAppSelector from "../redux/hooks/useAppSelectors";
@@ -39,6 +40,7 @@ function ProductPage() {
   function addToCartHandler() {
     if (selectedProduct) {
       dispatch(addToCart(selectedProduct));
+      toast.success(`${selectedProduct.title} added to cart!`);
     }
   }
 
@@ -129,6 +131,18 @@ function ProductPage() {
           ) : null}
         </div>
       </div>
+      <ToastContainer
+        position="bottom-right"
+        autoClose={5000}
+        hideProgressBar={false}
+        newestOnTop={false}
+        closeOnClick
+        rtl={false}
+        pauseOnFocusLoss
+        draggable
+        pauseOnHover
+        theme="light"
+      />{" "}
     </>
   );
 }

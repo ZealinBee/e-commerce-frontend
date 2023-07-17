@@ -9,6 +9,7 @@ import {
 import { Typography } from "@mui/material";
 import { Button } from "@mui/material";
 import { Link } from "react-router-dom";
+import { toast } from "react-toastify";
 
 import Product from "../types/Product";
 import useAppDispatch from "../redux/hooks/useAppDispatch";
@@ -28,6 +29,7 @@ function ProductCard({ product }: ProductCardProps) {
 
   function addToCartHandler() {
     dispatch(addToCart(product));
+    toast.success(`${product.title} added to cart!`);
   }
 
   function selectProductHandler() {

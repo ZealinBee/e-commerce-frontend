@@ -1,6 +1,7 @@
 import React from "react";
 import { RouterProvider, createBrowserRouter } from "react-router-dom";
 import { ThemeProvider, createTheme } from "@mui/material";
+import 'react-toastify/dist/ReactToastify.css';
 
 import HomePage from "./pages/HomePage";
 import ProductPage from "./pages/ProductPage";

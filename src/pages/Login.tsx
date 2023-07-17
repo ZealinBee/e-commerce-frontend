@@ -2,12 +2,14 @@ import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { TextField, Button, Typography } from "@mui/material";
 import { Link } from "react-router-dom";
+import { ToastContainer, toast } from "react-toastify";
 
 import loginUserI from "../types/LoginUser";
 import useAppDispatch from "../redux/hooks/useAppDispatch";
 import { loginUser } from "../redux/reducers/usersReducer";
 import Header from "../components/Header";
 import useAppSelector from "../redux/hooks/useAppSelectors";
+import { error } from "console";
 
 function Login() {
   const [user, setUser] = useState<loginUserI>({
@@ -25,9 +27,14 @@ function Login() {
     });
   }
 
-  function formSubmitHandler(e: React.FormEvent<HTMLFormElement>) {
+  async function formSubmitHandler(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
-    dispatch(loginUser(user));
+    const response = await dispatch(loginUser(user));
+    if (response.payload === "error") {
+      toast.error("Wrong email or password");
+      return;
+    }
+    toast.success("Login successfully!");
   }
 
   const isLoggedIn = useAppSelector((state) => state.usersReducer.isLoggedIn);
@@ -79,6 +86,18 @@ function Login() {
           ) : null}
         </form>
       </div>
+      <ToastContainer
+        position="bottom-right"
+        autoClose={5000}
+        hideProgressBar={false}
+        newestOnTop={false}
+        closeOnClick
+        rtl={false}
+        pauseOnFocusLoss
+        draggable
+        pauseOnHover
+        theme="light"
+      />
     </>
   );
 }

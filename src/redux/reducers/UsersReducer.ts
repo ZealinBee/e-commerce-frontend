@@ -149,6 +149,7 @@ const usersSlice = createSlice({
       })
       .addCase(loginUser.rejected, (state, action) => {
         state.error = action.error.message as string;
+        action.payload = "error"
       })
       .addCase(createNewUser.rejected, (state, action) => {
         state.error = action.error.name as string;

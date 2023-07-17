@@ -5,6 +5,7 @@ import { IconButton } from "@mui/material";
 import { Link } from "react-router-dom";
 import AddIcon from "@mui/icons-material/Add";
 import RemoveIcon from "@mui/icons-material/Remove";
+import { ToastContainer, toast } from "react-toastify";
 
 import Header from "../components/Header";
 import useAppDispatch from "../redux/hooks/useAppDispatch";
@@ -34,10 +35,6 @@ function Cart() {
   function handleConfirmation() {
     dispatch(emptyCart());
     setShowPrompt(false);
-  }
-
-  function handleDeleteItem() {
-    setShowPrompt(true);
   }
 
   return (
@@ -103,7 +100,10 @@ function Cart() {
                     </p>
                     <p>
                       <DeleteIcon
-                        onClick={() => dispatch(removeFromCart(item.product.id))}
+                        onClick={() => {
+                          dispatch(removeFromCart(item.product.id));
+                          toast.warn(`${item.product.title} removed from cart!`);
+                        }}
                       ></DeleteIcon>
                     </p>
                   </div>
@@ -137,6 +137,18 @@ function Cart() {
               </Button>
             </div>
           </div>
+          <ToastContainer
+            position="bottom-right"
+            autoClose={5000}
+            hideProgressBar={false}
+            newestOnTop={false}
+            closeOnClick
+            rtl={false}
+            pauseOnFocusLoss
+            draggable
+            pauseOnHover
+            theme="light"
+          />{" "}
         </>
       )}
     </>
