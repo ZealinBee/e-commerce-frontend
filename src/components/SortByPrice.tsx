@@ -23,7 +23,7 @@ function SortByPrice({ onSortByPrice }: SortByPriceProps) {
 
   return (
     <div className="sort-by-price">
-      <InputLabel id="price-select">Sort by Price</InputLabel>
+      <InputLabel id="price-select" sx={{color:"text.primary"}}>Sort by Price</InputLabel>
       <Select
         labelId="price-select"
         label="Price"

@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { Grid } from "@mui/material";
 import { TextField, Button, Pagination } from "@mui/material";
+import { ToastContainer, toast } from "react-toastify";
 
 import useAppDispatch from "../redux/hooks/useAppDispatch";
 import {
@@ -43,8 +44,13 @@ function ProductList() {
 
   const [query, setQuery] = useState("");
 
-  const handleSearch = () => {
-    dispatch(searchProduct(query));
+  const handleSearch = async () => {
+    const response = await dispatch(searchProduct(query));
+    if (response.payload === "error") {
+      toast.warn(`Can't find product ${query}`, {
+        theme: "light",
+      });
+    }
   };
 
   const handleSortByPrice = (direction: "asc" | "desc" | "Default") => {
@@ -72,12 +78,12 @@ function ProductList() {
           className="product-list"
           container
           spacing={2}
-          sx={{ padding: " 1rem 2rem" }}
+          sx={{ padding: {md: "1rem 2rem 1rem 2rem", xs: "0 1.5rem 0 0"}  }}
         >
           {paginatedProducts.map((product: Product) => {
             return (
               <Grid item xs={12} sm={6} md={6} lg={4} key={product.id}>
-                <ProductCard product={product}></ProductCard>
+                <ProductCard product={product}></ProductCard> 
               </Grid>
             );
           })}
@@ -87,6 +93,18 @@ function ProductList() {
         count={Math.ceil(products.length / productsPerPage)}
         className="pagination"
         onChange={handlePageChange}
+      />
+      <ToastContainer
+        position="bottom-right"
+        autoClose={5000}
+        hideProgressBar={false}
+        newestOnTop={false}
+        closeOnClick
+        rtl={false}
+        pauseOnFocusLoss
+        draggable
+        pauseOnHover
+        theme="light"
       />
     </div>
   );

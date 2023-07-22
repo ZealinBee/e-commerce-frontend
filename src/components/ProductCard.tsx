@@ -43,7 +43,7 @@ function ProductCard({ product }: ProductCardProps) {
       : description;
 
   return (
-    <Card>
+    <Card sx={{backgroundColor: "background.default"}} >
       <Link
         to={`/products/${product.id}`}
         className="card-link"
@@ -58,7 +58,7 @@ function ProductCard({ product }: ProductCardProps) {
           ></CardMedia>
           <CardContent>
             {" "}
-            <Typography variant="h5">{product.title}</Typography>
+            <Typography variant="h5" >{product.title}</Typography>
             <Typography variant="body2" color="primary">
               €{product.price}.00
             </Typography>

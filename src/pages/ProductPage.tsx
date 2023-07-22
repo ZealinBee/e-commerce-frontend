@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Typography, Button } from "@mui/material";
+import { Typography, Button, Box } from "@mui/material";
 import { useNavigate } from "react-router-dom";
 import "react-responsive-carousel/lib/styles/carousel.min.css";
 import { Carousel } from "react-responsive-carousel";
@@ -77,7 +77,7 @@ function ProductPage() {
   }
 
   return (
-    <>
+    <Box sx={{backgroundColor: "background.default", color:"text.primary"}}>
       <Header></Header>
       <div className="product-container">
         <Carousel className="carousel">
@@ -143,7 +143,7 @@ function ProductPage() {
         pauseOnHover
         theme="light"
       />{" "}
-    </>
+    </Box>
   );
 }
 

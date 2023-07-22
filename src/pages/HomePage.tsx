@@ -1,12 +1,13 @@
 import React from "react";
 import { ToastContainer } from "react-toastify";
+import { Box } from "@mui/system";
 
 import Header from "../components/Header";
 import ProductList from "../components/ProductList";
 
 function HomePage() {
   return (
-    <>
+    <Box sx={{backgroundColor:"background.default", color:"text.primary"}}>
       <Header></Header>
       <ProductList></ProductList>
       <ToastContainer
@@ -21,7 +22,7 @@ function HomePage() {
         pauseOnHover
         theme="light"
       />
-    </>
+    </Box>
   );
 }
 

@@ -60,7 +60,8 @@ export const searchProduct = createAsyncThunk(
       const searchResults = products.filter((product) =>
         product.title.toLowerCase().includes(query.toLowerCase())
       );
-
+      if(searchResults.length === 0) throw new Error("No results found")
+      
       return searchResults;
     } catch (error) {
       if (axios.isAxiosError(error)) {
@@ -236,6 +237,9 @@ const productsSlice = createSlice({
       .addCase(createNewProduct.rejected, (state, action) => {
         action.payload = "error"
         state.error = action.error.message || "Failed to create a new product";
+      })
+      .addCase(searchProduct.rejected, (state, action) => {
+        action.payload = "error"
       })
   },
 });

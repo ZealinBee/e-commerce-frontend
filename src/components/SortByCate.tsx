@@ -25,7 +25,7 @@ const SortByCate = () => {
 
   return (
     <>
-      <RadioGroup defaultValue="All" className="sort-by-cate">
+      <RadioGroup defaultValue="All" className="sort-by-cate" >
         <FormControlLabel
           control={<Radio />}
           label="All"
