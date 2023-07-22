@@ -38,12 +38,12 @@ function ProductCard({ product }: ProductCardProps) {
 
   let description = product.description;
   let truncatedDescription =
-    description.length > 80
-      ? description.substring(0, 80) + "..."
+    description.length > 60
+      ? description.substring(0, 60) + "..."
       : description;
 
   return (
-    <Card sx={{backgroundColor: "background.default"}} >
+    <Card sx={{backgroundColor: "background.default", maxHeight:"330px", minHeight:{md: "330px",xs: "300px"}}} >
       <Link
         to={`/products/${product.id}`}
         className="card-link"
@@ -69,9 +69,9 @@ function ProductCard({ product }: ProductCardProps) {
 
       <CardActions>
         {isItemInCart ? (
-          <Button disabled>Added to cart</Button>
+          <Button disabled >Added to cart</Button>
         ) : (
-          <Button onClick={addToCartHandler}>Add to cart</Button>
+          <Button onClick={addToCartHandler} >Add to cart</Button>
         )}
       </CardActions>
     </Card>

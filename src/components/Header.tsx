@@ -69,12 +69,13 @@ function Header() {
                 noWrap
                 sx={{
                   mr: 2,
+                  ml: { xs: "0.5rem", md: "0.5rem" },
                   display: "flex",
                   fontWeight: 700,
                   letterSpacing: ".3rem",
                   color: "white",
                   textDecoration: "none",
-                  fontSize: { xs: "1.1rem", md: "2rem" },
+                  fontSize: { xs: "1.75rem", md: "2rem" },
                 }}
               >
                 REACT-STORE

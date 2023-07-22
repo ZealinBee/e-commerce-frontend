@@ -22,9 +22,11 @@
 @media (max-width: 850px) {
   .product-container {
     flex-direction: column;
+    padding: 0 1rem;
   }
   .carousel {
-    width:100%;
+    width:80%;
+    margin: 0 auto;
     .image-wrapper {
         width:100%;
         img {

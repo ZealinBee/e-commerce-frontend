@@ -35,6 +35,7 @@ function Cart() {
   function handleConfirmation() {
     dispatch(emptyCart());
     setShowPrompt(false);
+    toast.warn("Cart emptied!");
   }
 
   return (
@@ -46,6 +47,18 @@ function Cart() {
           <Link to="/" style={{ marginLeft: "1.5rem" }}>
             Go shopping
           </Link>
+          <ToastContainer
+            position="bottom-right"
+            autoClose={5000}
+            hideProgressBar={false}
+            newestOnTop={false}
+            closeOnClick
+            rtl={false}
+            pauseOnFocusLoss
+            draggable
+            pauseOnHover
+            theme="light"
+          />{" "}
         </>
       ) : (
         <>
@@ -54,7 +67,6 @@ function Cart() {
             <div className="cart-items">
               {cartItems.map((item) => {
                 totalCost += item.product.price * item.quantity;
-
                 return (
                   <div className="cart-item" key={item.product.id}>
                     <div className="cart-item__image-wrapper">
@@ -64,16 +76,16 @@ function Cart() {
                             ? item.product.images
                             : "https://upload.wikimedia.org/wikipedia/commons/thumb/a/ac/No_image_available.svg/1024px-No_image_available.svg.png"
                         }`}
-                        alt=""
+                        alt="product display"
                       />
                     </div>
                     <p className="cart-item__title">{item.product.title}</p>
                     <div className="cart-item__quantity">
                       <IconButton
                         sx={{
-                          width: "30px",
-                          height: "30px",
-                          mt: "12px",
+                          width: {md: "30px", xs:"20px"},
+                          height: {md: "30px", xs:"20px"},
+                          mt: {md: "12px", xs: "0"},
                         }}
                       >
                         <RemoveIcon
@@ -83,7 +95,11 @@ function Cart() {
                       <p>{item.quantity}</p>
                       <IconButton
                         onChange={() => dispatch(increaseQuantity(item))}
-                        sx={{ width: "30px", height: "30px", mt: "12px" }}
+                        sx={{
+                          width: {md: "30px", xs:"20px"},
+                          height: {md: "30px", xs:"20px"},
+                          mt: {md: "12px", xs: "0"},
+                        }}
                       >
                         <AddIcon
                           onClick={() => dispatch(increaseQuantity(item))}
