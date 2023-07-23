@@ -8,6 +8,7 @@ import {
   fetchAllProducts,
   searchProduct,
   sortProductByPrice,
+  setCurrentSearchTerm
 } from "../redux/reducers/productsReducer";
 import useAppSelector from "../redux/hooks/useAppSelectors";
 import ProductCard from "./ProductCard";
@@ -51,6 +52,7 @@ function ProductList() {
         theme: "light",
       });
     }
+    dispatch(setCurrentSearchTerm(query))
   };
 
   const handleSortByPrice = (direction: "asc" | "desc" | "Default") => {

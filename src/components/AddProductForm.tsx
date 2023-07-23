@@ -80,7 +80,7 @@ function AddProductForm({ addToggle, setAddToggle }: AddProductFormProps) {
   return (
     <>
       {!addToggle && (
-        <Box className="product-form-wrapper" sx={{backgroundColor:"background.default"}}>
+        <Box className="product-form-wrapper" >
           <form className="product-form" onSubmit={formSubmitHandler}>
             <TextField
               label="Product Name"

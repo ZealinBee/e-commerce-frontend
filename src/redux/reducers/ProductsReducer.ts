@@ -14,9 +14,10 @@ interface ProductsState {
   loading: boolean;
   error: null | string;
   searchResults: Product[];
-  sortByCategory: string | null;
+  filterByCategory: string | null;
   sortByPrice: "asc" | "desc" | "Default";
   selectedProduct: Product | null;
+  currentSearchTerm: string;
 }
 
 const initialState: ProductsState = {
@@ -24,9 +25,10 @@ const initialState: ProductsState = {
   loading: false,
   error: null,
   searchResults: [],
-  sortByCategory: null,
+  filterByCategory: null,
   sortByPrice: "Default",
   selectedProduct: null,
+  currentSearchTerm: "",
 };
 
 export const fetchAllProducts = createAsyncThunk(
@@ -51,17 +53,33 @@ export const fetchAllProducts = createAsyncThunk(
 
 export const searchProduct = createAsyncThunk(
   "products/searchProduct",
-  async (query: string) => {
+  async (query: string, {getState}) => {
     try {
+      const currentState = getState() as any
+      const sortByPrice = currentState.productsReducer.sortByPrice
+      const filterByCategory = currentState.productsReducer.filterByCategory
       const result = await axios.get<Product[]>(
         `https://api.escuelajs.co/api/v1/products`
       );
       const products = result.data;
-      const searchResults = products.filter((product) =>
+      let searchResults = products.filter((product) =>
         product.title.toLowerCase().includes(query.toLowerCase())
       );
       if(searchResults.length === 0) throw new Error("No results found")
-      
+      if (sortByPrice === "asc") {
+        searchResults.sort((a, b) => a.price - b.price);
+      }else if (sortByPrice === "desc") {
+        searchResults.sort((a, b) => b.price - a.price);
+      } else {
+        searchResults.sort((a, b) => a.id - b.id);
+      }
+      if(filterByCategory !== null) {
+        searchResults = searchResults.filter(
+          (product) =>
+            product.category.name.toLowerCase() === filterByCategory.toLowerCase()
+        );  
+      }
+      if(searchResults.length === 0) throw new Error("No results found")
       return searchResults;
     } catch (error) {
       if (axios.isAxiosError(error)) {
@@ -75,31 +93,40 @@ export const searchProduct = createAsyncThunk(
   }
 );
 
-export const sortByCategory = createAsyncThunk(
-  "products/sortByCategory",
+export const filterByCategory = createAsyncThunk(
+  "products/filterByCategory",
   async (category:string , {getState}) => {
     try {
       const currentState = getState() as any
       const sortByPrice = currentState.productsReducer.sortByPrice
-
+      const currentSearchTerm = currentState.productsReducer.currentSearchTerm
+      console.log("Filter by category current search term: " + currentSearchTerm)
       const result = await axios.get<Product[]>(
         `https://api.escuelajs.co/api/v1/products`
       );
       const products = result.data;
-      const sortedProducts = products.filter(
+      let filteredProducts = products.filter(
         (product) =>
           product.category.name.toLowerCase() === category.toLowerCase()
       );
+      console.log(`Filtered products: ${filteredProducts}`)
 
       if (sortByPrice === "asc") {
-        sortedProducts.sort((a, b) => a.price - b.price);
+        filteredProducts.sort((a, b) => a.price - b.price);
       }else if (sortByPrice === "desc") {
-        sortedProducts.sort((a, b) => b.price - a.price);
+        filteredProducts.sort((a, b) => b.price - a.price);
       } else {
-        sortedProducts.sort((a, b) => a.id - b.id);
+        filteredProducts.sort((a, b) => a.id - b.id);
       }
-    
-      return sortedProducts;
+
+      if(currentSearchTerm !== "") {
+        filteredProducts =  filteredProducts.filter((product) =>
+        product.title.toLowerCase().includes(currentSearchTerm.toLowerCase())
+      );
+      }
+      console.log(`Filtered products 2: ${filteredProducts}`)
+
+      return filteredProducts;
     } catch (error) {
       if (axios.isAxiosError(error)) {
         console.log(error.status);
@@ -204,6 +231,10 @@ const productsSlice = createSlice({
     cleanUpProductReducer: (state) => {
       return initialState;
     },
+    setCurrentSearchTerm: (state, action: PayloadAction<string>) => {
+      state.currentSearchTerm = action.payload;
+    }
+    
   },
   extraReducers: (build) => {
     build
@@ -218,9 +249,9 @@ const productsSlice = createSlice({
       .addCase(searchProduct.fulfilled, (state, action) => {
         state.searchResults = action.payload;
       })
-      .addCase(sortByCategory.fulfilled, (state, action) => {
+      .addCase(filterByCategory.fulfilled, (state, action) => {
         state.products = action.payload;
-        state.sortByCategory = action.meta.arg;
+        state.filterByCategory = action.meta.arg;
       })
       .addCase(deleteProduct.fulfilled, (state, action) => {
         const updatedProducts = state.products.filter(
@@ -244,7 +275,7 @@ const productsSlice = createSlice({
   },
 });
 
-export const { selectProduct, sortProductByPrice, cleanUpProductReducer } =
+export const { selectProduct, sortProductByPrice, cleanUpProductReducer, setCurrentSearchTerm } =
   productsSlice.actions;
 
 const productsReducer = productsSlice.reducer;

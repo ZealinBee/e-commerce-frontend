@@ -6,7 +6,7 @@ import useAppDispatch from "../redux/hooks/useAppDispatch";
 import useAppSelectors from "../redux/hooks/useAppSelectors";
 import {
   fetchAllProducts,
-  sortByCategory,
+  filterByCategory,
 } from "../redux/reducers/productsReducer";
 
 const SortByCate = () => {
@@ -16,12 +16,12 @@ const SortByCate = () => {
   );
 
   function handleSortByCategory(category: string) {
-    dispatch(sortByCategory(category));
+    dispatch(filterByCategory(category));
   }
 
   useEffect(() => {
     dispatch(fetchAllCategories());
-  }, [dispatch]);
+  }, []);
 
   return (
     <>

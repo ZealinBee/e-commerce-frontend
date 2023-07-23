@@ -38,12 +38,12 @@ function ProductCard({ product }: ProductCardProps) {
 
   let description = product.description;
   let truncatedDescription =
-    description.length > 60
-      ? description.substring(0, 60) + "..."
+    description.length > 50
+      ? description.substring(0, 50) + "..."
       : description;
 
   return (
-    <Card sx={{backgroundColor: "background.default", maxHeight:"330px", minHeight:{md: "320px",xs: "300px"}}} >
+    <Card sx={{backgroundColor: "background.default", maxHeight:"350px", minHeight:{md: "320px",xs: "300px"}}} >
       <Link
         to={`/products/${product.id}`}
         className="card-link"
