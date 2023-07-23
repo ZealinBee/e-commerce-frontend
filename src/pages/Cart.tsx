@@ -6,6 +6,7 @@ import { Link } from "react-router-dom";
 import AddIcon from "@mui/icons-material/Add";
 import RemoveIcon from "@mui/icons-material/Remove";
 import { ToastContainer, toast } from "react-toastify";
+import { Box } from "@mui/system";
 
 import Header from "../components/Header";
 import useAppDispatch from "../redux/hooks/useAppDispatch";
@@ -42,9 +43,9 @@ function Cart() {
     <>
       <Header></Header>
       {cartItems.length === 0 ? (
-        <>
-          <h2 style={{ marginLeft: "1.5rem" }}>Cart is empty</h2>
-          <Link to="/" style={{ marginLeft: "1.5rem" }}>
+        <Box sx={{backgroundColor:"background.default", color:"text.primary", minHeight:"95vh"}}>
+          <h2 style={{ marginLeft: "1.5rem", marginTop: "0" }}>Cart is empty</h2>
+          <Link to="/" style={{ marginLeft: "1.5rem", color:"#6b6bff" }}>
             Go shopping
           </Link>
           <ToastContainer
@@ -59,9 +60,9 @@ function Cart() {
             pauseOnHover
             theme="light"
           />{" "}
-        </>
+        </Box>
       ) : (
-        <>
+        <Box sx={{backgroundColor:"background.default", color:"text.primary", minHeight:"100vh"}}>
           <h2>Shopping Cart</h2>
           <div className="cart">
             <div className="cart-items">
@@ -165,7 +166,7 @@ function Cart() {
             pauseOnHover
             theme="light"
           />{" "}
-        </>
+        </Box>
       )}
     </>
   );

@@ -8,6 +8,7 @@ import {
   Typography,
 } from "@mui/material";
 import { toast } from "react-toastify";
+import Box from "@mui/material/Box";
 
 import useAppDispatch from "../redux/hooks/useAppDispatch";
 import { createNewProduct } from "../redux/reducers/productsReducer";
@@ -79,7 +80,7 @@ function AddProductForm({ addToggle, setAddToggle }: AddProductFormProps) {
   return (
     <>
       {!addToggle && (
-        <div className="product-form-wrapper">
+        <Box className="product-form-wrapper" sx={{backgroundColor:"background.default"}}>
           <form className="product-form" onSubmit={formSubmitHandler}>
             <TextField
               label="Product Name"
@@ -134,7 +135,7 @@ function AddProductForm({ addToggle, setAddToggle }: AddProductFormProps) {
               Cancel
             </Button>
           </form>
-        </div>
+        </Box>
       )}
     </>
   );

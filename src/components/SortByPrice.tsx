@@ -31,9 +31,9 @@ function SortByPrice({ onSortByPrice }: SortByPriceProps) {
         value={selectedPrice}
         onChange={(e) => handleChange(e)}
       >
-        <MenuItem value="Default" onClick={() => dispatch(sortProductByPrice("Default"))}>Default</MenuItem>
-        <MenuItem value="asc" onClick={() => dispatch(sortProductByPrice("asc")) }>Price Low to High</MenuItem>
-        <MenuItem value="desc" onClick={() => dispatch(sortProductByPrice("desc"))}>Price High to Low</MenuItem>
+        <MenuItem  sx={{color:"black"}} value="Default" onClick={() => dispatch(sortProductByPrice("Default"))}>Default</MenuItem>
+        <MenuItem sx={{color:"black"}} value="asc" onClick={() => dispatch(sortProductByPrice("asc")) }>Price Low to High</MenuItem>
+        <MenuItem sx={{color:"black"}} value="desc" onClick={() => dispatch(sortProductByPrice("desc"))}>Price High to Low</MenuItem>
       </Select>
     </div>
   );

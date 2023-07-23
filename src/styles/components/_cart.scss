@@ -1,4 +1,6 @@
 h2 {
+  margin-top:0;
+  padding-top:1rem;
   margin-left: 2rem;
 }
 
@@ -68,12 +70,13 @@ h2 {
 }
 
 .cart-total {
-  background-color: #eae2e277;
+  background-color: #cbc7c750;
   padding: 1rem 2rem;
   width: 30%;
   height: 300px;
   margin-left: 2rem;
   margin-right: 2rem;
+  border-radius: 0.4rem;
 }
 
 @media (max-width: 900px) {
@@ -96,7 +99,7 @@ h2 {
 
   h2 {
     margin-left:1.5rem;
-    margin-top:1rem;
+    padding-top:1rem;
     font-size:1.25rem;
   }
 

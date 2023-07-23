@@ -1,5 +1,6 @@
 import React, { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
+import { Box } from "@mui/system";
 
 import useAppSelector from "../redux/hooks/useAppSelectors";
 import Header from "../components/Header";
@@ -16,7 +17,7 @@ function ProfilePage() {
   }, [isLoggedIn, navigate]);
 
   return (
-    <>
+    <Box sx={{backgroundColor:"background.default", color:"text.primary", minHeight:"100vh"}}>
       <Header></Header>
       <h1 className="page-name">Profile Page</h1>
       <div className="profile">
@@ -30,7 +31,7 @@ function ProfilePage() {
           <p>Role: {user?.role}</p>
         </div>
       </div>
-    </>
+    </Box>
   );
 }
 

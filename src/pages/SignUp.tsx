@@ -10,6 +10,7 @@ import {
 } from "@mui/material";
 import { Link } from "react-router-dom";
 import { Visibility, VisibilityOff } from "@mui/icons-material";
+import Box from "@mui/material/Box";
 
 import useAppDispatch from "../redux/hooks/useAppDispatch";
 import { createNewUser } from "../redux/reducers/usersReducer";
@@ -48,7 +49,8 @@ function SignUp() {
   return (
     <>
       <Header></Header>
-      <h1 className="page-name">Sign up</h1>
+      <Box sx={{backgroundColor:"background.default", color:"text.primary", minHeight:"95vh"}}>
+      <h1 className="page-name" style={{marginTop:"0", paddingTop:"1rem"}}>Sign up</h1>
       <div className="auth-wrapper">
         <form onSubmit={signUpSubmitHandler}>
           <TextField
@@ -125,6 +127,7 @@ function SignUp() {
           }
         </form>
       </div>
+      </Box>
     </>
   );
 }

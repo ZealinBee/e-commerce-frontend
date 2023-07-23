@@ -110,7 +110,7 @@ function ProductPage() {
               Added to cart
             </Button>
           ) : (
-            <Button onClick={addToCartHandler} variant="outlined">
+            <Button onClick={addToCartHandler} variant="outlined" color="secondary">
               Add to cart
             </Button>
           )}

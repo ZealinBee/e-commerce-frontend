@@ -58,7 +58,7 @@ const router = createBrowserRouter([
 ]);
 
 type ChangeThemeFunction = () => void;
-export const ThemeContext = React.createContext<ChangeThemeFunction>(() => {});
+export const ThemeModeContext = React.createContext<ChangeThemeFunction | null>(null);
 
 const App = () => {
   const [mode, setMode] = React.useState<"light" | "dark">("light");
@@ -77,7 +77,7 @@ const App = () => {
               main: "#9BC1BC",
             },
             secondary: {
-              main: "#ED6A5A",
+              main: "#C19B9B",
             },
             background: {
               default: "#fcfafa",
@@ -91,6 +91,9 @@ const App = () => {
             primary: {
               main: "#5A7975",
             },
+            secondary: {
+              main: "#ccb4b4",
+            },
             background: {
               default: "#282828",
             },
@@ -103,11 +106,11 @@ const App = () => {
 
   return (
     <>
-      <ThemeContext.Provider value={changeMode}>
+      <ThemeModeContext.Provider value={changeMode}>
         <ThemeProvider theme={theme}>
           <RouterProvider router={router}></RouterProvider>
         </ThemeProvider>
-      </ThemeContext.Provider>
+      </ThemeModeContext.Provider>
     </>
   );
 };

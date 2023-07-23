@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
 import { useNavigate } from "react-router-dom";
 import AppBar from "@mui/material/AppBar";
 import Box from "@mui/material/Box";
@@ -18,6 +18,7 @@ import { Link } from "react-router-dom";
 import useAppSelector from "../redux/hooks/useAppSelectors";
 import useAppDispatch from "../redux/hooks/useAppDispatch";
 import { logoutUser } from "../redux/reducers/usersReducer";
+import { ThemeModeContext } from "../App";
 
 function Header() {
   const quantity = useAppSelector((state) => state.cartReducer.items.length);
@@ -30,6 +31,7 @@ function Header() {
   const [anchorElNav, setAnchorElNav] = useState<null | HTMLElement>(null);
   const [anchorElUser, setAnchorElUser] = useState<null | HTMLElement>(null);
   const navigate = useNavigate();
+  const changeTheme = useContext(ThemeModeContext);
 
   function handleOpenNavMenu(event: React.MouseEvent<HTMLElement>) {
     setAnchorElNav(event.currentTarget);
@@ -45,6 +47,10 @@ function Header() {
 
   function handleCloseUserMenu() {
     setAnchorElUser(null);
+  }
+
+  function toggleTheme() {
+    changeTheme?.();
   }
 
   async function handleLogOut() {
@@ -87,7 +93,7 @@ function Header() {
                 <MenuItem>Home</MenuItem>{" "}
               </Link>
             </Box>
-            <Box sx={{ flexGrow: 0, ml:"auto" }}>
+            <Box sx={{ flexGrow: 0, ml: "auto" }}>
               <Tooltip title="Open settings">
                 <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
                   {isLoggedIn ? (
@@ -147,24 +153,37 @@ function Header() {
                 )}
 
                 {!isLoggedIn ? (
-                  <Link to="/login">
-                    <MenuItem onClick={handleCloseUserMenu}>
-                      <Typography textAlign="center">Login</Typography>
+                  <>
+                    <Link to="/login">
+                      <MenuItem onClick={handleCloseUserMenu}>
+                        <Typography textAlign="center">Login</Typography>
+                      </MenuItem>
+                    </Link>
+                    <Link to="/signup">
+                      <MenuItem onClick={handleCloseUserMenu}>
+                        <Typography textAlign="center">Register</Typography>
+                      </MenuItem>
+                    </Link>
+                    <MenuItem onClick={toggleTheme} color="black">
+                      <Typography textAlign="center">Toggle Theme</Typography>
                     </MenuItem>
-                  </Link>
+                  </>
                 ) : (
-                  <Link to="/profile">
-                    <MenuItem onClick={handleCloseUserMenu}>
-                      <Typography textAlign="center">Profile</Typography>
+                  <>
+                    <Link to="/profile">
+                      <MenuItem onClick={handleCloseUserMenu}>
+                        <Typography textAlign="center">Profile</Typography>
+                      </MenuItem>
+                    </Link>
+                    <MenuItem onClick={handleLogOut}>
+                      <Typography textAlign="center" color="#0000EE">
+                        Logout
+                      </Typography>
                     </MenuItem>
-                  </Link>
-                )}
-                {!isLoggedIn ? (
-                  <div></div>
-                ) : (
-                  <MenuItem onClick={handleLogOut}>
-                    <Typography textAlign="center">Logout</Typography>
-                  </MenuItem>
+                    <MenuItem onClick={toggleTheme} >
+                      <Typography textAlign="center" color="black">Toggle Theme</Typography>
+                    </MenuItem>
+                  </>
                 )}
               </Menu>
             </Box>

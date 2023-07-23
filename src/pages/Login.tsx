@@ -3,6 +3,7 @@ import { useNavigate } from "react-router-dom";
 import { TextField, Button, Typography } from "@mui/material";
 import { Link } from "react-router-dom";
 import { ToastContainer, toast } from "react-toastify";
+import Box from "@mui/material/Box";
 
 import loginUserI from "../types/LoginUser";
 import useAppDispatch from "../redux/hooks/useAppDispatch";
@@ -45,7 +46,8 @@ function Login() {
   return (
     <>
       <Header></Header>
-      <h1 className="page-name">Login</h1>
+      <Box sx={{backgroundColor:"background.default", color:"text.primary", minHeight:"95vh"}}>
+      <h1 className="page-name" style={{marginTop:"0", paddingTop:"1rem"}}>Login</h1>
       <div className="auth-wrapper">
         <form onSubmit={formSubmitHandler} className="auth-form">
           <TextField
@@ -70,7 +72,7 @@ function Login() {
           />
           <Button
             type="submit"
-            variant="outlined"
+            variant="contained"
             style={{ marginBottom: "1rem" }}
           >
             Login
@@ -98,6 +100,7 @@ function Login() {
         pauseOnHover
         theme="light"
       />
+      </Box>
     </>
   );
 }

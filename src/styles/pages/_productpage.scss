@@ -2,7 +2,7 @@
   display: flex;
   margin-top: 2rem;
   padding: 0 4rem;
-  margin-bottom: 5rem;
+  padding-bottom: 5rem;
   .image-wrapper {
     width: 500px;
     img {
@@ -23,6 +23,7 @@
   .product-container {
     flex-direction: column;
     padding: 0 1rem;
+    padding-bottom:3rem;
   }
   .carousel {
     width:80%;

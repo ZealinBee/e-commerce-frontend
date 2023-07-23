@@ -43,7 +43,7 @@ function ProductCard({ product }: ProductCardProps) {
       : description;
 
   return (
-    <Card sx={{backgroundColor: "background.default", maxHeight:"330px", minHeight:{md: "330px",xs: "300px"}}} >
+    <Card sx={{backgroundColor: "background.default", maxHeight:"330px", minHeight:{md: "320px",xs: "300px"}}} >
       <Link
         to={`/products/${product.id}`}
         className="card-link"
@@ -71,7 +71,7 @@ function ProductCard({ product }: ProductCardProps) {
         {isItemInCart ? (
           <Button disabled >Added to cart</Button>
         ) : (
-          <Button onClick={addToCartHandler} >Add to cart</Button>
+          <Button onClick={addToCartHandler} color="secondary">Add to cart</Button>
         )}
       </CardActions>
     </Card>

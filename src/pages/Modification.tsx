@@ -5,6 +5,7 @@ import AddIcon from "@mui/icons-material/Add";
 import UpdateIcon from "@mui/icons-material/Update";
 import { useNavigate } from "react-router-dom";
 import { ToastContainer } from "react-toastify";
+import Box from "@mui/material/Box";
 
 import AddProductForm from "../components/AddProductForm";
 import Headers from "../components/Header";
@@ -28,6 +29,8 @@ function Modification() {
   return (
     <>
       <Headers></Headers>
+      <Box sx={{backgroundColor:"background.default", color:"text.primary", minHeight:"95vh"}}>
+
       <div className="wrapper">
         <div className="modification">
           <h1>Manage Products</h1>
@@ -72,6 +75,7 @@ function Modification() {
         pauseOnHover
         theme="light"
       />
+      </Box>
     </>
   );
 }
