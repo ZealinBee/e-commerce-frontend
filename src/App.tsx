@@ -99,7 +99,7 @@ const App = () => {
             },
             text: {
               primary: "#fcfafa",
-              secondary: "#fcfafa",
+              secondary: "#282828",
             },
           },
   });

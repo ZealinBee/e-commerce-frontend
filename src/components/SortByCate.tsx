@@ -21,7 +21,7 @@ const SortByCate = () => {
 
   useEffect(() => {
     dispatch(fetchAllCategories());
-  }, []);
+  }, [dispatch]);
 
   return (
     <>

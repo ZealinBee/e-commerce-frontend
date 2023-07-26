@@ -24,6 +24,7 @@ function ProductList() {
       return state.productsReducer.products;
     }
   });
+  const hasFetched = useAppSelector((state) => state.productsReducer.hasFetched);
   const productsPerPage = 6;
   const [page, setPage] = useState(1);
   const indexOfLastProduct = page * productsPerPage;
@@ -40,8 +41,12 @@ function ProductList() {
   const dispatch = useAppDispatch();
 
   useEffect(() => {
-    dispatch(fetchAllProducts());
-  }, [dispatch]);
+    if(hasFetched === false) {
+      dispatch(fetchAllProducts());
+    }else {
+      return;
+    }
+  }, [dispatch, hasFetched]);
 
   const [query, setQuery] = useState("");
 

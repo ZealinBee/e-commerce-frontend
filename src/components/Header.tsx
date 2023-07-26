@@ -6,7 +6,6 @@ import Toolbar from "@mui/material/Toolbar";
 import IconButton from "@mui/material/IconButton";
 import Typography from "@mui/material/Typography";
 import Menu from "@mui/material/Menu";
-import MenuIcon from "@mui/icons-material/Menu";
 import Container from "@mui/material/Container";
 import Avatar from "@mui/material/Avatar";
 import Tooltip from "@mui/material/Tooltip";
@@ -33,16 +32,8 @@ function Header() {
   const navigate = useNavigate();
   const changeTheme = useContext(ThemeModeContext);
 
-  function handleOpenNavMenu(event: React.MouseEvent<HTMLElement>) {
-    setAnchorElNav(event.currentTarget);
-  }
-
   function handleOpenUserMenu(event: React.MouseEvent<HTMLElement>) {
     setAnchorElUser(event.currentTarget);
-  }
-
-  function handleCloseNavMenu() {
-    setAnchorElNav(null);
   }
 
   function handleCloseUserMenu() {
@@ -164,7 +155,7 @@ function Header() {
                         <Typography textAlign="center">Register</Typography>
                       </MenuItem>
                     </Link>
-                    <MenuItem onClick={toggleTheme} color="black">
+                    <MenuItem onClick={toggleTheme} sx={{color:"black"}}>
                       <Typography textAlign="center">Toggle Theme</Typography>
                     </MenuItem>
                   </>
@@ -180,8 +171,8 @@ function Header() {
                         Logout
                       </Typography>
                     </MenuItem>
-                    <MenuItem onClick={toggleTheme} >
-                      <Typography textAlign="center" color="black">Toggle Theme</Typography>
+                    <MenuItem onClick={toggleTheme} sx={{color:"black"}}>
+                      <Typography textAlign="center" >Toggle Theme</Typography>
                     </MenuItem>
                   </>
                 )}

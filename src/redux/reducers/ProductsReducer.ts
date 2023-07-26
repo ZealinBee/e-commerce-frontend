@@ -18,6 +18,8 @@ interface ProductsState {
   sortByPrice: "asc" | "desc" | "Default";
   selectedProduct: Product | null;
   currentSearchTerm: string;
+  hasFetched: boolean;
+  productStore: Product[];
 }
 
 const initialState: ProductsState = {
@@ -29,6 +31,8 @@ const initialState: ProductsState = {
   sortByPrice: "Default",
   selectedProduct: null,
   currentSearchTerm: "",
+  hasFetched: false,
+  productStore: [],
 };
 
 export const fetchAllProducts = createAsyncThunk(
@@ -58,24 +62,21 @@ export const searchProduct = createAsyncThunk(
       const currentState = getState() as any
       const sortByPrice = currentState.productsReducer.sortByPrice
       const filterByCategory = currentState.productsReducer.filterByCategory
-      const result = await axios.get<Product[]>(
-        `https://api.escuelajs.co/api/v1/products`
-      );
-      const products = result.data;
-      let searchResults = products.filter((product) =>
+      const products = currentState.productsReducer.productStore 
+       let searchResults = products.filter((product : Product) =>
         product.title.toLowerCase().includes(query.toLowerCase())
       );
       if(searchResults.length === 0) throw new Error("No results found")
       if (sortByPrice === "asc") {
-        searchResults.sort((a, b) => a.price - b.price);
+        searchResults.sort((a : Product, b : Product) => a.price - b.price);
       }else if (sortByPrice === "desc") {
-        searchResults.sort((a, b) => b.price - a.price);
+        searchResults.sort((a : Product, b : Product) => b.price - a.price);
       } else {
-        searchResults.sort((a, b) => a.id - b.id);
+        searchResults.sort((a : Product, b : Product) => a.id - b.id);
       }
       if(filterByCategory !== null) {
         searchResults = searchResults.filter(
-          (product) =>
+          (product : Product) =>
             product.category.name.toLowerCase() === filterByCategory.toLowerCase()
         );  
       }
@@ -100,32 +101,26 @@ export const filterByCategory = createAsyncThunk(
       const currentState = getState() as any
       const sortByPrice = currentState.productsReducer.sortByPrice
       const currentSearchTerm = currentState.productsReducer.currentSearchTerm
-      console.log("Filter by category current search term: " + currentSearchTerm)
-      const result = await axios.get<Product[]>(
-        `https://api.escuelajs.co/api/v1/products`
-      );
-      const products = result.data;
+      const products = currentState.productsReducer.productStore
+      
       let filteredProducts = products.filter(
-        (product) =>
+        (product : Product) =>
           product.category.name.toLowerCase() === category.toLowerCase()
       );
-      console.log(`Filtered products: ${filteredProducts}`)
 
       if (sortByPrice === "asc") {
-        filteredProducts.sort((a, b) => a.price - b.price);
+        filteredProducts.sort((a : Product, b : Product) => a.price - b.price);
       }else if (sortByPrice === "desc") {
-        filteredProducts.sort((a, b) => b.price - a.price);
+        filteredProducts.sort((a : Product, b : Product) => b.price - a.price);
       } else {
-        filteredProducts.sort((a, b) => a.id - b.id);
+        filteredProducts.sort((a : Product, b : Product) => a.id - b.id);
       }
 
       if(currentSearchTerm !== "") {
-        filteredProducts =  filteredProducts.filter((product) =>
+        filteredProducts =  filteredProducts.filter((product : Product) =>
         product.title.toLowerCase().includes(currentSearchTerm.toLowerCase())
       );
       }
-      console.log(`Filtered products 2: ${filteredProducts}`)
-
       return filteredProducts;
     } catch (error) {
       if (axios.isAxiosError(error)) {
@@ -243,11 +238,14 @@ const productsSlice = createSlice({
           return {
             ...state,
             products: action.payload,
+            productStore: action.payload,
+            hasFetched: true,
           };
         }
       })
       .addCase(searchProduct.fulfilled, (state, action) => {
         state.searchResults = action.payload;
+        state.products = action.payload;
       })
       .addCase(filterByCategory.fulfilled, (state, action) => {
         state.products = action.payload;

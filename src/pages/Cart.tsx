@@ -7,6 +7,7 @@ import AddIcon from "@mui/icons-material/Add";
 import RemoveIcon from "@mui/icons-material/Remove";
 import { ToastContainer, toast } from "react-toastify";
 import { Box } from "@mui/system";
+import Typography from "@mui/material/Typography";
 
 import Header from "../components/Header";
 import useAppDispatch from "../redux/hooks/useAppDispatch";
@@ -18,6 +19,7 @@ import {
   decreaseQuantity,
 } from "../redux/reducers/cartReducer";
 import ConfirmationPrompt from "../components/ConfirmationPrompt";
+import { selectProduct } from "../redux/reducers/productsReducer";
 
 function Cart() {
   let totalCost = 0;
@@ -43,9 +45,17 @@ function Cart() {
     <>
       <Header></Header>
       {cartItems.length === 0 ? (
-        <Box sx={{backgroundColor:"background.default", color:"text.primary", minHeight:"95vh"}}>
-          <h2 style={{ marginLeft: "1.5rem", marginTop: "0" }}>Cart is empty</h2>
-          <Link to="/" style={{ marginLeft: "1.5rem", color:"#6b6bff" }}>
+        <Box
+          sx={{
+            backgroundColor: "background.default",
+            color: "text.primary",
+            minHeight: "95vh",
+          }}
+        >
+          <h2 style={{ marginLeft: "1.5rem", marginTop: "0" }}>
+            Cart is empty
+          </h2>
+          <Link to="/" style={{ marginLeft: "1.5rem", color: "#6b6bff" }}>
             Go shopping
           </Link>
           <ToastContainer
@@ -62,68 +72,85 @@ function Cart() {
           />{" "}
         </Box>
       ) : (
-        <Box sx={{backgroundColor:"background.default", color:"text.primary", minHeight:"100vh"}}>
+        <Box
+          sx={{
+            backgroundColor: "background.default",
+            color: "text.primary",
+            minHeight: "100vh",
+          }}
+        >
           <h2>Shopping Cart</h2>
           <div className="cart">
             <div className="cart-items">
               {cartItems.map((item) => {
                 totalCost += item.product.price * item.quantity;
                 return (
-                  <div className="cart-item" key={item.product.id}>
-                    <div className="cart-item__image-wrapper">
-                      <img
-                        src={`${
-                          item.product.images
-                            ? item.product.images
-                            : "https://upload.wikimedia.org/wikipedia/commons/thumb/a/ac/No_image_available.svg/1024px-No_image_available.svg.png"
-                        }`}
-                        alt="product display"
-                      />
-                    </div>
-                    <p className="cart-item__title">{item.product.title}</p>
-                    <div className="cart-item__quantity">
-                      <IconButton
-                        sx={{
-                          width: {md: "30px", xs:"20px"},
-                          height: {md: "30px", xs:"20px"},
-                          mt: {md: "12px", xs: "0"},
-                        }}
-                      >
-                        <RemoveIcon
-                          onClick={() => dispatch(decreaseQuantity(item))}
-                        ></RemoveIcon>
-                      </IconButton>
-                      <p>{item.quantity}</p>
-                      <IconButton
-                        onChange={() => dispatch(increaseQuantity(item))}
-                        sx={{
-                          width: {md: "30px", xs:"20px"},
-                          height: {md: "30px", xs:"20px"},
-                          mt: {md: "12px", xs: "0"},
-                        }}
-                      >
-                        <AddIcon
-                          onClick={() => dispatch(increaseQuantity(item))}
-                        ></AddIcon>
-                      </IconButton>
-                    </div>
+                  <Typography
+                    component={Link}
+                    to={`/products/${item.product.id}`}
+                    key={item.product.id}
+                    sx={{color: "text.primary"}}
+                  >
+                    <div className="cart-item">
+                      <div className="cart-item__image-wrapper">
+                        <img
+                          src={`${
+                            item.product.images
+                              ? item.product.images
+                              : "https://upload.wikimedia.org/wikipedia/commons/thumb/a/ac/No_image_available.svg/1024px-No_image_available.svg.png"
+                          }`}
+                          alt="product display"
+                        />
+                      </div>
+                      <p className="cart-item__title">{item.product.title}</p>
+                      <div className="cart-item__quantity">
+                        <IconButton
+                          sx={{
+                            width: { md: "30px", xs: "20px" },
+                            height: { md: "30px", xs: "20px" },
+                            mt: { md: "12px", xs: "0" },
+                            color: "text.primary"
+                          }}
+                        >
+                          <RemoveIcon
+                            onClick={() => dispatch(decreaseQuantity(item))}
+                          ></RemoveIcon>
+                        </IconButton>
+                        <p>{item.quantity}</p>
+                        <IconButton
+                          onChange={() => dispatch(increaseQuantity(item))}
+                          sx={{
+                            width: { md: "30px", xs: "20px" },
+                            height: { md: "30px", xs: "20px" },
+                            mt: { md: "12px", xs: "0" },
+                            color: "text.primary"
+                          }}
+                        >
+                          <AddIcon
+                            onClick={() => dispatch(increaseQuantity(item))}
+                          ></AddIcon>
+                        </IconButton>
+                      </div>
 
-                    <p className="cart-item__price">
-                      {" "}
-                      €{item.product.price}.00
-                    </p>
-                    <p className="cart-item__subtotal">
-                      €{item.product.price * item.quantity}.00
-                    </p>
-                    <p>
-                      <DeleteIcon
-                        onClick={() => {
-                          dispatch(removeFromCart(item.product.id));
-                          toast.warn(`${item.product.title} removed from cart!`);
-                        }}
-                      ></DeleteIcon>
-                    </p>
-                  </div>
+                      <p className="cart-item__price">
+                        {" "}
+                        €{item.product.price}.00
+                      </p>
+                      <p className="cart-item__subtotal">
+                        €{item.product.price * item.quantity}.00
+                      </p>
+                      <p>
+                        <DeleteIcon
+                          onClick={() => {
+                            dispatch(removeFromCart(item.product.id));
+                            toast.warn(
+                              `${item.product.title} removed from cart!`
+                            );
+                          }}
+                        ></DeleteIcon>
+                      </p>
+                    </div>
+                  </Typography>
                 );
               })}
               <Button

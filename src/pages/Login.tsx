@@ -10,7 +10,6 @@ import useAppDispatch from "../redux/hooks/useAppDispatch";
 import { loginUser } from "../redux/reducers/usersReducer";
 import Header from "../components/Header";
 import useAppSelector from "../redux/hooks/useAppSelectors";
-import { error } from "console";
 
 function Login() {
   const [user, setUser] = useState<loginUserI>({
