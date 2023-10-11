@@ -8,14 +8,12 @@ import { sortProductByPrice } from "../redux/reducers/productsReducer";
 
 interface SortByPriceProps {
   onSortByPrice: (direction: "asc" | "desc" | "Default") => void;
+  selectedPrice: "asc" | "desc" | "Default";
+  setSelectedPrice: (direction: "asc" | "desc" | "Default") => void;
 }
 
-function SortByPrice({ onSortByPrice }: SortByPriceProps) {
+function SortByPrice({ onSortByPrice, selectedPrice, setSelectedPrice }: SortByPriceProps) {
   const dispatch = useAppDispatch();
-  const [selectedPrice, setSelectedPrice] = useState<
-    "asc" | "desc" | "Default"
-  >("Default");
-
   function handleChange(e: SelectChangeEvent<string>) {
     const value = e.target.value as "asc" | "desc" | "Default";
     setSelectedPrice(value);

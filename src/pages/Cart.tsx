@@ -89,7 +89,7 @@ function Cart() {
                     component={Link}
                     to={`/products/${item.product.id}`}
                     key={item.product.id}
-                    sx={{color: "text.primary"}}
+                    sx={{ color: "text.primary" }}
                   >
                     <div className="cart-item">
                       <div className="cart-item__image-wrapper">
@@ -109,8 +109,7 @@ function Cart() {
                             width: { md: "30px", xs: "20px" },
                             height: { md: "30px", xs: "20px" },
                             mt: { md: "12px", xs: "0" },
-                            color: "text.primary"
-                          }}
+                            color: "text.primary",                          }}
                         >
                           <RemoveIcon
                             onClick={() => dispatch(decreaseQuantity(item))}
@@ -123,7 +122,7 @@ function Cart() {
                             width: { md: "30px", xs: "20px" },
                             height: { md: "30px", xs: "20px" },
                             mt: { md: "12px", xs: "0" },
-                            color: "text.primary"
+                            color: "text.primary",
                           }}
                         >
                           <AddIcon

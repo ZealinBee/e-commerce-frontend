@@ -33,6 +33,9 @@ function ProductList() {
     indexOfFirstProduct,
     indexOfLastProduct
   );
+  const [selectedPrice, setSelectedPrice] = useState<
+    "asc" | "desc" | "Default"
+  >("Default");
 
   function handlePageChange(event: React.ChangeEvent<unknown>, value: number) {
     setPage(value);
@@ -77,10 +80,10 @@ function ProductList() {
             Search
           </Button>
         </div>
-        <SortByPrice onSortByPrice={handleSortByPrice}></SortByPrice>
+        <SortByPrice onSortByPrice={handleSortByPrice} selectedPrice={selectedPrice} setSelectedPrice={setSelectedPrice}></SortByPrice>
       </div>
       <div className="product-list-wrapper">
-        <SortByCate></SortByCate>
+        <SortByCate setSelectedPrice={setSelectedPrice}></SortByCate>
         <Grid
           className="product-list"
           container

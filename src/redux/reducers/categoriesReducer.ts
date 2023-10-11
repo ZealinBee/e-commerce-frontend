@@ -3,7 +3,7 @@ import { createAsyncThunk, createSlice, PayloadAction } from "@reduxjs/toolkit";
 import axios from "axios";
 
 interface CategoryState {
-  categories: Category[];
+  categories: Category[] | [];
 }
 
 const initialState: CategoryState = {
@@ -18,7 +18,19 @@ export const fetchAllCategories = createAsyncThunk(
         "https://api.escuelajs.co/api/v1/categories"
       );
       const categories = result.data;
-      return categories;
+      
+      const uniqueCategories: Category[] = [];
+      const filteredCategories: Category[] = [];
+      
+      categories.forEach(category => {
+        if (!uniqueCategories.some(existingCategory => existingCategory.name === category.name)) {
+          uniqueCategories.push(category);
+          filteredCategories.push(category);
+        }
+      });
+      
+      return filteredCategories;
+      
     } catch (error) {
       if (axios.isAxiosError(error)) {
         console.log(error.status);
@@ -34,9 +46,7 @@ export const fetchAllCategories = createAsyncThunk(
 const categoriesSlice = createSlice({
   name: "categories",
   initialState,
-  reducers: {
-   
-  },
+  reducers: {},
   extraReducers: (build) => {
     build.addCase(fetchAllCategories.fulfilled, (state, action) => {
       state.categories = action.payload;
@@ -44,7 +54,7 @@ const categoriesSlice = createSlice({
   },
 });
 
-export const {  } = categoriesSlice.actions;
+export const {} = categoriesSlice.actions;
 
 const categoriesReducer = categoriesSlice.reducer;
 export default categoriesReducer;

@@ -8,6 +8,7 @@ import axios from "axios";
 import Product from "../../types/Product";
 import SimpleProduct from "../../types/SimpleProduct";
 import updateProductInterface from "../../types/UpdateProduct";
+import { GlobalState } from "../store";
 
 interface ProductsState {
   products: Product[];
@@ -19,7 +20,7 @@ interface ProductsState {
   selectedProduct: Product | null;
   currentSearchTerm: string;
   hasFetched: boolean;
-  productStore: Product[];
+  productsStore: Product[];
 }
 
 const initialState: ProductsState = {
@@ -32,7 +33,7 @@ const initialState: ProductsState = {
   selectedProduct: null,
   currentSearchTerm: "",
   hasFetched: false,
-  productStore: [],
+  productsStore: [],
 };
 
 export const fetchAllProducts = createAsyncThunk(
@@ -59,28 +60,28 @@ export const searchProduct = createAsyncThunk(
   "products/searchProduct",
   async (query: string, {getState}) => {
     try {
-      const currentState = getState() as any
+      const currentState = getState() as GlobalState
       const sortByPrice = currentState.productsReducer.sortByPrice
-      const filterByCategory = currentState.productsReducer.filterByCategory
-      const products = currentState.productsReducer.productStore 
+      const currentCategory = currentState.productsReducer.filterByCategory
+      const products = currentState.productsReducer.productsStore 
        let searchResults = products.filter((product : Product) =>
         product.title.toLowerCase().includes(query.toLowerCase())
       );
       if(searchResults.length === 0) throw new Error("No results found")
-      if (sortByPrice === "asc") {
-        searchResults.sort((a : Product, b : Product) => a.price - b.price);
-      }else if (sortByPrice === "desc") {
-        searchResults.sort((a : Product, b : Product) => b.price - a.price);
-      } else {
-        searchResults.sort((a : Product, b : Product) => a.id - b.id);
+      
+      if(sortByPrice !== "Default") {
+        searchResults.sort((a, b) => {
+          const priceA = a.price;
+          const priceB = b.price;
+          if (sortByPrice === "asc") {
+            return priceA - priceB;
+          } else if (sortByPrice === "desc") {
+            return priceB - priceA;
+          }
+          return 0;
+        });
       }
-      if(filterByCategory !== null) {
-        searchResults = searchResults.filter(
-          (product : Product) =>
-            product.category.name.toLowerCase() === filterByCategory.toLowerCase()
-        );  
-      }
-      if(searchResults.length === 0) throw new Error("No results found")
+
       return searchResults;
     } catch (error) {
       if (axios.isAxiosError(error)) {
@@ -98,24 +99,14 @@ export const filterByCategory = createAsyncThunk(
   "products/filterByCategory",
   async (category:string , {getState}) => {
     try {
-      const currentState = getState() as any
-      const sortByPrice = currentState.productsReducer.sortByPrice
+      const currentState = getState() as GlobalState
       const currentSearchTerm = currentState.productsReducer.currentSearchTerm
-      const products = currentState.productsReducer.productStore
+      const products = currentState.productsReducer.productsStore
       
       let filteredProducts = products.filter(
         (product : Product) =>
           product.category.name.toLowerCase() === category.toLowerCase()
       );
-
-      if (sortByPrice === "asc") {
-        filteredProducts.sort((a : Product, b : Product) => a.price - b.price);
-      }else if (sortByPrice === "desc") {
-        filteredProducts.sort((a : Product, b : Product) => b.price - a.price);
-      } else {
-        filteredProducts.sort((a : Product, b : Product) => a.id - b.id);
-      }
-
       if(currentSearchTerm !== "") {
         filteredProducts =  filteredProducts.filter((product : Product) =>
         product.title.toLowerCase().includes(currentSearchTerm.toLowerCase())
@@ -238,7 +229,7 @@ const productsSlice = createSlice({
           return {
             ...state,
             products: action.payload,
-            productStore: action.payload,
+            productsStore: action.payload,
             hasFetched: true,
           };
         }
