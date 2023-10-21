@@ -252,6 +252,16 @@ const productsSlice = createSlice({
       .addCase(searchProduct.rejected, (state, action) => {
         action.payload = "error"
       })
+      .addCase(updateProduct.fulfilled, (state, action) => {
+        const updatedProduct = action.payload as Product;
+        state.products = state.products.map((product) => {
+          if (product.id === updatedProduct.id) {
+            return updatedProduct;
+          }
+          return product;
+        })
+        
+      })
   },
 });
 
