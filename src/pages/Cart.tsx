@@ -41,6 +41,7 @@ function Cart() {
     toast.warn("Cart emptied!");
   }
 
+
   return (
     <>
       <Header></Header>
@@ -92,7 +93,7 @@ function Cart() {
                     sx={{ color: "text.primary" }}
                   >
                     <div className="cart-item">
-                      <div className="cart-item__image-wrapper">
+                      <Link to={`/products/${item.product.id}`} className="cart-item__image-wrapper" onClick={() => dispatch(selectProduct(item.product))}>
                         <img
                           src={`${
                             item.product.images
@@ -101,7 +102,7 @@ function Cart() {
                           }`}
                           alt="product display"
                         />
-                      </div>
+                      </Link>
                       <p className="cart-item__title">{item.product.title}</p>
                       <div className="cart-item__quantity">
                         <IconButton

@@ -145,6 +145,14 @@ const usersSlice = createSlice({
           ...state,
           currentUser: action.payload,
           isLoggedIn: true,
+          loading: false,
+          error: null,
+        };
+      })
+      .addCase(loginUser.pending, (state) => {
+        return {
+          ...state,
+          loading: true,
         };
       })
       .addCase(loginUser.rejected, (state, action) => {
