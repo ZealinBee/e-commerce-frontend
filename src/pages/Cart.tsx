@@ -87,7 +87,7 @@ function Cart() {
                 return (
                   <Typography
                     component={Link}
-                    to={`/products/${item.product.id}`}
+                    to={`/cart`}
                     key={item.product.id}
                     sx={{ color: "text.primary" }}
                   >

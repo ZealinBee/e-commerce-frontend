@@ -7,7 +7,6 @@ import HomePage from "./pages/HomePage";
 import ProductPage from "./pages/ProductPage";
 import ProfilePage from "./pages/ProfilePage";
 import NotFoundPage from "./pages/NotFoundPage";
-import Header from "./components/Header";
 import "./styles/styles.scss";
 import Cart from "./pages/Cart";
 import Modification from "./pages/Modification";
