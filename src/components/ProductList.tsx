@@ -2,13 +2,14 @@ import React, { useEffect, useState } from "react";
 import { Grid } from "@mui/material";
 import { TextField, Button, Pagination } from "@mui/material";
 import { ToastContainer, toast } from "react-toastify";
+import { GridLoader } from "react-spinners";
 
 import useAppDispatch from "../redux/hooks/useAppDispatch";
 import {
   fetchAllProducts,
   searchProduct,
   sortProductByPrice,
-  setCurrentSearchTerm
+  setCurrentSearchTerm,
 } from "../redux/reducers/productsReducer";
 import useAppSelector from "../redux/hooks/useAppSelectors";
 import ProductCard from "./ProductCard";
@@ -24,7 +25,9 @@ function ProductList() {
       return state.productsReducer.products;
     }
   });
-  const hasFetched = useAppSelector((state) => state.productsReducer.hasFetched);
+  const hasFetched = useAppSelector(
+    (state) => state.productsReducer.hasFetched
+  );
   const productsPerPage = 6;
   const [page, setPage] = useState(1);
   const indexOfLastProduct = page * productsPerPage;
@@ -44,9 +47,9 @@ function ProductList() {
   const dispatch = useAppDispatch();
 
   useEffect(() => {
-    if(hasFetched === false) {
+    if (hasFetched === false) {
       dispatch(fetchAllProducts());
-    }else {
+    } else {
       return;
     }
   }, [dispatch, hasFetched]);
@@ -60,7 +63,7 @@ function ProductList() {
         theme: "light",
       });
     }
-    dispatch(setCurrentSearchTerm(query))
+    dispatch(setCurrentSearchTerm(query));
   };
 
   const handleSortByPrice = (direction: "asc" | "desc" | "Default") => {
@@ -69,36 +72,43 @@ function ProductList() {
 
   return (
     <div>
-      <div className="filter">
-        <div className="search">
-          <TextField
-            onChange={(e) => setQuery(e.target.value)}
-            label="Search by name"
-            variant="outlined"
-          />
-          <Button onClick={handleSearch} variant="contained">
-            Search
-          </Button>
+      {!hasFetched ? <GridLoader color="#9bc1bc" className="loader" /> : null}
+      <>
+        <div className="filter">
+          <div className="search">
+            <TextField
+              onChange={(e) => setQuery(e.target.value)}
+              label="Search by name"
+              variant="outlined"
+            />
+            <Button onClick={handleSearch} variant="contained">
+              Search
+            </Button>
+          </div>
+          <SortByPrice
+            onSortByPrice={handleSortByPrice}
+            selectedPrice={selectedPrice}
+            setSelectedPrice={setSelectedPrice}
+          ></SortByPrice>
         </div>
-        <SortByPrice onSortByPrice={handleSortByPrice} selectedPrice={selectedPrice} setSelectedPrice={setSelectedPrice}></SortByPrice>
-      </div>
-      <div className="product-list-wrapper">
-        <SortByCate setSelectedPrice={setSelectedPrice}></SortByCate>
-        <Grid
-          className="product-list"
-          container
-          spacing={2}
-          sx={{ padding: {md: "1rem 2rem 1rem 2rem", xs: "0 1.5rem 0 0"}  }}
-        >
-          {paginatedProducts.map((product: Product) => {
-            return (
-              <Grid item xs={12} sm={6} md={6} lg={4} key={product.id}>
-                <ProductCard product={product}></ProductCard> 
-              </Grid>
-            );
-          })}
-        </Grid>
-      </div>
+        <div className="product-list-wrapper">
+          <SortByCate setSelectedPrice={setSelectedPrice}></SortByCate>
+          <Grid
+            className="product-list"
+            container
+            spacing={2}
+            sx={{ padding: { md: "1rem 2rem 1rem 2rem", xs: "0 1.5rem 0 0" } }}
+          >
+            {paginatedProducts.map((product: Product) => {
+              return (
+                <Grid item xs={12} sm={6} md={6} lg={4} key={product.id}>
+                  <ProductCard product={product}></ProductCard>
+                </Grid>
+              );
+            })}
+          </Grid>
+        </div>
+      </>
       <Pagination
         count={Math.ceil(products.length / productsPerPage)}
         className="pagination"
