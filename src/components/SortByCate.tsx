@@ -7,6 +7,7 @@ import useAppSelectors from "../redux/hooks/useAppSelectors";
 import {
   fetchAllProducts,
   filterByCategory,
+  searchProduct,
   sortProductByPrice,
 } from "../redux/reducers/productsReducer";
 
@@ -22,6 +23,7 @@ const SortByCate = ({setSelectedPrice} : SortByCateProps) => {
   const hasFetched = useAppSelectors(state => state.productsReducer.hasFetched)
 
   function handleSortByCategory(category: string) {
+    dispatch(searchProduct(""))
     dispatch(filterByCategory(category));
     dispatch(sortProductByPrice("Default"))
     setSelectedPrice("Default")

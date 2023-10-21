@@ -70,6 +70,11 @@ function ProductList() {
     dispatch(sortProductByPrice(direction));
   };
 
+  const resetHandler = () => {
+    setQuery("");
+    dispatch(searchProduct(""));
+  };
+
   return (
     <div>
       {!hasFetched ? <GridLoader color="#9bc1bc" className="loader" /> : null}
@@ -80,10 +85,19 @@ function ProductList() {
               onChange={(e) => setQuery(e.target.value)}
               label="Search by name"
               variant="outlined"
+              value={query}
             />
             <Button onClick={handleSearch} variant="contained">
               Search
             </Button>
+            {query.length > 0 ? (
+              <Button
+                variant="outlined"
+               onClick={resetHandler}
+              >
+                Reset
+              </Button>
+            ) : null}
           </div>
           <SortByPrice
             onSortByPrice={handleSortByPrice}

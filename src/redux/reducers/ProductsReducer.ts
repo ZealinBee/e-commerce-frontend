@@ -61,14 +61,13 @@ export const searchProduct = createAsyncThunk(
   async (query: string, {getState}) => {
     try {
       const currentState = getState() as GlobalState
-      const sortByPrice = currentState.productsReducer.sortByPrice
-      const currentCategory = currentState.productsReducer.filterByCategory
       const products = currentState.productsReducer.productsStore 
+      if(query === "") return products
+      const sortByPrice = currentState.productsReducer.sortByPrice
        let searchResults = products.filter((product : Product) =>
         product.title.toLowerCase().includes(query.toLowerCase())
       );
       if(searchResults.length === 0) throw new Error("No results found")
-      
       if(sortByPrice !== "Default") {
         searchResults.sort((a, b) => {
           const priceA = a.price;
@@ -81,7 +80,6 @@ export const searchProduct = createAsyncThunk(
           return 0;
         });
       }
-
       return searchResults;
     } catch (error) {
       if (axios.isAxiosError(error)) {
@@ -100,18 +98,11 @@ export const filterByCategory = createAsyncThunk(
   async (category:string , {getState}) => {
     try {
       const currentState = getState() as GlobalState
-      const currentSearchTerm = currentState.productsReducer.currentSearchTerm
       const products = currentState.productsReducer.productsStore
-      
       let filteredProducts = products.filter(
         (product : Product) =>
           product.category.name.toLowerCase() === category.toLowerCase()
       );
-      if(currentSearchTerm !== "") {
-        filteredProducts =  filteredProducts.filter((product : Product) =>
-        product.title.toLowerCase().includes(currentSearchTerm.toLowerCase())
-      );
-      }
       return filteredProducts;
     } catch (error) {
       if (axios.isAxiosError(error)) {
