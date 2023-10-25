@@ -9,7 +9,7 @@ import Modification from "../pages/Modification";
 import SignUp from "../pages/SignUp";
 import Login from "../pages/Login";
 
-export const router = createBrowserRouter([
+export const routes = createBrowserRouter([
   {
     path: "/",
     element: <HomePage />,
@@ -51,12 +51,3 @@ export const router = createBrowserRouter([
     errorElement: <NotFoundPage />,
   },
 ]);
-export {};
-
-function routeUtils() {
-  return (
-    <div>routeUtils</div>
-  )
-}
-
-export default routeUtils

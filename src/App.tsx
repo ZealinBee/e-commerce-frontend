@@ -3,15 +3,8 @@ import { RouterProvider, createBrowserRouter } from "react-router-dom";
 import { ThemeProvider, createTheme } from "@mui/material";
 import "react-toastify/dist/ReactToastify.css";
 
-import HomePage from "./pages/HomePage";
-import ProductPage from "./pages/ProductPage";
-import ProfilePage from "./pages/ProfilePage";
-import NotFoundPage from "./pages/NotFoundPage";
+import { routes } from "./utils/routeUtils";
 import "./styles/styles.scss";
-import Cart from "./pages/Cart";
-import Modification from "./pages/Modification";
-import SignUp from "./pages/SignUp";
-import Login from "./pages/Login";
 import {
   loadFromLocalStorage,
   saveToLocalStorage,
@@ -20,56 +13,13 @@ import useAppSelector from "./redux/hooks/useAppSelectors";
 import useAppDispatch from "./redux/hooks/useAppDispatch";
 import { updateCart } from "./redux/reducers/cartReducer";
 
-const router = createBrowserRouter([
-  {
-    path: "/",
-    element: <HomePage />,
-    errorElement: <NotFoundPage />,
-  },
-  {
-    path: "/cart",
-    element: <Cart />,
-    errorElement: <NotFoundPage />,
-  },
-  {
-    path: "/products/:id",
-    element: <ProductPage />,
-    errorElement: <NotFoundPage />,
-  },
-  {
-    path: "/users/:id",
-    element: <ProfilePage />,
-    errorElement: <NotFoundPage />,
-  },
-  {
-    path: "/modification",
-    element: <Modification />,
-    errorElement: <NotFoundPage />,
-  },
-  {
-    path: "/signup",
-    element: <SignUp />,
-    errorElement: <NotFoundPage />,
-  },
-  {
-    path: "/login",
-    element: <Login />,
-    errorElement: <NotFoundPage />,
-  },
-  {
-    path: "/profile",
-    element: <ProfilePage />,
-    errorElement: <NotFoundPage />,
-  },
-]);
-
 type ChangeThemeFunction = () => void;
 export const ThemeModeContext = React.createContext<ChangeThemeFunction | null>(
   null
 );
 
 const App = () => {
-  // Localstorage cart 
+  // Localstorage cart
   const cartItems = useAppSelector((state) => state.cartReducer.items);
   const dispatch = useAppDispatch();
   useEffect(() => {
@@ -133,7 +83,7 @@ const App = () => {
     <>
       <ThemeModeContext.Provider value={changeMode}>
         <ThemeProvider theme={theme}>
-          <RouterProvider router={router}></RouterProvider>
+          <RouterProvider router={routes}></RouterProvider>
         </ThemeProvider>
       </ThemeModeContext.Provider>
     </>
