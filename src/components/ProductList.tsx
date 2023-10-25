@@ -18,13 +18,7 @@ import SortByCate from "../components/SortByCate";
 import SortByPrice from "../components/SortByPrice";
 
 function ProductList() {
-  const products = useAppSelector((state) => {
-    if (state.productsReducer.searchResults.length > 0) {
-      return state.productsReducer.searchResults;
-    } else {
-      return state.productsReducer.products;
-    }
-  });
+  const products = useAppSelector((state) => state.productsReducer.products);
   const hasFetched = useAppSelector(
     (state) => state.productsReducer.hasFetched
   );

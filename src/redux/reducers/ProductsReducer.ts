@@ -101,7 +101,7 @@ export const filterByCategory = createAsyncThunk(
       const products = currentState.productsReducer.productsStore
       let filteredProducts = products.filter(
         (product : Product) =>
-          product.category.name.toLowerCase() === category.toLowerCase()
+        product.category.name.toLowerCase() === category.toLowerCase()
       );
       return filteredProducts;
     } catch (error) {

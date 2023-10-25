@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Button } from "@mui/material";
 import DeleteIcon from "@mui/icons-material/Delete";
 import { IconButton } from "@mui/material";
@@ -41,7 +41,6 @@ function Cart() {
     toast.warn("Cart emptied!");
   }
 
-
   return (
     <>
       <Header></Header>
@@ -56,8 +55,8 @@ function Cart() {
           <h2 style={{ marginLeft: "1.5rem", marginTop: "0" }}>
             Cart is empty
           </h2>
-          <Link to="/" style={{ marginLeft: "1.5rem", color: "#6b6bff" }}>
-            Go shopping
+          <Link to="/" style={{ marginLeft: "1.5rem" }}>
+            <Button variant="outlined">Go shopping</Button>
           </Link>
           <ToastContainer
             position="bottom-right"
@@ -93,7 +92,11 @@ function Cart() {
                     sx={{ color: "text.primary" }}
                   >
                     <div className="cart-item">
-                      <Link to={`/products/${item.product.id}`} className="cart-item__image-wrapper" onClick={() => dispatch(selectProduct(item.product))}>
+                      <Link
+                        to={`/products/${item.product.id}`}
+                        className="cart-item__image-wrapper"
+                        onClick={() => dispatch(selectProduct(item.product))}
+                      >
                         <img
                           src={`${
                             item.product.images
@@ -110,7 +113,8 @@ function Cart() {
                             width: { md: "30px", xs: "20px" },
                             height: { md: "30px", xs: "20px" },
                             mt: { md: "12px", xs: "0" },
-                            color: "text.primary",                          }}
+                            color: "text.primary",
+                          }}
                         >
                           <RemoveIcon
                             onClick={() => dispatch(decreaseQuantity(item))}

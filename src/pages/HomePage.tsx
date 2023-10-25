@@ -6,8 +6,9 @@ import Header from "../components/Header";
 import ProductList from "../components/ProductList";
 
 function HomePage() {
+
   return (
-    <Box sx={{backgroundColor:"background.default", color:"text.primary"}}>
+    <Box sx={{ backgroundColor: "background.default", color: "text.primary" }}>
       <Header></Header>
       <ProductList></ProductList>
       <ToastContainer

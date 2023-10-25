@@ -58,11 +58,11 @@ function ProductCard({ product }: ProductCardProps) {
           ></CardMedia>
           <CardContent>
             {" "}
-            <Typography variant="h5" >{product.title}</Typography>
+            <Typography variant="h5" sx={{fontSize:{xs:"1.1rem", md: "1.5rem"}}} >{product.title}</Typography>
             <Typography variant="body2" color="primary">
               €{product.price}.00
             </Typography>
-            <Typography>{truncatedDescription}</Typography>
+            <Typography sx={{fontSize: {md:"1rem",xs:"0.8rem"}}}>{truncatedDescription}</Typography>
           </CardContent>
         </CardActionArea>
       </Link>

@@ -23,7 +23,6 @@ const SortByCate = ({setSelectedPrice} : SortByCateProps) => {
   const hasFetched = useAppSelectors(state => state.productsReducer.hasFetched)
 
   function handleSortByCategory(category: string) {
-    dispatch(searchProduct(""))
     dispatch(filterByCategory(category));
     dispatch(sortProductByPrice("Default"))
     setSelectedPrice("Default")

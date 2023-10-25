@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { RouterProvider, createBrowserRouter } from "react-router-dom";
 import { ThemeProvider, createTheme } from "@mui/material";
 import "react-toastify/dist/ReactToastify.css";
@@ -12,6 +12,13 @@ import Cart from "./pages/Cart";
 import Modification from "./pages/Modification";
 import SignUp from "./pages/SignUp";
 import Login from "./pages/Login";
+import {
+  loadFromLocalStorage,
+  saveToLocalStorage,
+} from "./utils/localStorageUtils";
+import useAppSelector from "./redux/hooks/useAppSelectors";
+import useAppDispatch from "./redux/hooks/useAppDispatch";
+import { updateCart } from "./redux/reducers/cartReducer";
 
 const router = createBrowserRouter([
   {
@@ -57,9 +64,28 @@ const router = createBrowserRouter([
 ]);
 
 type ChangeThemeFunction = () => void;
-export const ThemeModeContext = React.createContext<ChangeThemeFunction | null>(null);
+export const ThemeModeContext = React.createContext<ChangeThemeFunction | null>(
+  null
+);
 
 const App = () => {
+  // Localstorage cart 
+  const cartItems = useAppSelector((state) => state.cartReducer.items);
+  const dispatch = useAppDispatch();
+  useEffect(() => {
+    if (cartItems.length > 0) {
+      saveToLocalStorage(cartItems);
+    }
+  }, [cartItems]);
+
+  useEffect(() => {
+    const items = loadFromLocalStorage();
+    if (items) {
+      dispatch(updateCart(items));
+    }
+  }, []);
+
+  // Theme change
   const [mode, setMode] = React.useState<"light" | "dark">("light");
   const changeMode = () => {
     setMode(mode === "dark" ? "light" : "dark");
